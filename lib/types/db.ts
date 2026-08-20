@@ -1,4 +1,6 @@
-// Canonical schema stored in data/db.json.
+// ==========================================
+// Database Types Definition
+// ==========================================
 
 export type ProductStatus = "pending" | "approved" | "rejected";
 export type ProductCakeType = "layered-cake";
@@ -30,6 +32,8 @@ export interface FlatProductRecord {
   submitted_by: string | null;
   created_at: string | null;
   updated_at: string | null;
+  bakery_origin?: string | null;
+  layers_count?: number | null;
 }
 
 export interface BaseModel {
@@ -74,8 +78,7 @@ export interface ImageView {
   url: string;
 }
 
-// Compatibility view consumed by the existing UI and public APIs. It is built
-// from one FlatProductRecord and does not represent nested on-disk data.
+// Compatibility view consumed by the existing UI and public APIs.
 export interface Product extends BaseModel {
   brand_id: string;
   manufacturer_id: string;
@@ -98,6 +101,8 @@ export interface Product extends BaseModel {
   manufacturer?: Manufacturer;
   source?: Source;
   images?: ImageView[];
+  bakery_origin?: string | null;
+  layers_count?: number | null;
 }
 
 export interface IngredientComposition {

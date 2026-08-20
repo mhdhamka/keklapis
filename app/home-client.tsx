@@ -23,8 +23,8 @@ interface HomeClientProps {
   brandIds: string[]
   minSweetness?: number
   maxSweetness?: number
-  minRichness?: number
-  maxRichness?: number
+  minRichnessDri?: number
+  maxRichnessDri?: number
   view: ViewMode
 }
 
@@ -39,8 +39,8 @@ export default function HomeClient({
   brandIds,
   minSweetness,
   maxSweetness,
-  minRichness,
-  maxRichness,
+  minRichnessDri,
+  maxRichnessDri,
   view,
 }: HomeClientProps) {
   const t = useTranslations("home")
@@ -99,8 +99,16 @@ export default function HomeClient({
     const term = activeFlavor.toLowerCase()
     const profileMatch = product.culinary_profile?.toLowerCase().includes(term)
     const nameMatch = product.product_name?.toLowerCase().includes(term)
-    const typeMatch = product.type?.toLowerCase().includes(term)
-    return profileMatch || nameMatch || typeMatch
+    
+    // Fixed: properly handle Brand type check using unknown coercion to avoid 'never' inference
+    const brandValue = product.brand as unknown
+    const brandNameMatch = typeof brandValue === "string" 
+      ? brandValue.toLowerCase().includes(term)
+      : typeof brandValue === "object" && brandValue !== null && "brand_name" in brandValue
+        ? String((brandValue as { brand_name?: unknown }).brand_name ?? "").toLowerCase().includes(term)
+        : false
+
+    return profileMatch || nameMatch || brandNameMatch
   })
 
   const sortedProducts = [...filteredProductsByProfile].sort((a, b) => {
@@ -111,8 +119,13 @@ export default function HomeClient({
     if (sort === "sweetness_desc") return (b.sweetness ?? -Infinity) - (a.sweetness ?? -Infinity)
     if (sort === "richness_dri_asc") return (a.richness_dri ?? Infinity) - (b.richness_dri ?? Infinity)
     if (sort === "richness_dri_desc") return (b.richness_dri ?? -Infinity) - (a.richness_dri ?? -Infinity)
-    if (sort === "brand_asc") return (a.brand ?? "").localeCompare(b.brand ?? "")
-    if (sort === "brand_desc") return (b.brand ?? "").localeCompare(a.brand ?? "")
+    
+    // Fixed: properly handle Brand objects or names for sorting safely
+    const brandStrA = typeof a.brand === "string" ? a.brand : (a.brand as any)?.name ?? ""
+    const brandStrB = typeof b.brand === "string" ? b.brand : (b.brand as any)?.name ?? ""
+    if (sort === "brand_asc") return brandStrA.localeCompare(brandStrB)
+    if (sort === "brand_desc") return brandStrB.localeCompare(brandStrA)
+    
     return nameA.localeCompare(nameB)
   })
 
@@ -127,7 +140,7 @@ export default function HomeClient({
   }
 
   const hasFilters = Boolean(query) || brandIds.length > 0 || types.length > 0 ||
-    minSweetness !== undefined || maxSweetness !== undefined || minRichness !== undefined || maxRichness !== undefined || activeFlavor !== "All Variants"
+    minSweetness !== undefined || maxSweetness !== undefined || minRichnessDri !== undefined || maxRichnessDri !== undefined || activeFlavor !== "All Variants"
 
   const productsById = Object.fromEntries(sortedProducts.map((p) => [p.id, p]))
 
@@ -182,7 +195,6 @@ export default function HomeClient({
           
           <div className="mb-10 flex flex-wrap items-center justify-between gap-4">
             <div className="flex items-center gap-3 text-xs font-semibold uppercase tracking-[0.18em] text-muted-foreground">
-              
               <span className="text-emerald-700 font-mono">{t("heroEyebrow")}</span>
               <span className="h-px w-12 sm:w-24 bg-emerald-500/30" aria-hidden="true" />
             </div>
@@ -311,8 +323,8 @@ export default function HomeClient({
               currentBrands={brandIds}
               currentMinSweetness={minSweetness}
               currentMaxSweetness={maxSweetness}
-              currentMinRichness={minRichness}
-              currentMaxRichness={maxRichness}
+              currentMinRichness={minRichnessDri}
+              currentMaxRichness={maxRichnessDri}
               currentSort={sort}
               resultCount={sortedProducts.length}
             />

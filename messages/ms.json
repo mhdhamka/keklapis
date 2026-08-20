@@ -67,9 +67,10 @@
     "label": "Tukar bahasa paparan",
     "ms": "Bahasa Melayu",
     "bms": "Bahasa Sarawak",
-    "en": "English"
+    "en": "Bahasa Inggeris"
   },
   "home": {
+    "paused": "Paused",
     "tagline": "Ketepatan, warisan, dan kesempurnaan berbilang lapisan.",
     "heroEyebrow": "Direktori Kek Lapis Sarawak",
     "heroTitle": "Nyahkod komposisi tepat Kek Lapis yang tulen.",

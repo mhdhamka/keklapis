@@ -1,4 +1,4 @@
-* as React from "react"
+import * as React from "react"
 import { cn } from "@/lib/utils"
 
 const Card = React.forwardRef<
@@ -29,7 +29,7 @@ const CardHeader = React.forwardRef<
       "flex flex-col space-y-1.5 p-6 sm:p-7 bg-[#253324]/80 border-b border-[#3B4D3C]/50 transition-colors group-hover:bg-[#2B3B2A]/80",
       className
     )}
-    {>
+    {...props}
   />
 ))
 CardHeader.displayName = "CardHeader"

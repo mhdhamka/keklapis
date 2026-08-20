@@ -20,11 +20,11 @@ export default async function HomePage(props: { searchParams: SearchParams }) {
     ? Array.isArray(searchParams.brand) ? searchParams.brand : [searchParams.brand]
     : []
   
-  // Refactored from pH/TDS to culinary metrics (e.g., sweetness & richness/moisture indices)
+  // Refactored from pH/TDS to culinary metrics (sweetness & richness/moisture DRI indices)
   const minSweetness = searchParams.min_sweetness ? Number(searchParams.min_sweetness) : undefined
   const maxSweetness = searchParams.max_sweetness ? Number(searchParams.max_sweetness) : undefined
-  const minRichness = searchParams.min_richness ? Number(searchParams.min_richness) : undefined
-  const maxRichness = searchParams.max_richness ? Number(searchParams.max_richness) : undefined
+  const minRichnessDri = searchParams.min_richness ? Number(searchParams.min_richness) : undefined
+  const maxRichnessDri = searchParams.max_richness ? Number(searchParams.max_richness) : undefined
   
   const view: ViewMode = isViewMode(searchParams.view) ? searchParams.view : "cards"
 
@@ -35,8 +35,8 @@ export default async function HomePage(props: { searchParams: SearchParams }) {
       brands: brandIds, 
       minSweetness, 
       maxSweetness, 
-      minRichness, 
-      maxRichness 
+      minRichnessDri, 
+      maxRichnessDri 
     }),
     getBrands(),
     getSources(),
@@ -55,8 +55,8 @@ export default async function HomePage(props: { searchParams: SearchParams }) {
       brandIds={brandIds}
       minSweetness={minSweetness}
       maxSweetness={maxSweetness}
-      minRichness={minRichness}
-      maxRichness={maxRichness}
+      minRichnessDri={minRichnessDri}
+      maxRichnessDri={maxRichnessDri}
       view={view}
     />
   )

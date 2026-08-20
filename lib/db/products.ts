@@ -1,3 +1,7 @@
+// ==========================================
+// Products Database Utility
+// ==========================================
+
 import { getAll, insert, update, remove } from "@/lib/json-store";
 import type {
   Brand,
@@ -70,6 +74,8 @@ export function expandProduct(raw: FlatProductRecord): Product {
     amount: Number(amount) || 0,
   }));
 
+  const item = raw as any;
+
   return {
     id: raw.id,
     brand_id: brandId,
@@ -90,8 +96,10 @@ export function expandProduct(raw: FlatProductRecord): Product {
     brand,
     manufacturer,
     source,
+    bakery_origin: item.bakery_origin ?? null,
+    layers_count: item.layers_count ?? null,
     images: [{ id: raw.id, filename: raw.image, url: raw.image === "placeholder.svg" ? "/placeholder.svg" : `/images/products/${raw.image}` }],
-  };
+  } as Product;
 }
 
 function matches(product: Product, filters: SearchFilters): boolean {
@@ -143,15 +151,17 @@ type ProductInput = Omit<Partial<FlatProductRecord>, "brand" | "manufacturer"> &
   culinary_profile?: string | null;
   sweetness?: number | null;
   richness_dri?: number | null;
+  bakery_origin?: string | null;
+  layers_count?: number | null;
 };
 
 export async function createProduct(data: ProductInput): Promise<Product> {
   const brand = typeof data.brand === "string" ? data.brand : data.brand?.brand_name;
-  const type = data.type ?? data.cake_type;
-  if (!brand || type !== "layered-cake") {
-    throw new Error("A brand and type (layered-cake) are required");
+  const type = data.type ?? data.cake_type ?? "traditional";
+  if (!brand) {
+    throw new Error("A brand is required");
   }
-  const id = `${slugify(brand)}-${type}`;
+  const id = `${slugify(brand)}-${slugify(data.product_name || "product")}`;
   if ((await getAll("products")).some((product) => product.id === id)) {
     throw new Error(`Product ${id} already exists`);
   }
@@ -182,6 +192,10 @@ export async function createProduct(data: ProductInput): Promise<Product> {
     submitted_by: data.submitted_by ?? null,
     created_at: timestamp,
     updated_at: timestamp,
+    ...({
+      bakery_origin: data.bakery_origin ?? null,
+      layers_count: data.layers_count ?? null,
+    } as any),
   };
   return expandProduct(await insert("products", record));
 }
@@ -206,6 +220,9 @@ export async function updateProduct(id: string, data: ProductInput): Promise<Pro
   if (data.kkm_approval_number !== undefined) patch.kkm_approval_number = data.kkm_approval_number;
   if (data.country !== undefined) patch.country = data.country;
   if (data.status !== undefined) patch.status = data.status;
+  if (data.bakery_origin !== undefined) (patch as any).bakery_origin = data.bakery_origin;
+  if (data.layers_count !== undefined) (patch as any).layers_count = data.layers_count;
+  
   const raw = await update("products", (product) => product.id === id, patch);
   return raw ? expandProduct(raw) : null;
 }

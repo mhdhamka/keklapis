@@ -11,6 +11,7 @@ import {
   type AttributeRow,
   type IngredientRow,
 } from "@/lib/compare/rows"
+import { CompareChart } from "./compare-chart"
 
 interface CompareTableProps {
   products: Product[]
@@ -22,7 +23,8 @@ export function CompareTable({ products, onClose }: CompareTableProps) {
   const tAttr = useTranslations("product")
   const rows = buildCompareRows(products)
 
-  // Interactive toggle: filter rows to only show differences between selected cakes
+  // Interactive toggles: View layout (table vs chart) & differences filter
+  const [viewMode, setViewMode] = useState<"table" | "chart">("table")
   const [showOnlyDifferences, setShowOnlyDifferences] = useState(false)
 
   useEffect(() => {
@@ -37,15 +39,15 @@ export function CompareTable({ products, onClose }: CompareTableProps) {
   const attrLabel = (row: AttributeRow): string => {
     switch (row.label) {
       case "cakeCategory":
-        return t("cakeCategory") // e.g. Traditional / Modern Spiced
+        return t("cakeCategory")
       case "sweetnessLevel":
-        return t("sweetnessLevel") // e.g. Balanced / Rich
+        return t("sweetnessLevel")
       case "richnessDri":
-        return t("richnessDri") // e.g. Richness density & DRI
+        return t("richnessDri")
       case "sourceType":
-        return t("sourceType") // e.g. Oven Baked / Steamed Layer
+        return t("sourceType")
       case "location":
-        return t("location") // e.g. Kuching, Sarawak
+        return t("location")
       case "manufacturer":
         return t("manufacturer")
       case "kkmApproval":
@@ -95,7 +97,33 @@ export function CompareTable({ products, onClose }: CompareTableProps) {
             </p>
           </div>
 
-          <div className="flex items-center gap-3">
+          <div className="flex flex-wrap items-center gap-3">
+            {/* View Layout Switcher (TableView / ChartView) */}
+            <div className="inline-flex rounded-xl border border-emerald-900/20 bg-background p-1">
+              <button
+                type="button"
+                onClick={() => setViewMode("table")}
+                className={`inline-flex h-8 items-center gap-1.5 rounded-lg px-3 text-xs font-semibold uppercase tracking-[0.08em] transition-all ${
+                  viewMode === "table"
+                    ? "bg-emerald-900 text-white shadow-sm"
+                    : "text-emerald-950/70 hover:text-emerald-950"
+                }`}
+              >
+                {t("tableView")}
+              </button>
+              <button
+                type="button"
+                onClick={() => setViewMode("chart")}
+                className={`inline-flex h-8 items-center gap-1.5 rounded-lg px-3 text-xs font-semibold uppercase tracking-[0.08em] transition-all ${
+                  viewMode === "chart"
+                    ? "bg-emerald-900 text-white shadow-sm"
+                    : "text-emerald-950/70 hover:text-emerald-950"
+                }`}
+              >
+                {t("chartView")}
+              </button>
+            </div>
+
             {/* Interactive Toggle for Differences */}
             <button
               type="button"
@@ -125,160 +153,195 @@ export function CompareTable({ products, onClose }: CompareTableProps) {
           </div>
         </header>
 
-        {/* Body — Horizontally scrollable table area */}
-        <div className="w-full overflow-x-auto bg-background">
-          <table className="w-full min-w-[700px] border-collapse text-left">
-            <thead className="sticky top-0 z-30 bg-background/95 backdrop-blur-md shadow-[0_1px_0_0_rgba(4,47,34,0.1)]">
-              <tr>
-                <th
-                  scope="col"
-                  className="sticky left-0 z-40 w-40 min-w-[9rem] border-b border-r border-emerald-900/15 bg-background px-3 py-4 sm:w-52 sm:min-w-[12rem] sm:px-4"
-                >
-                  <span className="font-mono text-[10px] uppercase tracking-[0.12em] text-emerald-950/70">
-                    {t("property")}
-                  </span>
-                </th>
-                {products.map((p) => (
+        {/* Body — Conditional view rendering based on Layout Switcher */}
+        {viewMode === "chart" ? (
+          <CompareChart products={products} t={t} />
+        ) : (
+          <div className="w-full overflow-x-auto bg-background">
+            <table className="w-full min-w-[700px] border-collapse text-left">
+              <thead className="sticky top-0 z-30 bg-background/95 backdrop-blur-md shadow-[0_1px_0_0_rgba(4,47,34,0.1)]">
+                <tr>
                   <th
-                    key={p.id}
                     scope="col"
-                    className="w-40 min-w-[9rem] border-b border-emerald-900/15 bg-background px-3 py-4 align-bottom sm:w-52 sm:min-w-[12rem] sm:px-4"
+                    className="sticky left-0 z-40 w-40 min-w-[9rem] border-b border-r border-emerald-900/15 bg-background px-3 py-4 sm:w-52 sm:min-w-[12rem] sm:px-4"
                   >
-                    <ProductColumnHeader product={p} />
+                    <span className="font-mono text-[10px] uppercase tracking-[0.12em] text-emerald-950/70">
+                      {t("property")}
+                    </span>
                   </th>
-                ))}
-              </tr>
-            </thead>
-
-            <tbody>
-              {/* Attribute rows */}
-              {filteredAttributes.length === 0 ? (
-                <tr>
-                  <th scope="row" className="sticky left-0 border-b border-r border-emerald-900/15 bg-background px-3 py-6 sm:px-4" />
-                  <td colSpan={products.length} className="border-b border-emerald-900/15 px-3 py-12 text-center text-sm text-emerald-950/70">
-                    {t("noDifferencesFound")}
-                  </td>
-                </tr>
-              ) : (
-                filteredAttributes.map((row) => (
-                  <tr key={row.key} className="group transition-colors hover:bg-emerald-955/[0.02]">
+                  {products.map((p) => (
                     <th
-                      scope="row"
-                      className="sticky left-0 z-20 border-b border-r border-emerald-900/15 bg-background px-3 py-3.5 sm:px-4"
+                      key={p.id}
+                      scope="col"
+                      className="w-40 min-w-[9rem] border-b border-emerald-900/15 bg-background px-3 py-4 align-bottom sm:w-52 sm:min-w-[12rem] sm:px-4"
                     >
-                      <span className="font-mono text-[10px] uppercase tracking-[0.12em] text-emerald-950/70">
-                        {attrLabel(row)}
-                      </span>
+                      <ProductColumnHeader product={p} t={t} />
                     </th>
-                    {row.values.map((value, i) => {
-                      const isBest = row.bestIndex != null && row.bestIndex === i
-                      const text = formatAttributeValue(row, value)
-                      return (
-                        <td
-                          key={i}
-                          className={[
-                            "border-b border-emerald-900/15 px-3 py-3.5 align-top transition-colors sm:px-4",
-                            isBest ? "bg-emerald-950/[0.04] font-medium" : "bg-emerald-950/[0.01]",
-                          ].join(" ")}
-                        >
-                          <div className="flex items-center gap-2">
-                            <span
-                              className={[
-                                "font-mono text-sm tabular-nums",
-                                value == null ? "text-emerald-950/40" : "text-emerald-950",
-                              ].join(" ")}
-                            >
-                              {text}
-                            </span>
-                            {row.unit && value != null && (
-                              <span className="text-[10px] text-emerald-950/60">{row.unit}</span>
-                            )}
-                            {isBest && (
-                              <span className="rounded-full bg-emerald-900 px-2.5 py-0.5 font-mono text-[9px] font-semibold uppercase tracking-[0.08em] text-white shadow-sm">
-                                {row.direction === "lower" ? t("lightest") : t("richest")}
-                              </span>
-                            )}
-                          </div>
-                        </td>
-                      )
-                    })}
-                  </tr>
-                ))
-              )}
-
-              {/* Ingredient / Signature Spices Section Header */}
-              <tr>
-                <th
-                  scope="row"
-                  colSpan={products.length + 1}
-                  className="sticky left-0 border-b border-emerald-900/15 bg-emerald-950/[0.03] px-3 py-3 sm:px-4"
-                >
-                  <span className="font-mono text-[11px] uppercase tracking-[0.12em] text-emerald-950 font-semibold">
-                    {t("signatureIngredientsAndSpices")}
-                  </span>
-                  <span className="ml-3 font-mono text-[10px] text-emerald-950/70">
-                    {t("ingredientCompositionGrams")}
-                  </span>
-                </th>
-              </tr>
-
-              {/* Ingredient / Component rows */}
-              {filteredIngredients.length === 0 ? (
-                <tr>
-                  <th scope="row" className="sticky left-0 border-b border-r border-emerald-900/15 bg-background px-3 py-4 sm:px-4" />
-                  <td colSpan={products.length} className="border-b border-emerald-900/15 px-3 py-8 text-center text-sm text-emerald-950/70 sm:px-4">
-                    {t("noIngredientData")}
-                  </td>
+                  ))}
                 </tr>
-              ) : (
-                filteredIngredients.map((row) => (
-                  <tr key={row.key} className="transition-colors hover:bg-emerald-950/[0.02]">
-                    <th
-                      scope="row"
-                      className="sticky left-0 z-20 border-b border-r border-emerald-900/15 bg-background px-3 py-3.5 sm:px-4"
-                    >
-                      <span className="flex items-center gap-2">
-                        <span className="font-semibold text-emerald-950 text-xs">{row.label}</span>
-                        <span className="font-mono text-[10px] text-emerald-950/70">{row.symbol}</span>
-                      </span>
-                    </th>
-                    {row.values.map((value, i) => {
-                      const isBest = row.bestIndex != null && row.bestIndex === i
-                      return (
-                        <td
-                          key={i}
-                          className={[
-                            "border-b border-emerald-900/15 px-3 py-3.5 align-top transition-colors sm:px-4",
-                            isBest ? "bg-emerald-950/[0.04] font-medium" : "bg-emerald-950/[0.01]",
-                          ].join(" ")}
-                        >
-                          <div className="flex items-center gap-2">
-                            <span
-                              className={[
-                                "font-mono text-sm tabular-nums",
-                                value == null ? "text-emerald-950/40" : "text-emerald-950",
-                              ].join(" ")}
-                            >
-                              {formatIngredientValue(value)}
-                            </span>
-                            {value != null && (
-                              <span className="text-[10px] text-emerald-950/70">g</span>
-                            )}
-                            {isBest && (
-                              <span className="rounded-full bg-emerald-900 px-2.5 py-0.5 font-mono text-[9px] font-semibold uppercase tracking-[0.08em] text-white shadow-sm">
-                                {row.direction === "lower" ? t("lowest") : t("highest")}
-                              </span>
-                            )}
-                          </div>
-                        </td>
-                      )
-                    })}
+              </thead>
+
+              <tbody>
+                {/* Optional Section Sub-Header: Sweetness Comparison */}
+                <tr>
+                  <th
+                    scope="row"
+                    colSpan={products.length + 1}
+                    className="sticky left-0 border-b border-emerald-900/15 bg-emerald-950/[0.04] px-3 py-2.5 sm:px-4"
+                  >
+                    <span className="font-mono text-[11px] uppercase tracking-[0.12em] text-emerald-950 font-bold">
+                      {t("sweetnessComparison")}
+                    </span>
+                  </th>
+                </tr>
+
+                {/* Attribute rows */}
+                {filteredAttributes.length === 0 ? (
+                  <tr>
+                    <th scope="row" className="sticky left-0 border-b border-r border-emerald-900/15 bg-background px-3 py-6 sm:px-4" />
+                    <td colSpan={products.length} className="border-b border-emerald-900/15 px-3 py-12 text-center text-sm text-emerald-950/70">
+                      {t("noDifferencesFound")}
+                    </td>
                   </tr>
-                ))
-              )}
-            </tbody>
-          </table>
-        </div>
+                ) : (
+                  filteredAttributes.map((row, idx) => {
+                    const isRichnessStart = row.key === "richnessDri"
+                    return (
+                      <>
+                        {isRichnessStart && (
+                          <tr key="richness-sub-header">
+                            <th
+                              scope="row"
+                              colSpan={products.length + 1}
+                              className="sticky left-0 border-b border-emerald-900/15 bg-emerald-950/[0.04] px-3 py-2.5 sm:px-4"
+                            >
+                              <span className="font-mono text-[11px] uppercase tracking-[0.12em] text-emerald-950 font-bold">
+                                {t("richnessComparison")}
+                              </span>
+                            </th>
+                          </tr>
+                        )}
+                        <tr key={row.key} className="group transition-colors hover:bg-emerald-955/[0.02]">
+                          <th
+                            scope="row"
+                            className="sticky left-0 z-20 border-b border-r border-emerald-900/15 bg-background px-3 py-3.5 sm:px-4"
+                          >
+                            <span className="font-mono text-[10px] uppercase tracking-[0.12em] text-emerald-950/70">
+                              {attrLabel(row)}
+                            </span>
+                          </th>
+                          {row.values.map((value, i) => {
+                            const isBest = row.bestIndex != null && row.bestIndex === i
+                            const text = formatAttributeValue(row, value)
+                            return (
+                              <td
+                                key={i}
+                                className={[
+                                  "border-b border-emerald-900/15 px-3 py-3.5 align-top transition-colors sm:px-4",
+                                  isBest ? "bg-emerald-950/[0.04] font-medium" : "bg-emerald-950/[0.01]",
+                                ].join(" ")}
+                              >
+                                <div className="flex items-center gap-2">
+                                  <span
+                                    className={[
+                                      "font-mono text-sm tabular-nums",
+                                      value == null ? "text-emerald-950/40" : "text-emerald-950",
+                                    ].join(" ")}
+                                  >
+                                    {text}
+                                  </span>
+                                  {row.unit && value != null && (
+                                    <span className="text-[10px] text-emerald-950/60">{row.unit}</span>
+                                  )}
+                                  {isBest && (
+                                    <span className="rounded-full bg-emerald-900 px-2.5 py-0.5 font-mono text-[9px] font-semibold uppercase tracking-[0.08em] text-white shadow-sm">
+                                      {row.direction === "lower" ? t("lightest") : t("richest")}
+                                    </span>
+                                  )}
+                                </div>
+                              </td>
+                            )
+                          })}
+                        </tr>
+                      </>
+                    )
+                  })
+                )}
+
+                {/* Ingredient / Signature Spices Section Header */}
+                <tr>
+                  <th
+                    scope="row"
+                    colSpan={products.length + 1}
+                    className="sticky left-0 border-b border-emerald-900/15 bg-emerald-950/[0.03] px-3 py-3 sm:px-4"
+                  >
+                    <span className="font-mono text-[11px] uppercase tracking-[0.12em] text-emerald-950 font-semibold">
+                      {t("signatureIngredientsAndSpices")}
+                    </span>
+                    <span className="ml-3 font-mono text-[10px] text-emerald-950/70">
+                      {t("ingredientCompositionGrams")}
+                    </span>
+                  </th>
+                </tr>
+
+                {/* Ingredient / Component rows */}
+                {filteredIngredients.length === 0 ? (
+                  <tr>
+                    <th scope="row" className="sticky left-0 border-b border-r border-emerald-900/15 bg-background px-3 py-4 sm:px-4" />
+                    <td colSpan={products.length} className="border-b border-emerald-900/15 px-3 py-8 text-center text-sm text-emerald-950/70 sm:px-4">
+                      {t("noIngredientData")}
+                    </td>
+                  </tr>
+                ) : (
+                  filteredIngredients.map((row) => (
+                    <tr key={row.key} className="transition-colors hover:bg-emerald-950/[0.02]">
+                      <th
+                        scope="row"
+                        className="sticky left-0 z-20 border-b border-r border-emerald-900/15 bg-background px-3 py-3.5 sm:px-4"
+                      >
+                        <span className="flex items-center gap-2">
+                          <span className="font-semibold text-emerald-950 text-xs">{row.label}</span>
+                          <span className="font-mono text-[10px] text-emerald-950/70">{row.symbol}</span>
+                        </span>
+                      </th>
+                      {row.values.map((value, i) => {
+                        const isBest = row.bestIndex != null && row.bestIndex === i
+                        return (
+                          <td
+                            key={i}
+                            className={[
+                              "border-b border-emerald-900/15 px-3 py-3.5 align-top transition-colors sm:px-4",
+                              isBest ? "bg-emerald-950/[0.04] font-medium" : "bg-emerald-950/[0.01]",
+                            ].join(" ")}
+                          >
+                            <div className="flex items-center gap-2">
+                              <span
+                                className={[
+                                  "font-mono text-sm tabular-nums",
+                                  value == null ? "text-emerald-950/40" : "text-emerald-950",
+                                ].join(" ")}
+                              >
+                                {formatIngredientValue(value)}
+                              </span>
+                              {value != null && (
+                                <span className="text-[10px] text-emerald-950/70">g</span>
+                              )}
+                              {isBest && (
+                                <span className="rounded-full bg-emerald-900 px-2.5 py-0.5 font-mono text-[9px] font-semibold uppercase tracking-[0.08em] text-white shadow-sm">
+                                  {row.direction === "lower" ? t("lowest") : t("highest")}
+                                </span>
+                              )}
+                            </div>
+                          </td>
+                        )
+                      })}
+                    </tr>
+                  ))
+                )}
+              </tbody>
+            </table>
+          </div>
+        )}
 
         {/* Footer */}
         <footer className="flex shrink-0 items-center justify-between gap-4 border-t border-emerald-900/15 bg-background px-5 py-4 sm:px-8">
@@ -296,10 +359,11 @@ export function CompareTable({ products, onClose }: CompareTableProps) {
   )
 }
 
-function ProductColumnHeader({ product }: { product: Product }) {
+function ProductColumnHeader({ product, t }: { product: Product; t: any }) {
   const imageUrl = product.images?.[0]?.url ?? "/placeholder.svg"
-  const brand = product.brand?.brand_name ?? "Independent Baker"
+  const brand = product.brand?.brand_name ?? t("bakerOrBrand")
   const productName = product.product_name
+  const region = product.bakery_origin ?? product.source?.country ?? t("originRegion")
 
   return (
     <Link
@@ -310,7 +374,7 @@ function ProductColumnHeader({ product }: { product: Product }) {
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src={imageUrl}
-          alt={brand}
+          alt={brand || t("noImage")}
           loading="lazy"
           className="h-full w-full object-contain p-2.5 transition-transform duration-300 group-hover/header:scale-105"
         />
@@ -320,7 +384,7 @@ function ProductColumnHeader({ product }: { product: Product }) {
       </span>
       {productName && productName !== brand && (
         <span className="-mt-1 block text-[10px] leading-tight text-emerald-950/70 line-clamp-1">
-          {productName}
+          {productName} • {region}
         </span>
       )}
       <span className="mt-0.5 inline-flex items-center gap-1 text-[10px] font-semibold uppercase tracking-[0.08em] text-emerald-900 group-hover/header:underline">

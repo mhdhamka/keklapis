@@ -190,7 +190,6 @@ keklapis/
 * `/api/registry` — Bakery location and verification data
 * `/api/brands` — Brand listings and parent houses
 * `/api/export/products` — CSV and JSON export endpoints for analysis
-* `/api/openapi` — OpenAPI specification and interactive Swagger UI at `/docs`
 
 ---
 

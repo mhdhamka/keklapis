@@ -36,20 +36,20 @@ export async function GET(request: NextRequest) {
       filters.excludedBrands = searchParams.get("excludeBrands")!.split(",");
     }
     
-    if (searchParams.has("minPh")) {
-      filters.minPh = parseFloat(searchParams.get("minPh")!);
+    if (searchParams.has("minSweetness")) {
+      filters.minSweetness = parseFloat(searchParams.get("minSweetness")!);
     }
     
-    if (searchParams.has("maxPh")) {
-      filters.maxPh = parseFloat(searchParams.get("maxPh")!);
+    if (searchParams.has("maxSweetness")) {
+      filters.maxSweetness = parseFloat(searchParams.get("maxSweetness")!);
     }
     
-    if (searchParams.has("minTds")) {
-      filters.minTds = parseFloat(searchParams.get("minTds")!);
+    if (searchParams.has("minRichnessDri")) {
+      filters.minRichnessDri = parseFloat(searchParams.get("minRichnessDri")!);
     }
     
-    if (searchParams.has("maxTds")) {
-      filters.maxTds = parseFloat(searchParams.get("maxTds")!);
+    if (searchParams.has("maxRichnessDri")) {
+      filters.maxRichnessDri = parseFloat(searchParams.get("maxRichnessDri")!);
     }
     
     // Pagination
@@ -90,8 +90,8 @@ export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
     
-    // Validate required fields
-    if (!body.product_name || typeof body.brand !== "string" || !["mineral-water", "drinking-water"].includes(body.type)) {
+    // Validate required fields for Kek Lapis records
+    if (!body.product_name || typeof body.brand !== "string" || !["traditional", "contemporary", "innovative"].includes(body.type)) {
       return NextResponse.json(
         { error: "product_name, brand, and a valid type are required" },
         { status: 400 }

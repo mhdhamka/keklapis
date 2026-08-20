@@ -1,4 +1,8 @@
-// Export products as CSV
+// ==========================================
+// Export Products as CSV API Route
+// GET /api/export/products
+// ==========================================
+
 import { NextResponse } from 'next/server';
 import { getProducts } from '@/lib/db/products';
 
@@ -7,18 +11,16 @@ export async function GET() {
     const result = await getProducts(undefined, { limit: 1000, offset: 0 });
     const products = result.items;
 
-    // Define CSV headers
+    // Define CSV headers for Kek Lapis
     const headers = [
       'ID',
       'Product Name',
       'Brand',
       'Manufacturer',
-      'Source',
-      'Source Type',
+      'Bakery Origin',
+      'Sweetness',
+      'Richness DRI',
       'Barcode',
-      'pH Level',
-      'TDS (mg/L)',
-      'Country',
       'Status',
       'Created At',
       'Updated At',
@@ -28,14 +30,12 @@ export async function GET() {
     const rows = products.map((product) => [
       product.id,
       product.product_name || '',
-      product.brand?.brand_name || '',
+      typeof product.brand === 'string' ? product.brand : (product.brand as any)?.brand_name || '',
       product.manufacturer?.name || '',
-      product.source?.source_name || '',
-      product.source?.type || '',
+      product.bakery_origin || '',
+      product.sweetness?.toString() || '',
+      product.richness_dri?.toString() || '',
       product.barcode || '',
-      product.ph_level?.toString() || '',
-      product.tds?.toString() || '',
-      product.source?.country || '',
       product.status,
       product.created_at,
       product.updated_at,
@@ -62,7 +62,7 @@ export async function GET() {
       status: 200,
       headers: {
         'Content-Type': 'text/csv; charset=utf-8',
-        'Content-Disposition': 'attachment; filename="cariair-products.csv"',
+        'Content-Disposition': 'attachment; filename="keklapis-products.csv"',
       },
     });
   } catch (error) {
