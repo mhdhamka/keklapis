@@ -1,7 +1,7 @@
 {
   "schemaVersion": 2,
   "generatedAt": "2026-08-12T04:18:55Z",
-  "title": "Design System: CariAir",
+  "title": "Design System: Kek Lapis",
   "extensions": {
     "colorMeta": {
       "atlas-paper": { "role": "neutral", "displayName": "Atlas Paper", "canonical": "hsl(45 25% 98%)", "tonalRamp": ["oklch(18% 0.012 90)", "oklch(28% 0.014 90)", "oklch(40% 0.016 90)", "oklch(54% 0.018 90)", "oklch(68% 0.019 90)", "oklch(80% 0.018 90)", "oklch(90% 0.014 90)", "oklch(97% 0.010 90)"] },
