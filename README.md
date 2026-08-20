@@ -101,10 +101,6 @@ Create `.env.local` for development (all optional):
 # Chatbot (optional)
 GROQ_API_KEY=""
 
-# Analytics (optional)
-NEXT_PUBLIC_UMAMI_SCRIPT_URL=""
-NEXT_PUBLIC_UMAMI_WEBSITE_ID=""
-
 ```
 
 The JSON store needs no environment variables. See `.env.example` for the authoritative list.
