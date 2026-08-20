@@ -53,7 +53,6 @@
 | **Frontend** | React 19, TypeScript, Tailwind CSS, Custom CSS Keyframes & Typography |
 | **Storage** | JSON file (`data/db.json`) via `lib/json-store.ts` — no database server required |
 | **Internationalization** | `next-intl` (English `en` as default, Standard Malay `ms`, and Bahasa Sarawak `bms`) |
-| **API Documentation** | Swagger / OpenAPI available at `/docs` |
 | **Deployment** | Native Node.js with systemd / standalone output |
 
 ---
