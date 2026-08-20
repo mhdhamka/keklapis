@@ -41,7 +41,6 @@
   * **Recipe Records:** Live ingredient and specification details embedded in the UI.
   * **Heritage Verification:** Automated breakdown of KKM approvals, halal certification, and master house status.
   * **Bakery Location Map:** Visual geographic mapping of regional bakeries across Sarawak.
-* **Live Engine Telemetry:** Real-time metrics displaying system uptime, API response latency, and database record health.
 * **Editorial Preloader:** Smooth transitions styled for archival exploration.
 
 ---
