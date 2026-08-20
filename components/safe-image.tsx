@@ -12,8 +12,8 @@ export function SafeImage({
   src,
   alt,
   fallback = "/placeholder.svg",
-  width = 640,
-  height = 640,
+  width = 1200,
+  height = 1200,
   loading = "lazy",
   ...props
 }: SafeImageProps) {

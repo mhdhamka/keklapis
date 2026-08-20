@@ -151,7 +151,7 @@ export function HomeFilters({
               placeholder="Search cake variants, recipes, or ingredients..." 
               value={query}
               onChange={(event) => setQuery(event.target.value)}
-              className="h-11 rounded-xl border-border/80 bg-background/80 backdrop-blur-sm pl-10 pr-10 shadow-sm transition-all focus-visible:ring-2 focus-visible:ring-emerald-500/30" 
+              className="h-11 rounded-xl border-emerald-950/15 bg-background/80 backdrop-blur-sm pl-10 pr-10 shadow-sm transition-all focus-visible:ring-2 focus-visible:ring-emerald-900" 
             />
             {query && (
               <button 
@@ -167,7 +167,7 @@ export function HomeFilters({
           <Button 
             type="submit" 
             disabled={isPending}
-            className="h-11 rounded-xl px-6 font-medium shadow-sm transition-all active:scale-95 bg-emerald-700 hover:bg-emerald-800 text-white cursor-pointer"
+            className="h-11 rounded-xl px-6 font-medium shadow-sm transition-all active:scale-95 bg-emerald-900 hover:bg-emerald-950 text-white cursor-pointer"
           >
             {isPending ? <span className="animate-pulse">Loading...</span> : "Search"}
           </Button>
@@ -176,21 +176,31 @@ export function HomeFilters({
         <div className="flex items-center gap-2">
           <Sheet open={isOpen} onOpenChange={setIsOpen}>
             <SheetTrigger asChild>
-              <Button variant="outline" className="h-11 rounded-xl border-border/80 bg-background/80 backdrop-blur-sm px-4 shadow-sm transition-all hover:bg-muted/60 cursor-pointer">
+              <Button variant="outline" className="h-11 rounded-xl border-emerald-950/15 bg-background/80 backdrop-blur-sm px-4 shadow-sm transition-all hover:bg-muted/60 cursor-pointer">
                 <FilterGlyph /> 
                 <span className="ml-2">Filters</span>
                 {activeFilterCount > 0 && (
-                  <span className="ml-2 flex h-5 w-5 items-center justify-center rounded-full bg-emerald-600 font-mono text-[10px] text-white shadow-sm animate-in zoom-in-50">
+                  <span className="ml-2 flex h-5 w-5 items-center justify-center rounded-full bg-emerald-900 font-mono text-[10px] text-white shadow-sm animate-in zoom-in-50">
                     {activeFilterCount}
                   </span>
                 )}
               </Button>
             </SheetTrigger>
             
-            <SheetContent side="right" className="w-full border-l border-border/80 bg-background/95 backdrop-blur-xl p-0 sm:max-w-md flex flex-col justify-between">
-              <SheetHeader className="border-b border-border/60 px-6 py-6 text-left">
-                <p className="font-mono text-emerald-700 dark:text-emerald-400 uppercase tracking-wider text-xs">Registry Controls</p>
-                <SheetTitle className="font-display text-2xl font-semibold tracking-tight">Filter Cake Registry</SheetTitle>
+            <SheetContent side="right" className="w-full border-l border-emerald-950/10 bg-background/95 backdrop-blur-xl p-0 sm:max-w-md flex flex-col justify-between overflow-hidden">
+              
+              {/* Signature 5-Color Kek Lapis Palette Accent Bar at the top of the Drawer */}
+              <div className="absolute top-0 inset-x-0 h-1.5 flex z-20" aria-hidden="true">
+                <div className="flex-1 bg-[#7A5C3E]" />
+                <div className="flex-1 bg-[#B3936A]" />
+                <div className="flex-1 bg-[#2E4A35]" />
+                <div className="flex-1 bg-[#5B6E53]" />
+                <div className="flex-1 bg-[#D4C4A8]" />
+              </div>
+
+              <SheetHeader className="border-b border-emerald-950/10 px-6 py-6 text-left relative bg-muted/20">
+                <p className="font-mono text-emerald-900 dark:text-emerald-400 uppercase tracking-widest text-[10px] font-bold">Registry Controls</p>
+                <SheetTitle className="font-display text-2xl font-bold tracking-tight text-foreground">Filter Cake Registry</SheetTitle>
               </SheetHeader>
 
               {/* Scrollable Filters Body */}
@@ -205,7 +215,7 @@ export function HomeFilters({
                         <label 
                           key={type.value} 
                           htmlFor={`type-${type.value}`} 
-                          className={`flex cursor-pointer items-center gap-2.5 rounded-xl border px-3 py-2.5 text-xs font-medium transition-all ${isChecked ? "border-emerald-600/60 bg-emerald-50/50 dark:bg-emerald-950/30 text-emerald-900 dark:text-emerald-200 shadow-sm" : "border-border/60 hover:bg-muted/50 text-foreground"}`}
+                          className={`flex cursor-pointer items-center gap-2.5 rounded-xl border px-3 py-2.5 text-xs font-medium transition-all ${isChecked ? "border-emerald-900/60 bg-emerald-950/5 dark:bg-emerald-950/30 text-emerald-950 dark:text-emerald-200 shadow-xs" : "border-emerald-950/10 hover:bg-muted/50 text-foreground"}`}
                         >
                           <Checkbox 
                             id={`type-${type.value}`} 
@@ -262,9 +272,9 @@ export function HomeFilters({
                       placeholder="Search bakeries..." 
                       value={brandSearchQuery}
                       onChange={(e) => setBrandSearchQuery(e.target.value)}
-                      className="h-9 rounded-lg text-xs bg-muted/40"
+                      className="h-9 rounded-lg text-xs bg-muted/40 border-emerald-950/10"
                     />
-                    <div className="max-h-48 space-y-1 overflow-y-auto pr-1 rounded-lg border border-border/40 p-2 bg-muted/20">
+                    <div className="max-h-48 space-y-1 overflow-y-auto pr-1 rounded-xl border border-emerald-950/10 p-2 bg-muted/20">
                       {filteredBrandsList.length === 0 ? (
                         <p className="text-center text-xs text-muted-foreground py-4">No bakeries found</p>
                       ) : (
@@ -274,7 +284,7 @@ export function HomeFilters({
                             <label 
                               key={brand.id} 
                               htmlFor={`brand-${brand.id}`} 
-                              className={`flex cursor-pointer items-center gap-3 rounded-lg px-2.5 py-2 text-xs transition-colors ${isChecked ? "bg-emerald-50/60 dark:bg-emerald-950/30 font-medium text-emerald-900 dark:text-emerald-200" : "hover:bg-muted/60 text-foreground"}`}
+                              className={`flex cursor-pointer items-center gap-3 rounded-lg px-2.5 py-2 text-xs transition-colors ${isChecked ? "bg-emerald-950/10 dark:bg-emerald-950/30 font-medium text-emerald-950 dark:text-emerald-200" : "hover:bg-muted/60 text-foreground"}`}
                             >
                               <Checkbox 
                                 id={`brand-${brand.id}`} 
@@ -292,11 +302,11 @@ export function HomeFilters({
               </div>
 
               {/* Drawer Footer Actions */}
-              <div className="border-t border-border/60 bg-background/90 backdrop-blur-md p-4 flex gap-3 pb-[max(1rem,env(safe-area-inset-bottom))]">
-                <Button onClick={() => applyFilters()} className="h-11 flex-1 rounded-xl bg-emerald-700 hover:bg-emerald-800 text-white font-medium shadow-sm transition-all active:scale-95 cursor-pointer">
+              <div className="border-t border-emerald-950/10 bg-background/90 backdrop-blur-md p-4 flex gap-3 pb-[max(1rem,env(safe-area-inset-bottom))]">
+                <Button onClick={() => applyFilters()} className="h-11 flex-1 rounded-xl bg-emerald-900 hover:bg-emerald-950 text-white font-medium shadow-sm transition-all active:scale-95 cursor-pointer">
                   Apply Filters
                 </Button>
-                <Button variant="outline" onClick={clearFilters} className="h-11 rounded-xl border-border/80 shadow-none hover:bg-destructive/10 hover:text-destructive hover:border-destructive/30 transition-all cursor-pointer">
+                <Button variant="outline" onClick={clearFilters} className="h-11 rounded-xl border-emerald-950/15 shadow-none hover:bg-destructive/10 hover:text-destructive hover:border-destructive/30 transition-all cursor-pointer">
                   Clear All
                 </Button>
               </div>
@@ -305,10 +315,10 @@ export function HomeFilters({
 
           {/* Sort Dropdown */}
           <Select onValueChange={handleSort} value={currentSort}>
-            <SelectTrigger aria-label="Sort variants" className="h-11 w-[11rem] rounded-xl border-border/80 bg-background/80 backdrop-blur-sm shadow-sm sm:w-[13rem] transition-all hover:bg-muted/50 cursor-pointer">
+            <SelectTrigger aria-label="Sort variants" className="h-11 w-[11rem] rounded-xl border-emerald-950/15 bg-background/80 backdrop-blur-sm shadow-sm sm:w-[13rem] transition-all hover:bg-muted/50 cursor-pointer">
               <SelectValue placeholder="Sort by..." />
             </SelectTrigger>
-            <SelectContent className="rounded-xl border-border/80 shadow-xl">
+            <SelectContent className="rounded-xl border-emerald-950/15 shadow-xl">
               <SelectItem value="name_asc">Name: A to Z</SelectItem>
               <SelectItem value="name_desc">Name: Z to A</SelectItem>
               <SelectItem value="brand_asc">Bakery: A to Z</SelectItem>
@@ -333,25 +343,25 @@ export function HomeFilters({
           <span className="text-[11px] font-medium text-muted-foreground mr-1">Active filters:</span>
           
           {query && (
-            <span className="inline-flex items-center gap-1 rounded-lg bg-muted px-2 py-1 text-[11px] font-medium text-foreground">
+            <span className="inline-flex items-center gap-1 rounded-lg bg-muted px-2 py-1 text-[11px] font-medium text-foreground border border-emerald-950/10">
               Query: &quot;{query}&quot;
               <button type="button" onClick={() => { setQuery(""); applyFilters({ query: "" }); }} className="text-muted-foreground hover:text-foreground">×</button>
             </span>
           )}
 
           {types.map(tVal => (
-            <span key={tVal} className="inline-flex items-center gap-1.5 rounded-lg bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-600/20 px-2 py-1 text-[11px] font-medium text-emerald-800 dark:text-emerald-300">
+            <span key={tVal} className="inline-flex items-center gap-1.5 rounded-lg bg-emerald-950/5 border border-emerald-900/20 px-2 py-1 text-[11px] font-medium text-emerald-900 dark:text-emerald-300">
               {tVal}
-              <button type="button" onClick={() => removeType(tVal)} className="hover:text-emerald-900 transition-colors">×</button>
+              <button type="button" onClick={() => removeType(tVal)} className="hover:text-emerald-950 transition-colors">×</button>
             </span>
           ))}
 
           {selectedBrands.map(bId => {
             const brandObj = brands.find(b => b.id === bId)
             return (
-              <span key={bId} className="inline-flex items-center gap-1.5 rounded-lg bg-blue-50 dark:bg-blue-950/40 border border-blue-600/20 px-2 py-1 text-[11px] font-medium text-blue-800 dark:text-blue-300">
+              <span key={bId} className="inline-flex items-center gap-1.5 rounded-lg bg-emerald-950/5 border border-emerald-900/20 px-2 py-1 text-[11px] font-medium text-emerald-900 dark:text-emerald-300">
                 {brandObj?.brand_name || bId}
-                <button type="button" onClick={() => removeBrand(bId)} className="hover:text-blue-900 transition-colors">×</button>
+                <button type="button" onClick={() => removeBrand(bId)} className="hover:text-emerald-950 transition-colors">×</button>
               </span>
             )
           })}
@@ -373,8 +383,8 @@ function FilterSection({ title, value, children }: { title: string; value?: stri
   return (
     <section className="space-y-3">
       <div className="flex items-center justify-between">
-        <h3 className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">{title}</h3>
-        {value && <span className="font-mono text-xs font-medium text-emerald-700 dark:text-emerald-400">{value}</span>}
+        <h3 className="text-xs font-bold uppercase tracking-wider text-muted-foreground">{title}</h3>
+        {value && <span className="font-mono text-xs font-semibold text-emerald-900 dark:text-emerald-400">{value}</span>}
       </div>
       {children}
     </section>

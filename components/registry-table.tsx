@@ -22,7 +22,7 @@ const SORT_TO_PARAM: Record<SortKey, { asc: string; desc: string; default: strin
   richness_dri: { asc: "richness_dri_asc", desc: "richness_dri_desc", default: "richness_dri_desc" },
 }
 
-export function SourcesTable({ products, sort }: SourcesTableProps) {
+export function RegistryTable({ products, sort }: SourcesTableProps) {
   const t = useTranslations("sourcesView")
   const router = useRouter()
   const searchParams = useSearchParams()
@@ -219,7 +219,7 @@ export function SourcesTable({ products, sort }: SourcesTableProps) {
             ) : (
               <tr>
                 <td colSpan={6} className="py-16 text-center text-sm text-muted-foreground">
-                  No matching Sarawak layer cake records found. Try adjusting your parameters.
+                  No matching Kek Lapis Sarawak records found. Try adjusting your parameters.
                 </td>
               </tr>
             )}
@@ -324,7 +324,7 @@ function TableRow({ product }: { product: Product }) {
     <tr className="group transition-all hover:bg-emerald-950/[0.03]">
       {/* Sticky brand column with lumut highlight on hover */}
       <th scope="row" className="sticky left-0 z-10 min-w-[14rem] border-r border-emerald-900/10 bg-card group-hover:bg-emerald-50/50 dark:group-hover:bg-emerald-950/20 sm:min-w-[17rem] transition-colors">
-        <Link href={`/sources/${product.id}`} className="flex items-center gap-3.5 px-4 py-3.5">
+        <Link href={`/registry/${product.id}`} className="flex items-center gap-3.5 px-4 py-3.5">
           <span className="relative grid h-12 w-12 shrink-0 place-items-center overflow-hidden rounded-lg border border-emerald-900/15 bg-emerald-950/[0.02] shadow-sm transition-transform group-hover:scale-105">
             <SafeImage
               src={imageUrl}
@@ -359,7 +359,7 @@ function TableRow({ product }: { product: Product }) {
         </span>
       </td>
 
-      {/* Source location */}
+      {/* Registry location */}
       <td className="px-4 py-3.5">
         <span className="block max-w-[18rem] text-xs font-medium leading-relaxed text-muted-foreground line-clamp-2">{sourceLocation}</span>
       </td>

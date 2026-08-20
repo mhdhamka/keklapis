@@ -6,7 +6,7 @@
 import { NextResponse } from "next/server";
 import { getAll } from "@/lib/json-store";
 import { getBrands } from "@/lib/db/brands";
-import { getSources } from "@/lib/db/sources";
+import { getSources } from "@/lib/db/registry";
 
 export async function GET() {
   try {

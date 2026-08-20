@@ -3,7 +3,7 @@
 import Link from "next/link"
 import { useTranslations } from "next-intl"
 import { ProductCard } from "./product-card"
-import { SourcesTable } from "./sources-table"
+import { RegistryTable } from "./registry-table"
 import { Product } from "@/lib/types/db"
 import { RegistryGlyph } from "./editorial-primitives"
 import { ViewToggle } from "./view-toggle"
@@ -57,7 +57,7 @@ export function HomeContent({ products, view, sort }: HomeContentProps) {
       <div className="transition-all duration-200">
         {view === "table" ? (
           <div className="rounded-2xl border border-emerald-900/10 bg-card backdrop-blur-sm overflow-hidden shadow-sm">
-            <SourcesTable products={products} sort={sort} />
+            <RegistryTable products={products} sort={sort} />
           </div>
         ) : (
           <div className="registry-grid grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">

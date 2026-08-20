@@ -1,5 +1,5 @@
 import { getBrands } from "@/lib/db/brands"
-import { getSources } from "@/lib/db/sources"
+import { getSources } from "@/lib/db/registry"
 import { getProducts } from "@/lib/db/products"
 import { isViewMode, type ViewMode } from "@/lib/view"
 import HomeClient from "./home-client"

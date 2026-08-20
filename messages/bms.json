@@ -24,13 +24,13 @@
     "backHome": "Balit ke mula",
     "backSources": "Balit ke senarai",
     "genericTitle": "Ada masalah teknikal",
-    "genericDescription": "Kami nadai dapat muat paparan tok. Sila refresh munsik balit ke laman utama.",
+    "genericDescription": "Kamek orang nadai dapat muat paparan tok. Sila refresh munsik balit ke laman utama.",
     "aboutTitle": "Laman nadai dapat dibukak",
-    "aboutDescription": "Kami nadai dapat maklumat asal tentang Projek Kek Lapis Sarawak tok.",
+    "aboutDescription": "Kamek orang nadai dapat maklumat asal tentang Projek Kek Lapis Sarawak tok.",
     "docsTitle": "Dokumentasi nadai dapat",
     "docsDescription": "API reference nya sik dapat diakses masa tok.",
     "sourceTitle": "Rekod nadai jumpa",
-    "sourceDescription": "Kami nadai dapat cari maklumat kek lapis tok.",
+    "sourceDescription": "Kamek orang nadai dapat nyarik maklumat kek lapis tok.",
     "notFoundLabel": "Ralat 404",
     "notFoundTitle": "Lapisan tok hilang entah kemana.",
     "notFoundDescription": "Pautan mungkin rosak munsik halamannya dah dipindah.",
@@ -146,7 +146,7 @@
     "paused": "Ditunda",
     "banner": {
       "badge": "Apa Jak Yang Baru",
-      "text": "Teroka kemas kini struktur dan resipi terbaru kami.",
+      "text": "Teroka kemas kini struktur dan resipi terbaru kamek orang.",
       "closeAria": "Tutup banner pemberitahuan"
     },
     "metricsHelp": {
@@ -197,12 +197,12 @@
     "description": "Teroka arkib master varian Kek Lapis Sarawak tradisional dan eksperimen. Bandingkan profil rasa, seni bina rempah, dan asal usul kede."
   },
   "search": {
-    "title": "Cari Pendaftaran",
+    "title": "Carik Pendaftaran",
     "resultsFor": "Hasil pake \"{query}\"",
     "showingResults": "Memaparkan rekod yang sepadan dengan parameter carian kitak",
     "resultsFound": "{count, plural, one {# rekod jumpa} other {# rekod jumpa}}",
     "noResults": "nadai rekod sepadan",
-    "noResultsDesc": "Cuba ubah terma carian munsik longgarkan penapis."
+    "noResultsDesc": "Cuba kitak ubah terma carian munsik longgarkan penapis."
   },
   "analytics": {
     "title": "Trend & Pandangan Pasaran",
@@ -307,7 +307,7 @@
     "articleDesc": "Semua yang kitak perlu tauk tentang motif, gred mentega, dan pilih jenama kek lapis terbaik pake sambutan perayaan kitak.",
     "readingNote": "Nota bacaan",
     "readingNoteDesc": "Nisbah mentega, rahsia corak, dan komposisi bahan dijelaskan senang.",
-    "articleContent": "### Faham Kualiti Kek Lapis Sarawak\n\nBila tiba musim perayaan rah Malaysia, tak semua kek lapis dicipta sama. Rah Sarawak, kita bertuah ada warisan polah kek legend, tapi mok pilih yang betul perlukan tauk apa dalam kotak. Panduan tok teroka faktor kunci yang tentukan kualiti kek lapis dan cara pilih kede terbaik pake selera kitak.\n\n#### Kenapa Kualiti Mentega Penting\n\nLemak dan mentega yang diguna dalam Kek Lapis kitak tentukan nilai sebenar nya. Kek lapis Sarawak asli banyak bergantung pada mentega putar tulen berbanding marjerin.\n\n*   **Lapis Mentega Tulen:** Bagi aroma tak tertanding, rasa mulut kaya, dan tekstur lembap yang segar berhari-hari.\n*   **Lapis Berempah Tradisional:** Diselit campuran rempah unik Borneo pake kemasan wangi nostalgia.\n\n#### Kaji Kekayaan dan Ketumpatan\n\nKetumpatan wakilkan kepekatan bahan sihat, termasuk kuning telur, susu, dan mentega premium.\n\n*   **Ringan & Lembap:** Seimbang pake hadiah santai dan minum petang.\n*   **Gred Cuti Super Kaya:** Lapisan padat muatan mentega tulen dan jem buah signature.\n\n#### kede Kek Lapis Top rah Sarawak\n\n1.  **Dayang Salhah:** Satu nama paling ikonik rah Kuching seberang sungai, terkenal dengan corak rumit dan resipi tradisional.\n2.  **Kek Lapis Nusantara:** Terkenal kerana gabung rasa tempatan klasik dengan persembahan estetik moden.\n3.  **Mirabelle & Kede Rumah:** Pembuat rumah artisan tawar resipi pusaka batch kecil turun-temurun.\n\n#### Cara Pilih Kek Lapis Terbaik pake kitak\n\n- **pake Hadiah & Majlis Khas:** Cari reka bentuk motif rumit dengan pengesahan mentega tinggi.\n- **pake Minum Petang:** Pilih varian kurang manis berempah pake padan teh tarik panas munsik kopi tempatan.\n- **pake Majlis Keluarga:** Perisa prun klasik munsik horlicks disukai semua peringkat umur.\n\nDengan guna **Pendaftaran Kek Lapis Sarawak**, kitak boleh bandingkan kede tok sebelah-menyebelah pake jumpa tengah meja yang sempurna. Sambut dengan gaya warisan lebih manis!",
+    "articleContent": "### Faham Kualiti Kek Lapis Sarawak\n\nBila tiba musim perayaan rah Malaysia, tak semua kek lapis dicipta sama. Rah Sarawak, kita bertuah ada warisan polah kek legend, tapi mok pilih yang betul perlukan tauk apa dalam kotak. Panduan tok teroka faktor kunci yang tentukan kualiti kek lapis dan cara pilih kede terbaik pake selera kitak.\n\n#### Kenapa Kualiti Mentega Penting\n\nLemak dan mentega yang diguna dalam Kek Lapis kitak tentukan nilai sebenar nya. Kek lapis Sarawak asli banyak bergantung pada mentega putar tulen berbanding marjerin.\n\n*   **Lapis Mentega Tulen:** Bagi aroma tak tertanding, rasa mulut kaya, dan tekstur lembap yang segar berhari-hari.\n*   **Lapis Berempah Tradisional:** Diselit campuran rempah unik Borneo pake kemasan wangi nostalgia.\n\n#### Kaji Kekayaan dan Ketumpatan\n\nKetumpatan wakilkan kepekatan bahan sihat, termasuk kuning telur, susu, dan mentega premium.\n\n*   **Ringan & Lembap:** Seimbang pake hadiah santai dan minum petang.\n*   **Gred Cuti Super Kaya:** Lapisan padat muatan mentega tulen dan jem buah signature.\n\n#### kede Kek Lapis Top rah Sarawak\n\n1.  **Dayang Salhah:** Satu nama paling ikonik rah Kuching seberang sungai, terkenal dengan corak rumit dan resipi tradisional.\n2.  **Kek Lapis Nusantara:** Terkenal kerana gabung rasa tempatan klasik dengan persembahan estetik moden.\n3.  **Mirabelle & Kede Rumah:** Pembuat rumah artisan tawar resipi pusaka batch kecil turun-temurun.\n\n#### Cara Pilih Kek Lapis Terbaik pake kitak\n\n- **pake Hadiah & Majlis Khas:** Carik reka bentuk motif rumit dengan pengesahan mentega tinggi.\n- **pake Minum Petang:** Pilih varian kurang manis berempah pake padan teh tarik panas munsik kopi tempatan.\n- **pake Majlis Keluarga:** Perisa prun klasik munsik horlicks disukai semua peringkat umur.\n\nDengan guna **Pendaftaran Kek Lapis Sarawak**, kitak boleh bandingkan kede tok sebelah-menyebelah pake jumpa tengah meja yang sempurna. Sambut dengan gaya warisan lebih manis!",
     "originRegion": "Wilayah Asal",
     "bakerOrBrand": "Pembuat / Jenama",
     "lightest": "Paling Ringan",
@@ -318,7 +318,7 @@
     "subtitle": "Pendaftaran kek lapis dan kede rasmi Sarawak",
     "whatWeDoTitle": "Apa kamek orang polah",
     "whatWeDoDesc": "Projek Kek Lapis Sarawak ialah pendaftaran muktamad Variasi kek lapis tradisional dan moden rah Sarawak.",
-    "whatWeDoContent1": "Kami bantu anda jumpa kede disahkan, banding resipi, dan belajar tentang warisan kek lapis, standard membakar, dan komposisi bahan — semua dalam satu tempat.",
+    "whatWeDoContent1": "Kamek orang nolong kitak carik kede yang disahkan, banding resipi, dan belajar pasal warisan kek lapis, standard membakar, dan komposisi bahan — semua dalam satu tempat.",
     "whatWeDoContent2": "Teroka bahagian",
     "sourcesLink": "Variasi",
     "mapLink": "peta",
@@ -330,7 +330,7 @@
   },
   "contribute": {
     "title": "Hantar Variasi Kek Lapis",
-    "description": "Tambah resipi kek lapis munsik jenama baru ke pendaftaran kami. Semua hantaran akan disemak.",
+    "description": "Tambah resipi kek lapis munsik jenama baru ke pendaftaran kamek orang. Semua hantaran akan disemak.",
     "cardTitle": "Butiran Resipi",
     "cardDesc": "Masukkan butiran seperti nampak pada kotak munsik menu rasa.",
     "productName": "Nama Variasi",
@@ -438,11 +438,11 @@
     "waterSourcesFound": "{count, plural, one {# Variasi kek lapis jumpa} other {# Variasi kek lapis jumpa}}",
     "waterSourceFound": "Variasi kek lapis",
     "waterSourcesFoundPlural": "Variasi kek lapis jumpa",
-    "searchPlaceholder": "Cari kede munsik Variasi, cth. Lumut, Prune…",
+    "searchPlaceholder": "Carik kede munsik Variasi, cth. Lumut, Prune…",
     "search": "Cari",
     "showingResultsFor": "Tunjuk hasil pake",
     "noResults": "nadai hasil jumpa",
-    "noResultsDesc": "Cuba ubah carian munsik penapis kitak pake cari apa yang dicari",
+    "noResultsDesc": "Cuba ubah carian munsik penapis kitak pake carik apa yang mok dicarik",
     "viewToggleLabel": "Paparan senarai",
     "viewCards": "Kad",
     "viewTable": "Jadual",

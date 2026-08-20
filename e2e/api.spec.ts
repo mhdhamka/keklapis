@@ -22,7 +22,7 @@ test.describe('API Endpoints', () => {
   });
 
   test('sources endpoint should return data', async ({ request }) => {
-    const response = await request.get('/api/sources');
+    const response = await request.get('/api/registry');
     expect(response.status()).toBe(200);
     const body = await response.json();
     expect(body).toHaveProperty('sources');

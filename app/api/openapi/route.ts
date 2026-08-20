@@ -210,7 +210,7 @@ const openApiSpec = {
         },
       },
     },
-    '/sources/{id}': {
+    '/registry/{id}': {
       get: {
         tags: ['Sources'],
         summary: 'Get source by ID',

@@ -7,7 +7,7 @@ import { useTranslations, useFormatter } from "next-intl"
 import { HomeContent } from "@/components/home-content"
 import { HomeMap } from "@/components/home-map"
 import { HomeFilters } from "@/components/home-filters"
-import { WaterMetricsHelp } from "@/components/water-metrics-help"
+import { LapisMetricsHelp } from "@/components/lapis-metrics-help"
 import { CompareDock } from "@/components/compare/compare-dock"
 import type { ViewMode } from "@/lib/view"
 import type { Product, Brand, Source } from "@/lib/types/db"
@@ -55,6 +55,15 @@ export default function HomeClient({
   const [showBanner, setShowBanner] = useState(true)
   const [showVisualizer, setShowVisualizer] = useState(false)
 
+  // --- Pagination States ---
+  const [currentPage, setCurrentPage] = useState(1)
+  const itemsPerPage = 6
+
+  // --- Sandbox Playground States ---
+  const [sandboxLayers, setSandboxLayers] = useState<number>(20)
+  const [sandboxButter, setSandboxButter] = useState<string>("Grade-A Pure")
+  const [sandboxSpice, setSandboxSpice] = useState<string>("True Ceylon Blend")
+
   // Read active culinary profile/category from URL search params (defaults to "All Variants")
   const activeFlavor = searchParams.get("category") || "All Variants"
 
@@ -65,6 +74,7 @@ export default function HomeClient({
     } else {
       params.set("category", category)
     }
+    setCurrentPage(1) // Reset to page 1 on category change
     router.push(params.size ? `/?${params.toString()}` : "/", { scroll: false })
   }
 
@@ -106,10 +116,41 @@ export default function HomeClient({
     return nameA.localeCompare(nameB)
   })
 
+  // --- Pagination Slicing Calculations ---
+  const totalPages = Math.ceil(sortedProducts.length / itemsPerPage)
+  const startIndex = (currentPage - 1) * itemsPerPage
+  const currentProducts = sortedProducts.slice(startIndex, startIndex + itemsPerPage)
+
+  const handlePageChange = (newPage: number) => {
+    setCurrentPage(newPage)
+    document.getElementById("registry")?.scrollIntoView({ behavior: "smooth" })
+  }
+
   const hasFilters = Boolean(query) || brandIds.length > 0 || types.length > 0 ||
     minSweetness !== undefined || maxSweetness !== undefined || minRichness !== undefined || maxRichness !== undefined || activeFlavor !== "All Variants"
 
   const productsById = Object.fromEntries(sortedProducts.map((p) => [p.id, p]))
+
+  // Dynamic color selection based on Butter Emulsion & Aromatic Infusion
+  const getDynamicCakePalette = () => {
+    let base = ["#4A2E15", "#D9B485", "#2C5E2E"]
+
+    if (sandboxButter === "Rich European Style") {
+      base = ["#3D2314", "#E5C298", "#244D25"]
+    } else if (sandboxButter === "Artisan Cultured") {
+      base = ["#54331C", "#CDB280", "#336934"]
+    }
+
+    if (sandboxSpice === "Sarawak Spiced Mix") {
+      base[2] = "#5C4033"
+    } else if (sandboxSpice === "Bourbon Vanilla Extract") {
+      base[1] = "#F3E5AB"
+    }
+
+    return base
+  }
+
+  const activeCakeColors = getDynamicCakePalette()
 
   return (
     <main id="main-content" className="min-h-screen overflow-hidden bg-background text-foreground selection:bg-emerald-500/20 selection:text-emerald-800">
@@ -134,32 +175,43 @@ export default function HomeClient({
       )}
 
       {/* Hero Section */}
-      <section className="relative overflow-hidden border-b border-border/60 bg-gradient-to-b from-emerald-500/5 via-background to-background">
+      <section id="overview" className="relative overflow-hidden border-b border-border/60 bg-gradient-to-b from-emerald-500/5 via-background to-background">
         <div className="absolute top-10 left-1/2 -translate-x-1/2 h-[400px] w-[900px] rounded-full bg-emerald-500/10 blur-[140px] pointer-events-none" />
 
         <div className="relative mx-auto max-w-[88rem] px-5 pb-16 pt-14 sm:px-8 sm:pb-20 sm:pt-20 lg:px-12 lg:pb-24">
           
           <div className="mb-10 flex flex-wrap items-center justify-between gap-4">
             <div className="flex items-center gap-3 text-xs font-semibold uppercase tracking-[0.18em] text-muted-foreground">
-              <span className="h-2.5 w-2.5 rounded-full bg-emerald-600 shadow-[0_0_10px_rgba(16,185,129,0.5)] animate-pulse" aria-hidden="true" />
+              
               <span className="text-emerald-700 font-mono">{t("heroEyebrow")}</span>
               <span className="h-px w-12 sm:w-24 bg-emerald-500/30" aria-hidden="true" />
             </div>
 
-            <div className="flex items-center gap-1 rounded-full border border-border bg-card p-1 shadow-sm">
-              {[0, 1, 2].map((idx) => (
-                <button
-                  key={idx}
-                  onClick={() => setActiveHighlight(idx as 0 | 1 | 2)}
-                  className={`relative rounded-full px-3.5 py-1.5 font-mono text-[10px] uppercase tracking-wider transition-all duration-300 cursor-pointer ${
-                    activeHighlight === idx
-                      ? "bg-emerald-600 text-white shadow-sm scale-105"
-                      : "text-muted-foreground hover:text-foreground hover:bg-muted"
-                  }`}
-                >
-                  0{idx + 1}
-                </button>
-              ))}
+            {/* Kek Lapis Aesthetic Accent Preview */}
+            <div className="flex items-center gap-4">
+              <div className="hidden sm:flex h-4 w-28 rounded-full overflow-hidden border border-border shadow-xs opacity-80" aria-hidden="true">
+                <div className="flex-1 bg-[#4A2E15]" />
+                <div className="flex-1 bg-[#D9B485]" />
+                <div className="flex-1 bg-[#4A2E15]" />
+                <div className="flex-1 bg-[#2C5E2E]" />
+                <div className="flex-1 bg-[#D9B485]" />
+              </div>
+
+              <div className="flex items-center gap-1 rounded-full border border-border bg-card p-1 shadow-sm">
+                {[0, 1, 2].map((idx) => (
+                  <button
+                    key={idx}
+                    onClick={() => setActiveHighlight(idx as 0 | 1 | 2)}
+                    className={`relative rounded-full px-3.5 py-1.5 font-mono text-[10px] uppercase tracking-wider transition-all duration-300 cursor-pointer ${
+                      activeHighlight === idx
+                        ? "bg-emerald-600 text-white shadow-sm scale-105"
+                        : "text-muted-foreground hover:text-foreground hover:bg-muted"
+                    }`}
+                  >
+                    0{idx + 1}
+                  </button>
+                ))}
+              </div>
             </div>
           </div>
 
@@ -173,9 +225,11 @@ export default function HomeClient({
             <div 
               onMouseEnter={() => setIsPaused(true)}
               onMouseLeave={() => setIsPaused(false)}
-              className="flex flex-col rounded-2xl border border-border/80 bg-card text-card-foreground shadow-xl overflow-hidden transition-all duration-300 hover:border-emerald-500/40 hover:shadow-2xl group"
+              className="flex flex-col rounded-2xl border border-border/80 bg-card text-card-foreground shadow-xl overflow-hidden transition-all duration-300 hover:border-emerald-500/40 hover:shadow-2xl group relative"
             >
-              <div className="flex items-center justify-between px-6 py-4 bg-muted/40 border-b border-border/60">
+              <div className="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-[#4A2E15] via-emerald-600 to-[#D9B485]" />
+
+              <div className="flex items-center justify-between px-6 py-4 bg-muted/40 border-b border-border/60 mt-1.5">
                 <span className="font-mono text-[11px] uppercase tracking-wider text-emerald-700 dark:text-emerald-400 font-bold">
                   {highlights[activeHighlight].title}
                 </span>
@@ -195,7 +249,7 @@ export default function HomeClient({
               <div className="flex flex-wrap items-center justify-between gap-4 p-5 bg-muted/20 border-t border-border/40">
                 <button 
                   onClick={() => {
-                    document.getElementById("sources")?.scrollIntoView({ behavior: "smooth" })
+                    document.getElementById("registry")?.scrollIntoView({ behavior: "smooth" })
                   }}
                   className="group inline-flex items-center gap-2 rounded-xl bg-emerald-600 px-5 py-2.5 text-xs font-semibold text-white transition-all hover:bg-emerald-700 shadow-md hover:shadow-lg active:scale-95 cursor-pointer"
                 >
@@ -222,7 +276,7 @@ export default function HomeClient({
       </section>
 
       {/* Map Section */}
-      <section id="map" className="scroll-mt-20 py-16 sm:py-24">
+      <section id="bakenetwork" className="scroll-mt-20 py-16 sm:py-24">
         <div className="mx-auto max-w-[88rem] px-5 sm:px-8 lg:px-12">
           <div className="mb-8 grid gap-4 md:grid-cols-[1fr_auto] md:items-end">
             <div>
@@ -232,7 +286,7 @@ export default function HomeClient({
               </h2>
             </div>
             <button 
-              onClick={() => document.getElementById("sources")?.scrollIntoView({ behavior: "smooth" })}
+              onClick={() => document.getElementById("registry")?.scrollIntoView({ behavior: "smooth" })}
               className="inline-flex items-center gap-1.5 text-sm font-semibold text-muted-foreground transition-colors hover:text-emerald-600 mb-1 cursor-pointer group"
             >
               {t("heroCtaBrowse")} <ArrowIcon className="transition-transform group-hover:translate-x-1" />
@@ -246,8 +300,8 @@ export default function HomeClient({
         </div>
       </section>
 
-      {/* Sources & Filters Section */}
-      <section id="sources" className="scroll-mt-32 border-t border-border/60 bg-muted/20">
+      {/* Registry & Filters Section */}
+      <section id="registry" className="scroll-mt-32 border-t border-border/60 bg-muted/20">
         <div className="sticky top-[4.5rem] z-40 border-b border-border/80 bg-background/90 backdrop-blur-md shadow-sm">
           <div className="mx-auto max-w-[88rem] px-5 py-4 sm:px-8 lg:px-12">
             <HomeFilters
@@ -307,7 +361,7 @@ export default function HomeClient({
                 {hasFilters ? t("matchingSubtitle") : t("allSubtitle")}
               </p>
             </div>
-            <WaterMetricsHelp translations={{
+            <LapisMetricsHelp translations={{
               index: t("metricsHelp.index"), 
               trigger: t("metricsHelp.trigger"), 
               title: t("metricsHelp.title"), 
@@ -324,58 +378,167 @@ export default function HomeClient({
             }} />
           </div>
 
-          <HomeContent products={sortedProducts} view={view} sort={sort} />
+          {/* Sliced Products passed to HomeContent */}
+          <HomeContent products={currentProducts} view={view} sort={sort} />
+
+          {/* Pagination Controls Bar */}
+          {totalPages > 1 && (
+            <nav 
+              aria-label="Product Pagination" 
+              className="mt-12 flex flex-wrap items-center justify-between gap-4 border-t border-emerald-900/15 pt-6 px-2"
+            >
+              <p className="text-xs font-mono text-muted-foreground">
+                Showing <span className="font-semibold text-foreground">{startIndex + 1}</span> to{" "}
+                <span className="font-semibold text-foreground">
+                  {Math.min(startIndex + itemsPerPage, sortedProducts.length)}
+                </span>{" "}
+                of <span className="font-semibold text-foreground">{sortedProducts.length}</span> varieties
+              </p>
+
+              <div className="flex items-center gap-2">
+                <button
+                  type="button"
+                  onClick={() => handlePageChange(currentPage - 1)}
+                  disabled={currentPage === 1}
+                  className="inline-flex h-9 items-center justify-center rounded-xl border border-border bg-card px-4 text-xs font-semibold uppercase tracking-[0.08em] text-foreground transition-colors hover:bg-muted disabled:pointer-events-none disabled:opacity-40 cursor-pointer"
+                >
+                  Previous
+                </button>
+
+                <div className="hidden items-center gap-1 sm:flex">
+                  {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
+                    <button
+                      key={page}
+                      type="button"
+                      onClick={() => handlePageChange(page)}
+                      className={`grid h-9 w-9 place-items-center rounded-xl font-mono text-xs font-semibold transition-all cursor-pointer ${
+                        currentPage === page
+                          ? "bg-emerald-600 text-white shadow-sm"
+                          : "border border-border bg-card text-foreground hover:bg-muted"
+                      }`}
+                    >
+                      {page}
+                    </button>
+                  ))}
+                </div>
+
+                <button
+                  type="button"
+                  onClick={() => handlePageChange(currentPage + 1)}
+                  disabled={currentPage === totalPages}
+                  className="inline-flex h-9 items-center justify-center rounded-xl border border-border bg-card px-4 text-xs font-semibold uppercase tracking-[0.08em] text-foreground transition-colors hover:bg-muted disabled:pointer-events-none disabled:opacity-40 cursor-pointer"
+                >
+                  Next
+                </button>
+              </div>
+            </nav>
+          )}
         </div>
       </section>
 
-      {/* Visualizer Modal */}
+      {/* Interactive Visualizer & Sandbox Playground Modal */}
       {showVisualizer && (
         <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/60 backdrop-blur-sm p-4 animate-in fade-in duration-200">
-          <div className="relative w-full max-w-2xl overflow-hidden rounded-2xl bg-card border border-border shadow-2xl text-card-foreground">
+          <div className="relative w-full max-w-4xl overflow-hidden rounded-2xl bg-card border border-border shadow-2xl text-card-foreground">
             
-            <div className="flex items-center justify-between border-b border-border px-6 py-4 bg-muted/40">
+            <div className="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-[#4A2E15] via-emerald-600 to-[#D9B485] z-10" />
+
+            <div className="flex items-center justify-between border-b border-border px-6 py-4 bg-muted/40 mt-1.5">
               <div className="flex items-center gap-3">
-                <span className="h-2.5 w-2.5 rounded-full bg-emerald-600 animate-pulse" />
-                <h3 className="font-mono text-xs tracking-widest text-emerald-700 dark:text-emerald-400 uppercase font-bold">{t("visualizer.modalTitle")}</h3>
+                <h3 className="font-mono text-xs tracking-widest text-emerald-700 dark:text-emerald-400 uppercase font-bold">{t("visualizer.modalTitle")} & Sandbox Playground</h3>
               </div>
               <button onClick={() => setShowVisualizer(false)} className="text-muted-foreground hover:text-foreground transition-colors cursor-pointer p-1 rounded-full hover:bg-muted">
                 <CloseIcon />
               </button>
             </div>
             
-            <div className="p-8 flex flex-col md:flex-row gap-10 items-center">
-              <div className="relative w-40 h-48 rounded-xl overflow-hidden flex flex-col border border-border shadow-md rotate-[-2deg] hover:rotate-0 transition-transform duration-300">
-                <div className="flex-1 bg-[#4A2E15] border-b border-border/20" />
-                <div className="flex-1 bg-[#D9B485] border-b border-border/20" />
-                <div className="flex-1 bg-[#4A2E15] border-b border-border/20" />
-                <div className="flex-1 bg-[#2C5E2E] border-b border-border/20" />
-                <div className="flex-1 bg-[#D9B485] border-b border-border/20" />
-                <div className="flex-1 bg-[#4A2E15] border-b border-border/20" />
-                <div className="flex-1 bg-[#2C5E2E] border-b border-border/20" />
-                <div className="flex-1 bg-[#4A2E15]" />
+            <div className="p-8 grid grid-cols-1 md:grid-cols-[240px_1fr] gap-8 items-center">
+              
+              {/* Dynamic Live Cake Stack reflecting Butter & Spice selection */}
+              <div className="flex flex-col items-center justify-center">
+                <div className="relative w-40 h-56 rounded-xl overflow-hidden flex flex-col border border-border shadow-md rotate-[-1deg] hover:rotate-0 transition-transform duration-300 bg-background">
+                  {Array.from({ length: Math.min(Math.max(sandboxLayers, 5), 30) }).map((_, i) => (
+                    <div 
+                      key={i} 
+                      className="flex-1 border-b border-border/10 transition-all duration-300"
+                      style={{ backgroundColor: activeCakeColors[i % activeCakeColors.length] }}
+                    />
+                  ))}
+                </div>
+                <span className="mt-3 font-mono text-[10px] text-muted-foreground uppercase tracking-widest">Live Composition Preview</span>
               </div>
               
-              <div className="flex-1 space-y-5 w-full">
+              {/* Sandbox Controls & Metrics */}
+              <div className="space-y-6 w-full">
                 <div>
-                  <h4 className="text-xs font-mono text-emerald-700 dark:text-emerald-400 mb-1 font-semibold">{t("visualizer.complexityHeader")}</h4>
-                  <p className="text-2xl font-display font-bold text-foreground">
-                    {t("visualizer.masterArtisan")} <span className="text-sm font-sans font-normal text-muted-foreground ml-2">{t("visualizer.duration")}</span>
+                  <h4 className="text-xs font-mono text-emerald-700 dark:text-emerald-400 mb-1 font-semibold">Sandbox Configuration</h4>
+                  <p className="text-xl font-display font-bold text-foreground">
+                    Custom Artisan Blueprint
                   </p>
                 </div>
-                <div className="space-y-3">
-                  <div className="flex justify-between text-sm border-b border-border/60 pb-2">
-                    <span className="text-muted-foreground">{t("visualizer.structuralLayers")}</span><span className="font-mono text-foreground font-semibold">18 - 22</span>
+
+                {/* Interactive Sliders / Inputs */}
+                <div className="space-y-4 bg-muted/30 p-4 rounded-xl border border-border/60">
+                  <div>
+                    <div className="flex justify-between text-xs font-medium mb-1.5">
+                      <span className="text-muted-foreground">Structural Layers Count</span>
+                      <span className="font-mono text-emerald-600 font-bold">{sandboxLayers} Layers</span>
+                    </div>
+                    <input 
+                      type="range" 
+                      min="8" 
+                      max="32" 
+                      value={sandboxLayers} 
+                      onChange={(e) => setSandboxLayers(Number(e.target.value))}
+                      className="w-full accent-emerald-600 cursor-pointer"
+                    />
                   </div>
-                  <div className="flex justify-between text-sm border-b border-border/60 pb-2">
-                    <span className="text-muted-foreground">{t("visualizer.butterDensity")}</span><span className="text-foreground font-medium">{t("visualizer.butterValue")}</span>
-                  </div>
-                  <div className="flex justify-between text-sm border-b border-border/60 pb-2">
-                    <span className="text-muted-foreground">{t("visualizer.dominantSpice")}</span><span className="text-foreground font-medium">{t("visualizer.spiceValue")}</span>
-                  </div>
-                  <div className="flex justify-between text-sm border-b border-border/60 pb-2">
-                    <span className="text-muted-foreground">{t("visualizer.coreBinding")}</span><span className="text-foreground font-medium">{t("visualizer.bindingValue")}</span>
+
+                  <div className="grid grid-cols-2 gap-4 pt-2">
+                    <div>
+                      <label className="block text-[11px] font-mono uppercase text-muted-foreground mb-1">Butter Emulsion</label>
+                      <select 
+                        value={sandboxButter}
+                        onChange={(e) => setSandboxButter(e.target.value)}
+                        className="w-full rounded-lg border border-border bg-background px-3 py-1.5 text-xs text-foreground font-medium focus:outline-none focus:ring-1 focus:ring-emerald-500 cursor-pointer"
+                      >
+                        <option value="Grade-A Pure">Grade-A Pure</option>
+                        <option value="Rich European Style">Rich European Style</option>
+                        <option value="Artisan Cultured">Artisan Cultured</option>
+                      </select>
+                    </div>
+
+                    <div>
+                      <label className="block text-[11px] font-mono uppercase text-muted-foreground mb-1">Aromatic Infusion</label>
+                      <select 
+                        value={sandboxSpice}
+                        onChange={(e) => setSandboxSpice(e.target.value)}
+                        className="w-full rounded-lg border border-border bg-background px-3 py-1.5 text-xs text-foreground font-medium focus:outline-none focus:ring-1 focus:ring-emerald-500 cursor-pointer"
+                      >
+                        <option value="True Ceylon Blend">True Ceylon Blend</option>
+                        <option value="Sarawak Spiced Mix">Sarawak Spiced Mix</option>
+                        <option value="Bourbon Vanilla Extract">Bourbon Vanilla Extract</option>
+                      </select>
+                    </div>
                   </div>
                 </div>
+
+                {/* Readout stats */}
+                <div className="space-y-2.5">
+                  <div className="flex justify-between text-sm border-b border-border/60 pb-2">
+                    <span className="text-muted-foreground">{t("visualizer.structuralLayers")}</span>
+                    <span className="font-mono text-foreground font-semibold">{sandboxLayers} tiers active</span>
+                  </div>
+                  <div className="flex justify-between text-sm border-b border-border/60 pb-2">
+                    <span className="text-muted-foreground">{t("visualizer.butterDensity")}</span>
+                    <span className="text-emerald-600 font-semibold">{sandboxButter}</span>
+                  </div>
+                  <div className="flex justify-between text-sm border-b border-border/60 pb-2">
+                    <span className="text-muted-foreground">{t("visualizer.dominantSpice")}</span>
+                    <span className="text-emerald-600 font-semibold">{sandboxSpice}</span>
+                  </div>
+                </div>
+
               </div>
             </div>
           </div>

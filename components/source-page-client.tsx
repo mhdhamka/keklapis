@@ -2,12 +2,13 @@
 
 import { useState } from "react"
 import Link from "next/link"
-import { WaterTypeBadge } from "@/components/water-type-badge"
+import { LapisTypeBadge } from "@/components/lapis-type-badge"
 import { ClientDate } from "@/components/client-date"
 import { ClientMapWrapper } from "@/components/client-map-wrapper"
 import { SafeImage } from "@/components/safe-image"
 import { IngredientCompositionPanel } from "@/components/ingredient-composition-panel"
 import { ArrowIcon, RegistryGlyph } from "@/components/editorial-primitives"
+import { ReadingProgressBar } from "@/components/reading-progress-bar"
 import type { Product } from "@/lib/types/db"
 
 type TextureMode = "traditional" | "moist" | "spiced"
@@ -28,9 +29,10 @@ export function SourcePageClient({ product }: { product: Product }) {
   // Cleanly access ingredients_json since db.ts now normalizes it into an array
   const ingredients = product.ingredients_json ?? []
 
-  const scaledIngredients = ingredients.map((ing: { name: string; amount: number; unit: string }) => ({
+  const scaledIngredients = ingredients.map((ing: { name: string; amount: number; unit: string; daily_dri?: number }) => ({
     ...ing,
-    amount: Number((ing.amount * slices * (textureMode === "moist" ? 1.1 : 1.0)).toFixed(1))
+    amount: Number((ing.amount * slices * (textureMode === "moist" ? 1.1 : 1.0)).toFixed(1)),
+    daily_dri: ing.daily_dri ?? Math.round((ing.amount / 100) * 15) // Fallback calculation if daily_dri isn't explicitly defined
   }))
 
   const hasCoordinates = source?.lat != null && source?.lng != null
@@ -63,6 +65,9 @@ Richness: ${currentRichness}%
 
   return (
     <main id="main-content" className="min-h-screen bg-[#F4F6F0] text-[#1B2A1E]">
+      {/* Client-side reading progress bar */}
+      <ReadingProgressBar />
+
       {/* Modernized, immersive header with layered glow accents */}
       <header className="relative border-b border-[#D5E1D0]/80 bg-gradient-to-b from-[#E2EBE0] via-[#EAEFE6] to-[#F4F6F0] overflow-hidden">
         <div className="absolute inset-0 opacity-[0.15] bg-[radial-gradient(#3B5336_1.5px,transparent_1.5px)] [background-size:20px_20px] pointer-events-none" />
@@ -70,11 +75,11 @@ Richness: ${currentRichness}%
         
         <div className="mx-auto max-w-[88rem] px-5 pb-16 pt-8 sm:px-8 sm:pb-24 lg:px-12 relative z-10">
           <div className="flex justify-between items-center">
-            <Link href="/#sources" className="inline-flex items-center gap-2 text-xs font-mono uppercase tracking-wider text-[#3B5336] hover:text-[#1B2A1E] transition-all group">
+            <Link href="/#regisrty" className="inline-flex items-center gap-2 text-xs font-mono uppercase tracking-wider text-[#3B5336] hover:text-[#1B2A1E] transition-all group">
               <span className="p-1 rounded-md bg-[#D5E1D0]/50 group-hover:bg-[#3B5336] group-hover:text-white transition-colors">
                 <ArrowIcon direction="left" />
               </span>
-              Back to sources
+              Back to registry
             </Link>
 
             <div className="flex items-center gap-2">
@@ -109,7 +114,6 @@ Richness: ${currentRichness}%
           <div className="mt-10 grid gap-10 lg:grid-cols-[minmax(0,1fr)_24rem] lg:items-end lg:gap-16">
             <div className="space-y-6">
               <div className="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-white/80 backdrop-blur-md border border-[#D5E1D0] text-[#273824] font-mono text-xs shadow-sm">
-                <span className="w-2 h-2 rounded-full bg-[#4A6B43] animate-pulse shadow-[0_0_8px_rgba(74,107,67,0.6)]" />
                 <span className="tracking-wide">Registry Record /</span> 
                 <span className="font-semibold text-[#1B2A1E]">{product.id.slice(0, 8)}</span>
               </div>
@@ -119,7 +123,7 @@ Richness: ${currentRichness}%
               </h1>
 
               <div className="flex flex-wrap items-center gap-4 pt-2">
-                <WaterTypeBadge type={source?.type || "Artisan Bakery"} />
+                <LapisTypeBadge type={source?.type || "Artisan Bakery"} />
                 {source?.location_address && (
                   <span className="flex min-w-0 items-center gap-2 text-sm text-[#4A6B43] bg-white/50 backdrop-blur-sm px-3.5 py-1.5 rounded-xl border border-[#D5E1D0]/60">
                     <RegistryGlyph kind="map" className="h-5 w-5 rounded-sm text-[#3B5336] shrink-0" />
@@ -134,7 +138,7 @@ Richness: ${currentRichness}%
               <span className="absolute right-4 top-4 z-10 font-mono text-[10px] uppercase tracking-[0.14em] text-[#3B5336] bg-white/80 backdrop-blur-md px-2.5 py-1 rounded-lg border border-[#D5E1D0] shadow-sm">
                 Verified Asset
               </span>
-              <SafeImage src={imageUrl} alt={productName} width={640} height={640} loading="eager" fetchPriority="high" className="h-full w-full object-contain p-8 transition-transform duration-700 group-hover:scale-105 group-hover:rotate-1" />
+              <SafeImage src={imageUrl} alt={productName} width={1200} height={1200} loading="eager" fetchPriority="high" className="h-full w-full object-contain p-8 transition-transform duration-700 group-hover:scale-105 group-hover:rotate-1" />
             </div>
           </div>
         </div>
@@ -145,35 +149,47 @@ Richness: ${currentRichness}%
         
         {/* Sticky Sidebar Info */}
         <aside className="space-y-6 lg:sticky lg:top-28">
-          <InfoPanel title="Company Info" index="01">
-            <InfoRow label="Brand" value={brand?.brand_name || "Unknown"} />
-            {brand?.parent_company && <InfoRow label="Parent Company" value={brand.parent_company} />}
-            <InfoRow label="Country" value={source?.country || "Malaysia"} />
-            {brand?.website_url && (
-              <div className="pt-2">
-                <a href={brand.website_url} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 text-xs font-mono uppercase tracking-wider text-white bg-[#3B5336] hover:bg-[#273824] px-4 py-2 rounded-xl transition-all shadow-sm group">
-                  <span>Visit Website</span> 
-                  <ArrowIcon direction="up-right" className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-                </a>
-              </div>
-            )}
-          </InfoPanel>
-
-          <InfoPanel title="Verification" index="02">
-            <div className="space-y-1.5">
-              <span className="text-xs font-mono uppercase tracking-wider text-[#4A6B43]">Status</span>
-              <div>
-                <span className="inline-flex items-center gap-1.5 rounded-full bg-[#E9F0E5] border border-[#D5E1D0] px-3.5 py-1 font-mono text-[11px] font-bold uppercase tracking-[0.08em] text-[#273824] shadow-2xs">
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#3B5336]" />
-                  {product.status || "Pending"}
-                </span>
+          <div className="relative overflow-hidden rounded-3xl border border-[#D5E1D0] bg-white p-6 shadow-sm transition-all hover:shadow-md">
+            <div className="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-[#27351A] via-[#0D7A4F] via-[#5F9E6C] to-[#C2A363]" />
+            <div className="pt-2">
+              <span className="font-mono text-[11px] font-bold uppercase tracking-wider text-[#3B5336]">Company Info</span>
+              <div className="mt-4 space-y-4">
+                <InfoRow label="Brand" value={brand?.brand_name || "Unknown"} />
+                {brand?.parent_company && <InfoRow label="Parent Company" value={brand.parent_company} />}
+                <InfoRow label="Country" value={source?.country || "Malaysia"} />
+                {brand?.website_url && (
+                  <div className="pt-2">
+                    <a href={brand.website_url} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 text-xs font-mono uppercase tracking-wider text-white bg-[#3B5336] hover:bg-[#273824] px-4 py-2 rounded-xl transition-all shadow-sm group">
+                      <span>Visit Website</span> 
+                      <ArrowIcon direction="up-right" className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                    </a>
+                  </div>
+                )}
               </div>
             </div>
-            <InfoRow label="Created Record" value={<ClientDate date={product.created_at} />} />
-            {source?.kkm_approval_number && (
-              <InfoRow label="KKM Approval" value={<span className="font-mono text-xs bg-[#E9F0E5] border border-[#D5E1D0]/60 px-2.5 py-1 rounded-lg text-[#273824] font-semibold block">{source.kkm_approval_number}</span>} />
-            )}
-          </InfoPanel>
+          </div>
+
+          <div className="relative overflow-hidden rounded-3xl border border-[#D5E1D0] bg-white p-6 shadow-sm transition-all hover:shadow-md">
+            <div className="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-[#27351A] via-[#0D7A4F] via-[#5F9E6C] to-[#C2A363]" />
+            <div className="pt-2">
+              <span className="font-mono text-[11px] font-bold uppercase tracking-wider text-[#3B5336]">Verification</span>
+              <div className="mt-4 space-y-4">
+                <div className="space-y-1.5">
+                  <span className="text-[10px] font-mono uppercase tracking-wider text-[#4A6B43] block">Status</span>
+                  <div>
+                    <span className="inline-flex items-center gap-1.5 rounded-full bg-[#E9F0E5] border border-[#D5E1D0] px-3.5 py-1 font-mono text-[11px] font-bold uppercase tracking-[0.08em] text-[#273824] shadow-2xs">
+                      <span className="w-1.5 h-1.5 rounded-full bg-[#3B5336]" />
+                      {product.status || "Pending"}
+                    </span>
+                  </div>
+                </div>
+                <InfoRow label="Created Record" value={<ClientDate date={product.created_at} />} />
+                {source?.kkm_approval_number && (
+                  <InfoRow label="KKM Approval" value={<span className="font-mono text-xs bg-[#E9F0E5] border border-[#D5E1D0]/60 px-2.5 py-1 rounded-lg text-[#273824] font-semibold block">{source.kkm_approval_number}</span>} />
+                )}
+              </div>
+            </div>
+          </div>
         </aside>
 
         {/* Content Section */}
@@ -318,14 +334,14 @@ Richness: ${currentRichness}%
             </div>
           </section>
 
-          {/* Ingredient Composition Panel */}
+          {/* Ingredient Composition Panel (Self-Contained Sorting & Filtering) */}
           <IngredientCompositionPanel ingredients={scaledIngredients} index="04" />
 
-          {/* Section 05: Source Location */}
+          {/* Section 05: Registry Location */}
           <section className="overflow-hidden rounded-3xl border border-[#D5E1D0] bg-white shadow-sm">
             <div className="p-6 sm:p-8 flex items-baseline justify-between border-b border-[#E9F0E5]">
               <div>
-                <h2 className="font-display text-xl sm:text-2xl tracking-[-0.03em] text-[#1B2A1E]">Source Location</h2>
+                <h2 className="font-display text-xl sm:text-2xl tracking-[-0.03em] text-[#1B2A1E]">Registry Location</h2>
                 <p className="text-xs text-[#4A6B43] mt-1">Geographical mapping of the production site.</p>
               </div>
               <span className="font-mono text-[11px] font-bold text-[#3B5336] bg-[#E9F0E5] px-2.5 py-0.5 rounded-full border border-[#D5E1D0]/60">05</span>
@@ -356,23 +372,11 @@ Richness: ${currentRichness}%
   )
 }
 
-function InfoPanel({ title, index, children }: { title: string; index: string; children: React.ReactNode }) {
-  return (
-    <section className="rounded-3xl border border-[#D5E1D0] bg-white p-6 shadow-sm transition-all hover:shadow-md">
-      <div className="flex items-baseline justify-between border-b border-[#E9F0E5] pb-4">
-        <h2 className="font-display text-xl tracking-[-0.03em] text-[#1B2A1E]">{title}</h2>
-        <span className="font-mono text-[11px] font-bold text-[#3B5336] bg-[#E9F0E5] px-2.5 py-0.5 rounded-full border border-[#D5E1D0]/60">{index}</span>
-      </div>
-      <div className="mt-5 space-y-5">{children}</div>
-    </section>
-  )
-}
-
 function InfoRow({ label, value }: { label: string; value: React.ReactNode }) {
   return (
     <div className="group/row">
-      <span className="text-xs font-mono uppercase tracking-wider text-[#4A6B43] block">{label}</span>
-      <div className="mt-1.5 text-sm font-medium leading-6 text-[#1B2A1E]">{value}</div>
+      <span className="text-[10px] font-mono uppercase tracking-wider text-[#4A6B43] block">{label}</span>
+      <div className="mt-1 text-sm font-medium leading-6 text-[#1B2A1E]">{value}</div>
     </div>
   )
 }

@@ -253,7 +253,7 @@ export function HomeMapClient({ products }: { products: Product[] }) {
                   )}
                   <div className="mt-3 pt-2 border-t border-border/60 flex items-center justify-between">
                     <Link 
-                      href={`/sources/${product.id}`} 
+                      href={`/registry/${product.id}`} 
                       className="inline-flex items-center gap-1 text-xs font-semibold text-emerald-700 dark:text-emerald-400 hover:text-emerald-800 transition-colors group/link"
                     >
                       {t("viewDetails")} 

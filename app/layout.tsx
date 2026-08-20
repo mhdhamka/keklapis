@@ -15,10 +15,10 @@ export const metadata: Metadata = {
     template: '%s — Kek Lapis Sarawak',
   },
   description: 'The definitive registry of traditional and modern Kek Lapis Sarawak flavors. Compare ingredients, sweetness levels, textures, and artisanal bakeries from Kuching and beyond.',
-  keywords: ['Kek Lapis Sarawak', 'layer cake Malaysia', 'traditional Sarawak cake', 'Kek Lapis Lumut', 'best Kek Lapis Kuching', 'KekLapis Sarawak'],
+  keywords: ['Kek Lapis Sarawak', 'traditional Sarawak cake', 'Kek Lapis Lumut', 'best Kek Lapis Kuching', 'KekLapis Sarawak'],
   openGraph: {
     title: 'Kek Lapis Sarawak — The Ultimate Heritage Layer Cake Directory',
-    description: 'Explore authentic Sarawak layer cakes, traditional recipes, and local bakeries.',
+    description: 'Explore authentic Kek Lapis Sarawak, traditional recipes, and local bakeries.',
     type: 'website',
   },
 }

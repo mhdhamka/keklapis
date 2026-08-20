@@ -21,7 +21,7 @@ interface Props {
   } 
 }
 
-export function WaterMetricsHelp({ translations: t }: Props) {
+export function LapisMetricsHelp({ translations: t }: Props) {
   return (
     <Dialog>
       <DialogTrigger asChild>

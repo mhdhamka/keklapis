@@ -5,7 +5,7 @@
 // ==========================================
 
 import { NextRequest, NextResponse } from "next/server";
-import { getSources, getSourcesWithCoordinates } from "@/lib/db/sources";
+import { getSources, getSourcesWithCoordinates } from "@/lib/db/registry";
 
 export async function GET(request: NextRequest) {
   try {

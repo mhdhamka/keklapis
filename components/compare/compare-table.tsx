@@ -303,7 +303,7 @@ function ProductColumnHeader({ product }: { product: Product }) {
 
   return (
     <Link
-      href={`/sources/${product.id}`}
+      href={`/registry/${product.id}`}
       className="group/header flex flex-col gap-2.5 p-1 transition-all"
     >
       <span className="relative block aspect-square w-full overflow-hidden rounded-xl border border-emerald-900/15 bg-emerald-950/[0.02] shadow-sm">

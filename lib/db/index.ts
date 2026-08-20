@@ -5,6 +5,6 @@
 // Entity operations
 export * from "./products";
 export * from "./brands";
-export * from "./sources";
+export * from "./registry";
 export * from "./manufacturers";
 export * from "./images";

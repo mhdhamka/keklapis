@@ -43,7 +43,7 @@ function ingredientKey(name: string): string {
 
 // Parse a product's ingredient/spice map into a normalized record keyed by ingredient key.
 export function normalizeIngredients(product: Product): Record<string, number | null> {
-  const raw = product.minerals_json
+  const raw = product.ingredients_json
   let entries: Array<{ name: string; amount: number | null }> = []
 
   type IngredientEntry = { name: string; amount: number | null }
