@@ -1,0 +1,1372 @@
+{
+  "brands": [
+    {
+      "id": "01c234f6-bdb7-4ca3-bf5c-50bfabe9c317",
+      "brand_name": "Spritzer",
+      "parent_company": "Spritzer Group",
+      "website_url": null,
+      "created_at": null,
+      "updated_at": null
+    },
+    {
+      "id": "977f0111-7882-4959-bef2-464676465908",
+      "brand_name": "ASK",
+      "parent_company": "OPM United",
+      "website_url": null,
+      "created_at": null,
+      "updated_at": null
+    },
+    {
+      "id": "ed72ed84-3bf4-4034-9aa9-534b84448cf7",
+      "brand_name": "Dasani",
+      "parent_company": "The Coca-Cola Company",
+      "website_url": null,
+      "created_at": null,
+      "updated_at": null
+    },
+    {
+      "id": "63b97028-ef64-4386-89fc-962505320eb4",
+      "brand_name": "Cactus",
+      "parent_company": "Spritzer Group",
+      "website_url": null,
+      "created_at": null,
+      "updated_at": null
+    },
+    {
+      "id": "e4963bd5-1e66-41aa-b393-d3f65b11669e",
+      "brand_name": "Ice Mountain",
+      "parent_company": "F&N",
+      "website_url": null,
+      "created_at": null,
+      "updated_at": null
+    },
+    {
+      "id": "b4cf3f93-ad94-4dcc-b3ce-1a8bb79151a7",
+      "brand_name": "DESA",
+      "parent_company": "Desa Mineral Water",
+      "website_url": null,
+      "created_at": null,
+      "updated_at": null
+    },
+    {
+      "id": "d1720477-b58e-4091-8606-cf25d4eb706c",
+      "brand_name": "Le Minerale",
+      "parent_company": "Mayora Group",
+      "website_url": null,
+      "created_at": null,
+      "updated_at": null
+    },
+    {
+      "id": "c8526c6a-853d-44d0-bbd5-2350236a1710",
+      "brand_name": "Bubbles O2",
+      "parent_company": "Bubbles O2 Marketing",
+      "website_url": null,
+      "created_at": null,
+      "updated_at": null
+    },
+    {
+      "id": "d4b2d23d-7ac3-43d3-8b81-95aaaa6b48a3",
+      "brand_name": "Borneo Springs",
+      "parent_company": "Borneo Springs Sdn Bhd",
+      "website_url": null,
+      "created_at": null,
+      "updated_at": null
+    },
+    {
+      "id": "ff85eaa9-94e8-44d7-a730-32349701089c",
+      "brand_name": "Summer",
+      "parent_company": "Chuan Sin Sdn Bhd",
+      "website_url": null,
+      "created_at": null,
+      "updated_at": null
+    },
+    {
+      "id": "74362d2a-e868-47aa-a0a4-fde98c4f10b8",
+      "brand_name": "TOPVALU",
+      "parent_company": "AEON",
+      "website_url": null,
+      "created_at": null,
+      "updated_at": null
+    },
+    {
+      "id": "03b9a09a-65b0-4525-9737-03e803ca1cc3",
+      "brand_name": "MOMA",
+      "parent_company": "MOMA Water",
+      "website_url": null,
+      "created_at": null,
+      "updated_at": null
+    },
+    {
+      "id": "1020c35d-f118-4697-b046-941343cae4ce",
+      "brand_name": "Volvic",
+      "parent_company": "Danone",
+      "website_url": null,
+      "created_at": null,
+      "updated_at": null
+    },
+    {
+      "id": "401b021c-425d-45ff-a6ed-f9bfab2affe1",
+      "brand_name": "evian",
+      "parent_company": "Danone",
+      "website_url": null,
+      "created_at": null,
+      "updated_at": null
+    }
+  ],
+  "manufacturers": [
+    {
+      "id": "c19c92a4-343c-468a-9e05-73a82fc81ec8",
+      "name": "Chuan Sin Sdn. Bhd.",
+      "address": null,
+      "created_at": null,
+      "updated_at": null
+    },
+    {
+      "id": "dd05de8e-8a2d-4f82-855f-62cde83a1ab1",
+      "name": "OPM United (M) Sdn Bhd",
+      "address": null,
+      "created_at": null,
+      "updated_at": null
+    },
+    {
+      "id": "ca419516-dcf8-4b83-aa38-a978379b2475",
+      "name": "Vitaton (M) Sdn Bhd",
+      "address": null,
+      "created_at": null,
+      "updated_at": null
+    },
+    {
+      "id": "d93b8215-e34c-4c10-b22c-e9d8da3fe312",
+      "name": "Angenet Sdn. Bhd.",
+      "address": null,
+      "created_at": null,
+      "updated_at": null
+    },
+    {
+      "id": "5b74b717-48ee-415b-af29-fd7b3d134338",
+      "name": "Borneo Springs Sdn Bhd",
+      "address": null,
+      "created_at": null,
+      "updated_at": null
+    },
+    {
+      "id": "fbf4d199-2203-4cd1-bae0-337d476407cc",
+      "name": "Desa Mineral Water (M) Sdn. Bhd.",
+      "address": null,
+      "created_at": null,
+      "updated_at": null
+    },
+    {
+      "id": "970cfab5-e425-4187-b941-05267a216a95",
+      "name": "PT Tirta Fresindo Jaya",
+      "address": null,
+      "created_at": null,
+      "updated_at": null
+    },
+    {
+      "id": "c84389b0-1549-45fd-9b3c-0a3745ebc5ef",
+      "name": "Sciensterra Sdn. Bhd.",
+      "address": null,
+      "created_at": null,
+      "updated_at": null
+    },
+    {
+      "id": "96c34206-43fe-486e-833e-a2526121f030",
+      "name": "Borneo Springs Sdn. Bhd.",
+      "address": null,
+      "created_at": null,
+      "updated_at": null
+    },
+    {
+      "id": "e5fe7a6b-e86a-49c8-8ad9-e2412b7532ac",
+      "name": "Water Revelation Sdn. Bhd.",
+      "address": null,
+      "created_at": null,
+      "updated_at": null
+    },
+    {
+      "id": "38f610bf-ba2a-47c7-8319-b501edfb2bcb",
+      "name": "MOMAWATER SDN. BHD.",
+      "address": null,
+      "created_at": null,
+      "updated_at": null
+    },
+    {
+      "id": "1523a6ea-8b45-4d47-8aab-f3c6068f2fd5",
+      "name": "Danone Group",
+      "address": null,
+      "created_at": null,
+      "updated_at": null
+    },
+    {
+      "id": "768e478c-51e0-4dfb-a4b5-f0b22d338a02",
+      "name": "S.A.E.M.E",
+      "address": null,
+      "created_at": null,
+      "updated_at": null
+    }
+  ],
+  "sources": [
+    {
+      "id": "4433448e-ef13-488f-b84d-323efd5633a0",
+      "source_name": "Taiping Underground Water",
+      "type": "Underground",
+      "location_address": "Lot 1466, Jalan Reservoir, Perak, Malaysia",
+      "lat": "4.82018608",
+      "lng": "100.75184611",
+      "kkm_approval_number": "KKM 163 (24/A/8)",
+      "country": "Malaysia",
+      "created_at": null,
+      "updated_at": null
+    },
+    {
+      "id": "8ee340b1-667e-46c1-b29c-c01748a622e0",
+      "source_name": "Rembau Underground Water",
+      "type": "Underground",
+      "location_address": "Lot 1390, Kg. Chenong, Negeri Sembilan, Malaysia",
+      "lat": "2.56019866",
+      "lng": "102.13615163",
+      "kkm_approval_number": "KKM 163 (24/N/5)",
+      "country": "Malaysia",
+      "created_at": null,
+      "updated_at": null
+    },
+    {
+      "id": "b4920849-b063-497c-a448-c4eb2bc98758",
+      "source_name": "Lenggeng Source",
+      "type": "Underground",
+      "location_address": "Lot 5043, Kg. Sompo, Negeri Sembilan, Malaysia",
+      "lat": "2.83155411",
+      "lng": "101.93045308",
+      "kkm_approval_number": "KKM 163 (24/N/1)",
+      "country": "Malaysia",
+      "created_at": null,
+      "updated_at": null
+    },
+    {
+      "id": "1567c2e5-707b-43c8-ab19-832cd84f03fc",
+      "source_name": "Bukit Jintan",
+      "type": "Underground",
+      "location_address": "PTD 6386, Bukit Jintan, Johor, Malaysia",
+      "lat": "1.98620953",
+      "lng": "103.14957423",
+      "kkm_approval_number": "KKM 163 (24/J/6)",
+      "country": "Malaysia",
+      "created_at": null,
+      "updated_at": null
+    },
+    {
+      "id": "b34d588f-547f-4432-8563-b06cd5bca1d2",
+      "source_name": "Pasuruan Source",
+      "type": "Underground",
+      "location_address": "Desa. Kurung, Kecamatan Kejayan, Kabupaten Pasuruan, East Java (67172), Indonesia",
+      "lat": "-7.72284945",
+      "lng": "112.84746054",
+      "kkm_approval_number": "KKM 163 24/B/62",
+      "country": "Malaysia",
+      "created_at": null,
+      "updated_at": null
+    },
+    {
+      "id": "34b89922-1aac-4b97-aec6-6029e0edad7c",
+      "source_name": "Kanchong Aquifer",
+      "type": "Oxygenated",
+      "location_address": "Telaga Al Asr, Lot 18308, Kompleks Al Ammar, Kg Kanchong, 71200 Rantau, Negeri Sembilan",
+      "lat": "2.59736803",
+      "lng": "101.97267518",
+      "kkm_approval_number": "KKM 163 (24/N/10)",
+      "country": "Malaysia",
+      "created_at": null,
+      "updated_at": null
+    },
+    {
+      "id": "18471608-7336-434c-8732-8b481a9021e1",
+      "source_name": "Karak Source",
+      "type": "Underground",
+      "location_address": "Lot 7399, Jalan Mempaga, Pahang, Malaysia",
+      "lat": "3.48998464",
+      "lng": "102.01819323",
+      "kkm_approval_number": "KKM 163 (24/C/3)",
+      "country": "Malaysia",
+      "created_at": null,
+      "updated_at": null
+    },
+    {
+      "id": "8571c75e-f811-447f-826c-55f523613d31",
+      "source_name": "Taiping Distillation Plant",
+      "type": "Municipal",
+      "location_address": "Lot 898, Jalan Reservoir, Perak, Malaysia",
+      "lat": "4.82029300",
+      "lng": "100.75225073",
+      "kkm_approval_number": "KKM 163 (52/A/1)",
+      "country": "Malaysia",
+      "created_at": null,
+      "updated_at": null
+    },
+    {
+      "id": "60959af6-9ab7-4c07-bf59-54b90ab7219c",
+      "source_name": "Shah Alam Plant",
+      "type": "Municipal",
+      "location_address": "Jalan Sitar 33/6, Selangor, Malaysia",
+      "lat": "3.02121991",
+      "lng": "101.55494004",
+      "kkm_approval_number": null,
+      "country": "Malaysia",
+      "created_at": null,
+      "updated_at": null
+    },
+    {
+      "id": "357c8243-0144-4a28-85af-991511812a8e",
+      "source_name": "Ulu Tiram Plant",
+      "type": "Municipal",
+      "location_address": "Jalan Makmur, Johor, Malaysia",
+      "lat": "1.55248264",
+      "lng": "103.83324294",
+      "kkm_approval_number": "KKM 163 (52/J/41)",
+      "country": "Malaysia",
+      "created_at": null,
+      "updated_at": null
+    },
+    {
+      "id": "501bb7f9-b653-4bb7-a572-9e0d52757b39",
+      "source_name": "Sibu Plant",
+      "type": "Municipal",
+      "location_address": "Lot 96, Upper Lanang, Sarawak, Malaysia",
+      "lat": "2.24149064",
+      "lng": "111.86811504",
+      "kkm_approval_number": "KKM 163 (52/Q/28)",
+      "country": "Malaysia",
+      "created_at": null,
+      "updated_at": null
+    },
+    {
+      "id": "3d51299e-9a7b-4ee9-880c-727333308c65",
+      "source_name": "Clairvic Spring",
+      "type": "Spring",
+      "location_address": "Volvic (Puy de Dôme), Auvergne, France",
+      "lat": "45.88881920",
+      "lng": "3.06103941",
+      "kkm_approval_number": "KKM 163 (24/B/42)",
+      "country": "Malaysia",
+      "created_at": null,
+      "updated_at": null
+    },
+    {
+      "id": "85bb5cb0-5a96-41a5-b566-c6893ee78235",
+      "source_name": "Cachat Spring",
+      "type": "Spring",
+      "location_address": "Evian-les-Bains, Haute-Savoie, France",
+      "lat": "46.39969830",
+      "lng": "6.59164895",
+      "kkm_approval_number": "KKM 163 (24/B/3)",
+      "country": "Malaysia",
+      "created_at": null,
+      "updated_at": null
+    }
+  ],
+  "products": [
+    {
+      "id": "fc1f3cac-311b-4903-88f8-56a5cb7eb9d9",
+      "brand_id": "01c234f6-bdb7-4ca3-bf5c-50bfabe9c317",
+      "manufacturer_id": "c19c92a4-343c-468a-9e05-73a82fc81ec8",
+      "source_id": "4433448e-ef13-488f-b84d-323efd5633a0",
+      "submitted_by": null,
+      "product_name": "Natural Mineral Water",
+      "barcode": "9556145116058",
+      "ph_level": "7.65",
+      "tds": "160.00",
+      "minerals_json": {
+        "_k": {
+          "name": "Potassium",
+          "unit": "mg/L",
+          "amount": 2.4
+        },
+        "_ca": {
+          "name": "Calcium",
+          "unit": "mg/L",
+          "amount": 31
+        },
+        "_mg": {
+          "name": "Magnesium",
+          "unit": "mg/L",
+          "amount": 2.7
+        },
+        "_na": {
+          "name": "Sodium",
+          "unit": "mg/L",
+          "amount": 9.9
+        },
+        "_s_o4": {
+          "name": "Sulphate",
+          "unit": "mg/L",
+          "amount": 4.9
+        },
+        "_h_c_o3": {
+          "name": "Bicarbonate",
+          "unit": "mg/L",
+          "amount": 104
+        },
+        "_si_o2": {
+          "name": "Silica",
+          "unit": "mg/L",
+          "amount": 60
+        }
+      },
+      "status": "approved",
+      "created_at": null,
+      "updated_at": null
+    },
+    {
+      "id": "3a9a4faa-9d1d-473b-8eaa-7d345958b670",
+      "brand_id": "977f0111-7882-4959-bef2-464676465908",
+      "manufacturer_id": "dd05de8e-8a2d-4f82-855f-62cde83a1ab1",
+      "source_id": "8ee340b1-667e-46c1-b29c-c01748a622e0",
+      "submitted_by": null,
+      "product_name": "Natural Mineral Water",
+      "barcode": "9555524003897",
+      "ph_level": "7.30",
+      "tds": "140.00",
+      "minerals_json": {
+        "_k": {
+          "name": "Potassium",
+          "unit": "mg/L",
+          "amount": 2.84
+        },
+        "_ca": {
+          "name": "Calcium",
+          "unit": "mg/L",
+          "amount": 17.41
+        },
+        "_mg": {
+          "name": "Magnesium",
+          "unit": "mg/L",
+          "amount": 0.58
+        },
+        "_na": {
+          "name": "Sodium",
+          "unit": "mg/L",
+          "amount": 36.38
+        }
+      },
+      "status": "approved",
+      "created_at": null,
+      "updated_at": null
+    },
+    {
+      "id": "4cb01915-2a76-4622-bcea-4134855edb00",
+      "brand_id": "ed72ed84-3bf4-4034-9aa9-534b84448cf7",
+      "manufacturer_id": "ca419516-dcf8-4b83-aa38-a978379b2475",
+      "source_id": "b4920849-b063-497c-a448-c4eb2bc98758",
+      "submitted_by": null,
+      "product_name": "Natural Mineral Water",
+      "barcode": "9556537002693",
+      "ph_level": "7.10",
+      "tds": "194.00",
+      "minerals_json": {
+        "_k": {
+          "name": "Potassium",
+          "unit": "mg/L",
+          "amount": 0.5
+        },
+        "_ca": {
+          "name": "Calcium",
+          "unit": "mg/L",
+          "amount": 37.1
+        },
+        "_cl": {
+          "name": "Chloride",
+          "unit": "mg/L",
+          "amount": 5.5
+        },
+        "_mg": {
+          "name": "Magnesium",
+          "unit": "mg/L",
+          "amount": 13.7
+        },
+        "_na": {
+          "name": "Sodium",
+          "unit": "mg/L",
+          "amount": 4.4
+        },
+        "_s_o4": {
+          "name": "Sulphate",
+          "unit": "mg/L",
+          "amount": 8.2
+        },
+        "_h_c_o3": {
+          "name": "Bicarbonate",
+          "unit": "mg/L",
+          "amount": 184
+        }
+      },
+      "status": "approved",
+      "created_at": null,
+      "updated_at": null
+    },
+    {
+      "id": "857026fe-2704-4916-bf1e-f4760ffd6a4c",
+      "brand_id": "63b97028-ef64-4386-89fc-962505320eb4",
+      "manufacturer_id": "d93b8215-e34c-4c10-b22c-e9d8da3fe312",
+      "source_id": "1567c2e5-707b-43c8-ab19-832cd84f03fc",
+      "submitted_by": null,
+      "product_name": "Natural Mineral Water",
+      "barcode": "9556135015002",
+      "ph_level": "7.00",
+      "tds": "136.00",
+      "minerals_json": {
+        "_k": {
+          "name": "Potassium",
+          "unit": "mg/L",
+          "amount": 1.7
+        },
+        "_ca": {
+          "name": "Calcium",
+          "unit": "mg/L",
+          "amount": 21.7
+        },
+        "_cl": {
+          "name": "Chloride",
+          "unit": "mg/L",
+          "amount": 5.7
+        },
+        "_mg": {
+          "name": "Magnesium",
+          "unit": "mg/L",
+          "amount": 5.7
+        },
+        "_na": {
+          "name": "Sodium",
+          "unit": "mg/L",
+          "amount": 12.2
+        },
+        "_s_o4": {
+          "name": "Sulphate",
+          "unit": "mg/L",
+          "amount": 29.8
+        },
+        "_h_c_o3": {
+          "name": "Bicarbonate",
+          "unit": "mg/L",
+          "amount": 59
+        }
+      },
+      "status": "approved",
+      "created_at": null,
+      "updated_at": null
+    },
+    {
+      "id": "3c2bde7e-fe84-401d-b567-b578f7131b31",
+      "brand_id": "e4963bd5-1e66-41aa-b393-d3f65b11669e",
+      "manufacturer_id": "5b74b717-48ee-415b-af29-fd7b3d134338",
+      "source_id": "8ee340b1-667e-46c1-b29c-c01748a622e0",
+      "submitted_by": null,
+      "product_name": "Natural Mineral Water",
+      "barcode": "9556570316856",
+      "ph_level": "7.30",
+      "tds": "120.00",
+      "minerals_json": {
+        "_k": {
+          "name": "Potassium",
+          "unit": "mg/L",
+          "amount": 3.4
+        },
+        "_ca": {
+          "name": "Calcium",
+          "unit": "mg/L",
+          "amount": 21.09
+        },
+        "_cl": {
+          "name": "Chloride",
+          "unit": "mg/L",
+          "amount": 1.5
+        },
+        "_mg": {
+          "name": "Magnesium",
+          "unit": "mg/L",
+          "amount": 0.91
+        },
+        "_na": {
+          "name": "Sodium",
+          "unit": "mg/L",
+          "amount": 19.81
+        },
+        "_h_c_o3": {
+          "name": "Bicarbonate",
+          "unit": "mg/L",
+          "amount": 99.45
+        }
+      },
+      "status": "approved",
+      "created_at": null,
+      "updated_at": null
+    },
+    {
+      "id": "bec52739-469d-418e-a273-058e7fd88d77",
+      "brand_id": "b4cf3f93-ad94-4dcc-b3ce-1a8bb79151a7",
+      "manufacturer_id": "fbf4d199-2203-4cd1-bae0-337d476407cc",
+      "source_id": "1567c2e5-707b-43c8-ab19-832cd84f03fc",
+      "submitted_by": null,
+      "product_name": "Natural Mineral Water",
+      "barcode": "9556135181509",
+      "ph_level": "7.00",
+      "tds": "136.00",
+      "minerals_json": {
+        "_k": {
+          "name": "Potassium",
+          "unit": "mg/L",
+          "amount": 1.7
+        },
+        "_ca": {
+          "name": "Calcium",
+          "unit": "mg/L",
+          "amount": 21.7
+        },
+        "_cl": {
+          "name": "Chloride",
+          "unit": "mg/L",
+          "amount": 5.7
+        },
+        "_mg": {
+          "name": "Magnesium",
+          "unit": "mg/L",
+          "amount": 5.7
+        },
+        "_na": {
+          "name": "Sodium",
+          "unit": "mg/L",
+          "amount": 12.2
+        },
+        "_s_o4": {
+          "name": "Sulphate",
+          "unit": "mg/L",
+          "amount": 29.8
+        },
+        "_h_c_o3": {
+          "name": "Bicarbonate",
+          "unit": "mg/L",
+          "amount": 59
+        }
+      },
+      "status": "approved",
+      "created_at": null,
+      "updated_at": null
+    },
+    {
+      "id": "e72803e3-be82-4448-b875-d89fe0a0990e",
+      "brand_id": "d1720477-b58e-4091-8606-cf25d4eb706c",
+      "manufacturer_id": "970cfab5-e425-4187-b941-05267a216a95",
+      "source_id": "b34d588f-547f-4432-8563-b06cd5bca1d2",
+      "submitted_by": null,
+      "product_name": "Natural Mineral Water",
+      "barcode": "8996001600269",
+      "ph_level": "7.30",
+      "tds": "132.00",
+      "minerals_json": {
+        "_k": {
+          "name": "Potassium",
+          "unit": "mg/L",
+          "amount": 1.5
+        },
+        "_ca": {
+          "name": "Calcium",
+          "unit": "mg/L",
+          "amount": 2.2
+        },
+        "_cl": {
+          "name": "Chloride",
+          "unit": "mg/L",
+          "amount": 2.7
+        },
+        "_mg": {
+          "name": "Magnesium",
+          "unit": "mg/L",
+          "amount": 5.5
+        },
+        "_na": {
+          "name": "Sodium",
+          "unit": "mg/L",
+          "amount": 48.5
+        },
+        "_h_c_o3": {
+          "name": "Bicarbonate",
+          "unit": "mg/L",
+          "amount": 120
+        }
+      },
+      "status": "approved",
+      "created_at": null,
+      "updated_at": null
+    },
+    {
+      "id": "635b1bb5-f0d6-4e50-b722-31306f53c753",
+      "brand_id": "c8526c6a-853d-44d0-bbd5-2350236a1710",
+      "manufacturer_id": "c84389b0-1549-45fd-9b3c-0a3745ebc5ef",
+      "source_id": "34b89922-1aac-4b97-aec6-6029e0edad7c",
+      "submitted_by": null,
+      "product_name": "Naturally Oxygenated Mineral Water",
+      "barcode": "9555978700267",
+      "ph_level": "7.20",
+      "tds": "152.00",
+      "minerals_json": {
+        "_f": {
+          "name": "Fluoride",
+          "unit": "mg/L",
+          "amount": 0.2
+        },
+        "_k": {
+          "name": "Potassium",
+          "unit": "mg/L",
+          "amount": 0.4
+        },
+        "_ca": {
+          "name": "Calcium",
+          "unit": "mg/L",
+          "amount": 27.1
+        },
+        "_mg": {
+          "name": "Magnesium",
+          "unit": "mg/L",
+          "amount": 6.8
+        },
+        "_na": {
+          "name": "Sodium",
+          "unit": "mg/L",
+          "amount": 8
+        },
+        "_h_c_o3": {
+          "name": "Bicarbonate",
+          "unit": "mg/L",
+          "amount": 140
+        }
+      },
+      "status": "approved",
+      "created_at": null,
+      "updated_at": null
+    },
+    {
+      "id": "09b61413-fd29-46f0-bb0f-a890d08ba29b",
+      "brand_id": "01c234f6-bdb7-4ca3-bf5c-50bfabe9c317",
+      "manufacturer_id": "c19c92a4-343c-468a-9e05-73a82fc81ec8",
+      "source_id": "8571c75e-f811-447f-826c-55f523613d31",
+      "submitted_by": null,
+      "product_name": "Drinking Water (Distilled)",
+      "barcode": "9556145115051",
+      "ph_level": "7.00",
+      "tds": null,
+      "minerals_json": {},
+      "status": "approved",
+      "created_at": null,
+      "updated_at": null
+    },
+    {
+      "id": "002e2e3f-86e4-4294-bc13-2da337a6a780",
+      "brand_id": "ff85eaa9-94e8-44d7-a730-32349701089c",
+      "manufacturer_id": "c19c92a4-343c-468a-9e05-73a82fc81ec8",
+      "source_id": "60959af6-9ab7-4c07-bf59-54b90ab7219c",
+      "submitted_by": null,
+      "product_name": "Drinking Water (RO)",
+      "barcode": null,
+      "ph_level": null,
+      "tds": null,
+      "minerals_json": {},
+      "status": "approved",
+      "created_at": null,
+      "updated_at": null
+    },
+    {
+      "id": "3443327a-4cf2-4b7a-b429-5a67d1ca03cd",
+      "brand_id": "74362d2a-e868-47aa-a0a4-fde98c4f10b8",
+      "manufacturer_id": "e5fe7a6b-e86a-49c8-8ad9-e2412b7532ac",
+      "source_id": "357c8243-0144-4a28-85af-991511812a8e",
+      "submitted_by": null,
+      "product_name": "Drinking Water",
+      "barcode": "9555819901228",
+      "ph_level": null,
+      "tds": null,
+      "minerals_json": {},
+      "status": "approved",
+      "created_at": null,
+      "updated_at": null
+    },
+    {
+      "id": "6e3189d0-4206-4fd9-a100-b66b04ef4143",
+      "brand_id": "03b9a09a-65b0-4525-9737-03e803ca1cc3",
+      "manufacturer_id": "38f610bf-ba2a-47c7-8319-b501edfb2bcb",
+      "source_id": "501bb7f9-b653-4bb7-a572-9e0d52757b39",
+      "submitted_by": null,
+      "product_name": "Drinking Water (RO)",
+      "barcode": null,
+      "ph_level": null,
+      "tds": null,
+      "minerals_json": {},
+      "status": "approved",
+      "created_at": null,
+      "updated_at": null
+    },
+    {
+      "id": "b2694dd3-be24-4ab1-a304-6fe603987cd1",
+      "brand_id": "1020c35d-f118-4697-b046-941343cae4ce",
+      "manufacturer_id": "1523a6ea-8b45-4d47-8aab-f3c6068f2fd5",
+      "source_id": "3d51299e-9a7b-4ee9-880c-727333308c65",
+      "submitted_by": null,
+      "product_name": "Natural Mineral Water",
+      "barcode": "3057640100178",
+      "ph_level": "7.00",
+      "tds": null,
+      "minerals_json": {},
+      "status": "approved",
+      "created_at": null,
+      "updated_at": null
+    },
+    {
+      "id": "5b023f93-ae46-44a3-ae7f-f89664ef352f",
+      "brand_id": "401b021c-425d-45ff-a6ed-f9bfab2affe1",
+      "manufacturer_id": "768e478c-51e0-4dfb-a4b5-f0b22d338a02",
+      "source_id": "85bb5cb0-5a96-41a5-b566-c6893ee78235",
+      "submitted_by": null,
+      "product_name": "Natural Mineral Water",
+      "barcode": "3068320063003",
+      "ph_level": "7.20",
+      "tds": "345.00",
+      "minerals_json": {
+        "_f": {
+          "name": "Fluoride",
+          "unit": "mg/L",
+          "amount": 0.06
+        },
+        "_k": {
+          "name": "Potassium",
+          "unit": "mg/L",
+          "amount": 1
+        },
+        "_ca": {
+          "name": "Calcium",
+          "unit": "mg/L",
+          "amount": 80
+        },
+        "_cl": {
+          "name": "Chloride",
+          "unit": "mg/L",
+          "amount": 10
+        },
+        "_mg": {
+          "name": "Magnesium",
+          "unit": "mg/L",
+          "amount": 26
+        },
+        "_na": {
+          "name": "Sodium",
+          "unit": "mg/L",
+          "amount": 6.5
+        },
+        "_n_o3": {
+          "name": "Nitrate",
+          "unit": "mg/L",
+          "amount": 3.8
+        },
+        "_s_o4": {
+          "name": "Sulphate",
+          "unit": "mg/L",
+          "amount": 14
+        },
+        "_h_c_o3": {
+          "name": "Bicarbonate",
+          "unit": "mg/L",
+          "amount": 360
+        },
+        "_si_o2": {
+          "name": "Silica",
+          "unit": "mg/L",
+          "amount": 15
+        }
+      },
+      "status": "approved",
+      "created_at": null,
+      "updated_at": null
+    },
+    {
+      "id": "bba603a0-bd7b-4df8-9047-60355b9665a1",
+      "brand_id": "d4b2d23d-7ac3-43d3-8b81-95aaaa6b48a3",
+      "manufacturer_id": "96c34206-43fe-486e-833e-a2526121f030",
+      "source_id": "18471608-7336-434c-8732-8b481a9021e1",
+      "submitted_by": null,
+      "product_name": "Natural Mineral Water",
+      "barcode": "9556570316856",
+      "ph_level": "7.40",
+      "tds": "106.00",
+      "minerals_json": {
+        "_k": {
+          "name": "Potassium",
+          "unit": "mg/L",
+          "amount": 0.5
+        },
+        "_ca": {
+          "name": "Calcium",
+          "unit": "mg/L",
+          "amount": 21.6
+        },
+        "_cl": {
+          "name": "Chloride",
+          "unit": "mg/L",
+          "amount": 1.3
+        },
+        "_mg": {
+          "name": "Magnesium",
+          "unit": "mg/L",
+          "amount": 1
+        },
+        "_na": {
+          "name": "Sodium",
+          "unit": "mg/L",
+          "amount": 22.1
+        }
+      },
+      "status": "approved",
+      "created_at": null,
+      "updated_at": null
+    }
+  ],
+  "images": [
+    {
+      "id": "cabe4924-df59-42c5-aa6a-5d8e3419e0bc",
+      "filename": "spritzer_yzsedfapt2.webp",
+      "mime_type": "image/webp",
+      "ext": "webp",
+      "size_bytes": 53156,
+      "created_at": "2026-06-14T11:18:05.600Z"
+    },
+    {
+      "id": "22e1dc32-b287-4434-844c-ba92608012cb",
+      "filename": "dasani_mineral_y049tvvbd3.webp",
+      "mime_type": "image/webp",
+      "ext": "webp",
+      "size_bytes": 47232,
+      "created_at": "2026-06-14T11:18:06.057Z"
+    },
+    {
+      "id": "b9d8d3dc-737c-4ef7-93da-280f8d384003",
+      "filename": "cactus_a0dtgbdv8d.webp",
+      "mime_type": "image/webp",
+      "ext": "webp",
+      "size_bytes": 57134,
+      "created_at": "2026-06-14T11:18:06.661Z"
+    },
+    {
+      "id": "18a1e9cc-ce46-4bdd-8aba-4af0d4a40613",
+      "filename": "ice_mountain_eyca91gnnh.jpg",
+      "mime_type": "image/webp",
+      "ext": "webp",
+      "size_bytes": 15524,
+      "created_at": "2026-06-14T11:18:07.414Z"
+    },
+    {
+      "id": "4f00bc55-68d8-4277-a88d-a20499979c7b",
+      "filename": "desa_1_x682bu2gf8.png",
+      "mime_type": "image/webp",
+      "ext": "webp",
+      "size_bytes": 47296,
+      "created_at": "2026-06-14T11:18:08.674Z"
+    },
+    {
+      "id": "eb09765c-6a0f-43b6-a573-dd15338da019",
+      "filename": "le_minerale_6u4087nmfm.jpg",
+      "mime_type": "image/webp",
+      "ext": "webp",
+      "size_bytes": 14404,
+      "created_at": "2026-06-14T11:18:09.632Z"
+    },
+    {
+      "id": "6c631195-5b4e-480b-8827-2894812d05f5",
+      "filename": "bubbles_o2_bitll8g1nu.webp",
+      "mime_type": "image/webp",
+      "ext": "webp",
+      "size_bytes": 9960,
+      "created_at": "2026-06-14T11:18:09.926Z"
+    },
+    {
+      "id": "3f7be51e-56ee-4844-b358-b3d27e074f26",
+      "filename": "spritzer_drinking_water_shdwr0y1kg.webp",
+      "mime_type": "image/webp",
+      "ext": "webp",
+      "size_bytes": 50998,
+      "created_at": "2026-06-14T11:18:10.284Z"
+    },
+    {
+      "id": "2df95316-5e88-48c3-8af8-ee783d4b3863",
+      "filename": "summer_drinking_water_vmkedsell4.jpg",
+      "mime_type": "image/webp",
+      "ext": "webp",
+      "size_bytes": 27228,
+      "created_at": "2026-06-14T11:18:11.346Z"
+    },
+    {
+      "id": "ef2c4fa6-85b0-41cc-af7e-a3a76d542a88",
+      "filename": "topvalu_1_s03e7g148c.jpg",
+      "mime_type": "image/webp",
+      "ext": "webp",
+      "size_bytes": 63056,
+      "created_at": "2026-06-14T11:18:12.122Z"
+    },
+    {
+      "id": "c10b3e2b-a43f-46b2-8cd7-f4b8447bcf1b",
+      "filename": "moma_7whdm44ja8.jpg",
+      "mime_type": "image/webp",
+      "ext": "webp",
+      "size_bytes": 12712,
+      "created_at": "2026-06-14T11:18:13.903Z"
+    },
+    {
+      "id": "fa35c495-a013-4d03-9771-74141de858e5",
+      "filename": "volvic_7bigs35d46.webp",
+      "mime_type": "image/webp",
+      "ext": "webp",
+      "size_bytes": 19404,
+      "created_at": "2026-06-14T11:18:14.279Z"
+    },
+    {
+      "id": "1b7475ad-c1db-46eb-be75-2bb6c96838d4",
+      "filename": "evian_bc3eept1zk.png",
+      "mime_type": "image/webp",
+      "ext": "webp",
+      "size_bytes": 21154,
+      "created_at": "2026-06-14T11:18:16.185Z"
+    },
+    {
+      "id": "b1ff4376-678a-4f35-9d75-79ed6e4cf020",
+      "filename": "borneo_1_mnt3hvde6a.png",
+      "mime_type": "image/webp",
+      "ext": "webp",
+      "size_bytes": 64430,
+      "created_at": "2026-06-14T11:18:17.630Z"
+    },
+    {
+      "id": "8bc9fdc1-45a2-40b4-ba00-d8bdec9d11f4",
+      "filename": "spritzer_yzsedfapt2.webp",
+      "mime_type": "image/webp",
+      "ext": "webp",
+      "size_bytes": 53156,
+      "created_at": "2026-06-14T13:33:54.740Z"
+    },
+    {
+      "id": "487eb5fa-34f2-428b-a4e1-7e0e2dff7159",
+      "filename": "dasani_mineral_y049tvvbd3.webp",
+      "mime_type": "image/webp",
+      "ext": "webp",
+      "size_bytes": 47232,
+      "created_at": "2026-06-14T13:33:55.619Z"
+    },
+    {
+      "id": "bd88521a-d1e0-405a-84f0-629c81094880",
+      "filename": "cactus_a0dtgbdv8d.webp",
+      "mime_type": "image/webp",
+      "ext": "webp",
+      "size_bytes": 57134,
+      "created_at": "2026-06-14T13:33:56.047Z"
+    },
+    {
+      "id": "ddba0a12-ee27-4b82-a6a2-65fcc70f009f",
+      "filename": "ice_mountain_eyca91gnnh.jpg",
+      "mime_type": "image/webp",
+      "ext": "webp",
+      "size_bytes": 15524,
+      "created_at": "2026-06-14T13:33:56.679Z"
+    },
+    {
+      "id": "a70d8a28-7061-4684-8464-5baabb0a40f0",
+      "filename": "desa_1_x682bu2gf8.png",
+      "mime_type": "image/webp",
+      "ext": "webp",
+      "size_bytes": 47296,
+      "created_at": "2026-06-14T13:33:57.357Z"
+    },
+    {
+      "id": "8deb5d96-b2a6-4934-9375-6ac48dd26b9c",
+      "filename": "le_minerale_6u4087nmfm.jpg",
+      "mime_type": "image/webp",
+      "ext": "webp",
+      "size_bytes": 14404,
+      "created_at": "2026-06-14T13:33:57.731Z"
+    },
+    {
+      "id": "60ffde5f-9553-4d64-9d3b-792ecee82714",
+      "filename": "spritzer_yzsedfapt2.webp",
+      "mime_type": "image/webp",
+      "ext": "webp",
+      "size_bytes": 53156,
+      "created_at": "2026-06-14T13:34:31.787Z"
+    },
+    {
+      "id": "4eab4e15-ebbd-4749-a03b-815122071f9c",
+      "filename": "dasani_mineral_y049tvvbd3.webp",
+      "mime_type": "image/webp",
+      "ext": "webp",
+      "size_bytes": 47232,
+      "created_at": "2026-06-14T13:34:33.283Z"
+    },
+    {
+      "id": "82eafd8f-48d6-44cb-b26e-b5f43d580caa",
+      "filename": "cactus_a0dtgbdv8d.webp",
+      "mime_type": "image/webp",
+      "ext": "webp",
+      "size_bytes": 57134,
+      "created_at": "2026-06-14T13:34:33.912Z"
+    },
+    {
+      "id": "1fd7ebd7-7579-4192-81fa-29f8b16157f0",
+      "filename": "ice_mountain_eyca91gnnh.jpg",
+      "mime_type": "image/webp",
+      "ext": "webp",
+      "size_bytes": 15524,
+      "created_at": "2026-06-14T13:34:34.785Z"
+    },
+    {
+      "id": "b9f3d066-c611-4793-9277-18f2b04db0ec",
+      "filename": "desa_1_x682bu2gf8.png",
+      "mime_type": "image/webp",
+      "ext": "webp",
+      "size_bytes": 47296,
+      "created_at": "2026-06-14T13:34:35.404Z"
+    },
+    {
+      "id": "4adc4e7c-5524-43ee-8514-21f00f629964",
+      "filename": "le_minerale_6u4087nmfm.jpg",
+      "mime_type": "image/webp",
+      "ext": "webp",
+      "size_bytes": 14404,
+      "created_at": "2026-06-14T13:34:35.943Z"
+    },
+    {
+      "id": "af0f58e5-dd7b-4f2e-b084-e332b60e7a82",
+      "filename": "bubbles_o2_bitll8g1nu.webp",
+      "mime_type": "image/webp",
+      "ext": "webp",
+      "size_bytes": 9960,
+      "created_at": "2026-06-14T13:34:36.486Z"
+    },
+    {
+      "id": "920e31dd-5e28-4414-b9e8-0271699d132b",
+      "filename": "spritzer_drinking_water_shdwr0y1kg.webp",
+      "mime_type": "image/webp",
+      "ext": "webp",
+      "size_bytes": 50998,
+      "created_at": "2026-06-14T13:34:37.127Z"
+    },
+    {
+      "id": "c4e505a1-479e-44f7-9277-3eb24d1b3e18",
+      "filename": "summer_drinking_water_vmkedsell4.jpg",
+      "mime_type": "image/webp",
+      "ext": "webp",
+      "size_bytes": 27228,
+      "created_at": "2026-06-14T13:34:40.662Z"
+    },
+    {
+      "id": "b85704ae-0236-4b76-8cbb-b09813744f36",
+      "filename": "topvalu_1_s03e7g148c.jpg",
+      "mime_type": "image/webp",
+      "ext": "webp",
+      "size_bytes": 63056,
+      "created_at": "2026-06-14T13:34:42.473Z"
+    },
+    {
+      "id": "c97f2836-213f-4a4e-9473-c2a5c71360ba",
+      "filename": "moma_7whdm44ja8.jpg",
+      "mime_type": "image/webp",
+      "ext": "webp",
+      "size_bytes": 12712,
+      "created_at": "2026-06-14T13:34:46.785Z"
+    },
+    {
+      "id": "4128e8b5-358e-44c3-81c7-238459e1db1e",
+      "filename": "volvic_7bigs35d46.webp",
+      "mime_type": "image/webp",
+      "ext": "webp",
+      "size_bytes": 19404,
+      "created_at": "2026-06-14T13:34:47.382Z"
+    },
+    {
+      "id": "7388d156-ba02-433b-979a-3e66408f39f1",
+      "filename": "evian_bc3eept1zk.png",
+      "mime_type": "image/webp",
+      "ext": "webp",
+      "size_bytes": 21154,
+      "created_at": "2026-06-14T13:34:55.915Z"
+    },
+    {
+      "id": "b9fd7015-c916-4d1d-8ab5-47ee447a95e5",
+      "filename": "borneo_1_mnt3hvde6a.png",
+      "mime_type": "image/webp",
+      "ext": "webp",
+      "size_bytes": 64430,
+      "created_at": "2026-06-14T13:35:04.861Z"
+    },
+    {
+      "id": "8bcdd1e3-e6d2-4aa7-8ef9-de0b877ef0ed",
+      "filename": "cactus.webp",
+      "mime_type": "image/webp",
+      "ext": "webp",
+      "size_bytes": 57134,
+      "created_at": "2026-08-11T12:25:36.693Z"
+    },
+    {
+      "id": "91e223fc-57b0-4685-9d4e-82d556d7cc26",
+      "filename": "dasani.webp",
+      "mime_type": "image/webp",
+      "ext": "webp",
+      "size_bytes": 19908,
+      "created_at": "2026-08-11T12:25:36.695Z"
+    },
+    {
+      "id": "6ad10ea3-0630-463c-b017-ac108a934a66",
+      "filename": "desa_mineral.webp",
+      "mime_type": "image/webp",
+      "ext": "webp",
+      "size_bytes": 9708,
+      "created_at": "2026-08-11T12:25:36.695Z"
+    },
+    {
+      "id": "e3faabf0-5570-425b-8fcc-fcdaeeddb893",
+      "filename": "evian.webp",
+      "mime_type": "image/webp",
+      "ext": "webp",
+      "size_bytes": 9518,
+      "created_at": "2026-08-11T12:25:36.695Z"
+    },
+    {
+      "id": "5ba136e3-6f95-4177-bea8-0016ee9ff219",
+      "filename": "ice_mountain.webp",
+      "mime_type": "image/webp",
+      "ext": "webp",
+      "size_bytes": 39888,
+      "created_at": "2026-08-11T12:25:36.695Z"
+    },
+    {
+      "id": "839acda1-201c-469c-a499-b6b2134c7546",
+      "filename": "le_minerale.webp",
+      "mime_type": "image/webp",
+      "ext": "webp",
+      "size_bytes": 29918,
+      "created_at": "2026-08-11T12:25:36.696Z"
+    },
+    {
+      "id": "1edcc8df-b8c3-4c2e-8fbc-305c737cf258",
+      "filename": "summer.webp",
+      "mime_type": "image/webp",
+      "ext": "webp",
+      "size_bytes": 21670,
+      "created_at": "2026-08-11T12:25:36.696Z"
+    },
+    {
+      "id": "c7a0c500-0069-40ce-b397-263bfb678934",
+      "filename": "volvic.webp",
+      "mime_type": "image/webp",
+      "ext": "webp",
+      "size_bytes": 85048,
+      "created_at": "2026-08-11T12:25:36.696Z"
+    },
+    {
+      "id": "fc1f3cac-311b-4903-88f8-56a5cb7eb9d9",
+      "filename": "fc1f3cac-311b-4903-88f8-56a5cb7eb9d9.webp",
+      "mime_type": "image/webp",
+      "ext": "webp",
+      "size_bytes": 25426,
+      "created_at": "2026-08-11T20:57:31.000Z"
+    }
+  ],
+  "productImages": [
+    {
+      "product_id": "bba603a0-bd7b-4df8-9047-60355b9665a1",
+      "image_id": "cabe4924-df59-42c5-aa6a-5d8e3419e0bc",
+      "sort_order": 0,
+      "created_at": "2026-06-14T11:18:05.610Z"
+    },
+    {
+      "product_id": "635b1bb5-f0d6-4e50-b722-31306f53c753",
+      "image_id": "6c631195-5b4e-480b-8827-2894812d05f5",
+      "sort_order": 0,
+      "created_at": "2026-06-14T11:18:09.931Z"
+    },
+    {
+      "product_id": "09b61413-fd29-46f0-bb0f-a890d08ba29b",
+      "image_id": "3f7be51e-56ee-4844-b358-b3d27e074f26",
+      "sort_order": 0,
+      "created_at": "2026-06-14T11:18:10.289Z"
+    },
+    {
+      "product_id": "6e3189d0-4206-4fd9-a100-b66b04ef4143",
+      "image_id": "2df95316-5e88-48c3-8af8-ee783d4b3863",
+      "sort_order": 0,
+      "created_at": "2026-06-14T11:18:11.363Z"
+    },
+    {
+      "product_id": "3443327a-4cf2-4b7a-b429-5a67d1ca03cd",
+      "image_id": "ef2c4fa6-85b0-41cc-af7e-a3a76d542a88",
+      "sort_order": 0,
+      "created_at": "2026-06-14T11:18:12.126Z"
+    },
+    {
+      "product_id": "857026fe-2704-4916-bf1e-f4760ffd6a4c",
+      "image_id": "8bcdd1e3-e6d2-4aa7-8ef9-de0b877ef0ed",
+      "sort_order": 0,
+      "created_at": "2026-08-11T12:25:36.694Z"
+    },
+    {
+      "product_id": "4cb01915-2a76-4622-bcea-4134855edb00",
+      "image_id": "91e223fc-57b0-4685-9d4e-82d556d7cc26",
+      "sort_order": 0,
+      "created_at": "2026-08-11T12:25:36.695Z"
+    },
+    {
+      "product_id": "bec52739-469d-418e-a273-058e7fd88d77",
+      "image_id": "6ad10ea3-0630-463c-b017-ac108a934a66",
+      "sort_order": 0,
+      "created_at": "2026-08-11T12:25:36.695Z"
+    },
+    {
+      "product_id": "5b023f93-ae46-44a3-ae7f-f89664ef352f",
+      "image_id": "e3faabf0-5570-425b-8fcc-fcdaeeddb893",
+      "sort_order": 0,
+      "created_at": "2026-08-11T12:25:36.695Z"
+    },
+    {
+      "product_id": "3c2bde7e-fe84-401d-b567-b578f7131b31",
+      "image_id": "5ba136e3-6f95-4177-bea8-0016ee9ff219",
+      "sort_order": 0,
+      "created_at": "2026-08-11T12:25:36.696Z"
+    },
+    {
+      "product_id": "e72803e3-be82-4448-b875-d89fe0a0990e",
+      "image_id": "839acda1-201c-469c-a499-b6b2134c7546",
+      "sort_order": 0,
+      "created_at": "2026-08-11T12:25:36.696Z"
+    },
+    {
+      "product_id": "002e2e3f-86e4-4294-bc13-2da337a6a780",
+      "image_id": "1edcc8df-b8c3-4c2e-8fbc-305c737cf258",
+      "sort_order": 0,
+      "created_at": "2026-08-11T12:25:36.696Z"
+    },
+    {
+      "product_id": "b2694dd3-be24-4ab1-a304-6fe603987cd1",
+      "image_id": "c7a0c500-0069-40ce-b397-263bfb678934",
+      "sort_order": 0,
+      "created_at": "2026-08-11T12:25:36.696Z"
+    },
+    {
+      "product_id": "fc1f3cac-311b-4903-88f8-56a5cb7eb9d9",
+      "image_id": "fc1f3cac-311b-4903-88f8-56a5cb7eb9d9",
+      "sort_order": 0,
+      "created_at": "2026-08-11T20:57:31.000Z"
+    }
+  ],
+  "users": [
+    {
+      "id": "0d4c0caa-548b-4e6c-bf00-86896bdbc266",
+      "email": "test@gmail.com",
+      "email_verified": null,
+      "name": null,
+      "image": null,
+      "created_at": "2026-02-01T19:38:05.910Z",
+      "updated_at": "2026-02-01T19:38:05.910Z"
+    }
+  ]
+}
