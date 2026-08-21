@@ -23,7 +23,7 @@
 
 ---
 
-## Interactive Registry Preview
+## Interactive Preview
 
 <div align="center">
 
