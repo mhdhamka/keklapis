@@ -39,9 +39,8 @@
 * **Smart Bakery & Variant Filters:** Instant search and category toggles to surface traditional or modern variants.
 * **Registry Modal Inspector:**
   * **Recipe Records:** Live ingredient and specification details embedded in the UI.
-  * **Heritage Verification:** Automated breakdown of KKM approvals, halal certification, and master house status.
+  * **Heritage Verification:** Automated breakdown of KKM approvals, halal certification, and master bakery status.
   * **Bakery Location Map:** Visual geographic mapping of regional bakeries across Sarawak.
-* **Live Engine Telemetry:** Real-time metrics displaying system uptime, API response latency, and database record health.
 * **Editorial Preloader:** Smooth transitions styled for archival exploration.
 
 ---
