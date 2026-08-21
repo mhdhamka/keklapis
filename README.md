@@ -152,9 +152,7 @@ keklapis/
 ├── app/                        # Next.js App Router
 │   ├── api/                    # API routes
 │   │   ├── export/             # CSV/JSON export endpoints
-│   │   ├── openapi/            # OpenAPI specification
 │   │   └── ...
-│   ├── docs/                   # API documentation (Swagger UI)
 │   ├── (routes)/               # Page routes & views
 │   └── layout.tsx              # Root layout
 ├── components/                 # React components & editorial primitives
