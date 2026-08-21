@@ -54,7 +54,33 @@
     "github": "GitHub",
     "moreOptions": "Lebih banyak pilihan",
     "mobileNavigation": "Menu navigasi",
-    "contributeCta": "Nyumbang resipi"
+    "contributeCta": "Nyumbang resipi",
+    "chat": {
+      "assistant": "AI Assistant",
+      "title": "Kek Lapis AI Copilot",
+      "subtitle": "Pakar Warisan Sarawak",
+      "layerStackBar": "Bar Susun Lapis",
+      "interactivePreview": "Preview Interaktif",
+      "layer1Title": "Lapis 1: Coklat Suam",
+      "layer2Title": "Lapis 2: Beige Mentega",
+      "layer3Title": "Lapis 3: Sage Redup",
+      "layer4Title": "Lapis 4: Sage Cerah",
+      "layer5Title": "Lapis 5: Krim Lembut",
+      "layer1Query": "Cita sikit lok pasal Lapis 1 (Coklat Suam)",
+      "layer2Query": "Cita sikit lok pasal Lapis 2 (Beige Mentega)",
+      "layer3Query": "Cita sikit lok pasal Lapis 3 (Sage Redup)",
+      "layer4Query": "Cita sikit lok pasal Lapis 4 (Sage Cerah)",
+      "layer5Query": "Cita sikit lok pasal Lapis 5 (Krim Lembut)",
+      "prompt1": "Macam ney mok polah Kek Lapis Sarawak yang original?",
+      "prompt2": "Brapa sukatan rempah rahsia ya?",
+      "prompt3": "Apa tips mok nyuruh garisan lapis ya merata?",
+      "welcomeMessage": "Sik kisahlah! Kamek AI Copilot Kek Lapis kitak. Nanyak jak apa pun pasal resepi Kek Lapis Sarawak, teknik melapis, munsik projek tok!",
+      "bakingWisdom": "Tengah bakar lapisan ilmu...",
+      "inputPlaceholder": "Nanyak pasal lapis, resepi, atau teknik...",
+      "apiError": "Uish! Ada rosak sikpat connect ngan Gemini API. Cuba chek key atau console kitak.",
+      "submit": "Hantar",
+      "close" : "Tutup"
+    }
   },
   "footer": {
     "copyright": "© {year} Kek Lapis Sarawak. Arkib warisan kulinari sumber terbukak.",
@@ -127,7 +153,7 @@
     "helpTitle": "Faham Metrik Kek",
     "helpSweetnessTitle": "Skala Manis",
     "helpSweetnessDesc": "Menilai profil rasa manis ngekot standard pake balance rasa.",
-    "helpSweetnessAcidic": "Dibah 7 — Balance / Manis Sedang (nota rempah)",
+    "helpSweetnessAcidic": "Dibah 7 — Balance / Manis Sedang-sedang jak (nota rempah)",
     "helpSweetnessNeutral": "Sekitar 7 — Manis Warisan Tradisional",
     "helpSweetnessAlkaline": "Atas 7 — Super Mewah & Kaya (dominan kastard/krim)",
     "helpDensityTitle": "Indeks Ketumpatan & Kepekatan (D.R.I.)",
@@ -441,7 +467,7 @@
     "productImage": "Gambar Kek Lapis",
     "productImageDesc": "Upload gambar jelas kek yang dipotong dengan pembungkusan.",
     "submitProduct": "Hantar Variasi",
-    "submitting": "Sedang hantar…",
+    "submitting": "Tengah hantar…",
     "submitSuccess": "Hantaran Berjaya",
     "submitSuccessDesc": "Variasi resipi kitak dah dihantar pake semakan.",
     "submitFailed": "Hantaran Gagal",
@@ -704,7 +730,7 @@
       "sweetnessLevels": {
         "mild": "Manis Manja",
         "rich": "Puas Hati & Mewah",
-        "balanced": "Manis Sedang-Sedang"
+        "balanced": "Manis Sedang-Sedang jak"
       },
       "tabs": {
         "layers": "Lapis",
@@ -801,4 +827,5 @@
     "viewDetails": "View details",
     "directions": "Directions"
   }
+
 }

@@ -25,9 +25,9 @@
 
 <div align="center">
 
-![Kek Lapis Archive & Inspector](./src/assets/images/sandbox.png)
+![Kek Lapis Archive & Inspector](./public/images/preview.png)
 
-*Heritage archive data analysis and interactive bakery registry inspector pane*
+*Kek Lapis landing page with editorial typography, navigation palette layers, and language selection*
 
 </div>
 
@@ -39,8 +39,9 @@
 * **Smart Bakery & Variant Filters:** Instant search and category toggles to surface traditional or modern variants.
 * **Registry Modal Inspector:**
   * **Recipe Records:** Live ingredient and specification details embedded in the UI.
-  * **Heritage Verification:** Automated breakdown of KKM approvals, halal certification, and master bakery status.
+  * **Heritage Verification:** Automated breakdown of KKM approvals, halal certification, and master house status.
   * **Bakery Location Map:** Visual geographic mapping of regional bakeries across Sarawak.
+* **AI Heritage Copilot:** Interactive slide-over assistant powered by Google Gemini via `googleopenai` to answer recipe questions, explore baking techniques, and guide users through regional traditions in real time.
 * **Editorial Preloader:** Smooth transitions styled for archival exploration.
 
 ---
@@ -72,12 +73,13 @@
 git clone [https://github.com/mhdhamka/keklapis.git](https://github.com/mhdhamka/keklapis.git)
 cd keklapis
 
-# Install dependencies
+# Install dependencies and the Google OpenAI package
 npm install
+npm install googleopenai
 
-# Set up environment variables (optional — only for chatbot/analytics)
+# Set up environment variables
 cp .env.example .env.local
-# Edit .env.local as needed
+# Edit .env.local to add your Gemini API key
 
 ```
 
@@ -98,12 +100,8 @@ The app will be available at `http://localhost:3000`. No database setup is requi
 Create `.env.local` for development (all optional):
 
 ```bash
-# Chatbot (optional)
-GROQ_API_KEY=""
-
-# Analytics (optional)
-NEXT_PUBLIC_UMAMI_SCRIPT_URL=""
-NEXT_PUBLIC_UMAMI_WEBSITE_ID=""
+# Google Gemini API Key for AI Copilot features
+GEMINI_API_KEY=""
 
 ```
 
@@ -152,6 +150,7 @@ keklapis/
 ├── app/                        # Next.js App Router
 │   ├── api/                    # API routes
 │   │   ├── export/             # CSV/JSON export endpoints
+│   │   ├── chat/               # GoogleOpenAI endpoints
 │   │   └── ...
 │   ├── (routes)/               # Page routes & views
 │   └── layout.tsx              # Root layout
@@ -193,7 +192,7 @@ keklapis/
 * `/api/registry` — Bakery location and verification data
 * `/api/brands` — Brand listings and parent houses
 * `/api/export/products` — CSV and JSON export endpoints for analysis
-* `/api/openapi` — OpenAPI specification and interactive Swagger UI at `/docs`
+* `/api/chat` — AI Copilot endpoint powered by the Google Gemini API via `googleopenai`
 
 ---
 
