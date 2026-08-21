@@ -44,7 +44,7 @@ export default async function GuidePage() {
       <div className="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-[#4A2E15] via-emerald-600 to-[#D9B485] z-50" />
 
       {/* Page Intro with Reading Time & Category Badge */}
-      <PageIntro index="Masterclass Field Guide" title={t("articleTitle")} description={t("articleDesc")}>
+      <PageIntro index={t("masterclassIndex")} title={t("articleTitle")} description={t("articleDesc")}>
         <div className="flex flex-wrap items-center justify-between gap-4 mt-6">
           <div className="flex flex-wrap items-center gap-4">
             <Link href="/" className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-muted-foreground hover:text-emerald-600 transition-colors cursor-pointer">
@@ -55,7 +55,7 @@ export default async function GuidePage() {
               <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>
-              {readingTimeMinutes} min read ({words} words)
+              {t("readTimeLabel", { minutes: readingTimeMinutes, words })}
             </span>
           </div>
 
@@ -86,27 +86,27 @@ export default async function GuidePage() {
                 {/* Quick Jump Index */}
                 <div className="space-y-2 border-t border-border/60 pt-4">
                   <span className="font-mono text-[10px] uppercase tracking-wider text-muted-foreground font-semibold block">
-                    Quick Navigation
+                    {t("quickNavTitle")}
                   </span>
                   <ul className="space-y-1.5 text-xs text-muted-foreground">
                     <li>
                       <a href="#why-butter-quality-matters" className="hover:text-emerald-600 transition-colors block py-0.5">
-                        1. Why Butter Quality Matters
+                        {t("quickNavButter")}
                       </a>
                     </li>
                     <li>
                       <a href="#decoding-richness-and-density" className="hover:text-emerald-600 transition-colors block py-0.5">
-                        2. Decoding Richness & Density
+                        {t("quickNavDensity")}
                       </a>
                     </li>
                     <li>
                       <a href="#top-kek-lapis-bakeries-in-sarawak" className="hover:text-emerald-600 transition-colors block py-0.5">
-                        3. Top Bakeries in Sarawak
+                        {t("quickNavBakeries")}
                       </a>
                     </li>
                     <li>
                       <a href="#how-to-choose-the-best-kek-lapis-for-you" className="hover:text-emerald-600 transition-colors block py-0.5">
-                        4. How to Choose
+                        {t("quickNavChoose")}
                       </a>
                     </li>
                   </ul>
@@ -120,12 +120,12 @@ export default async function GuidePage() {
               
               <div className="p-6 space-y-3">
                 <span className="font-mono text-[10px] uppercase tracking-widest text-emerald-700 dark:text-emerald-400 font-bold block">
-                  Kek Lapis Blueprint
+                  {t("blueprintTitle")}
                 </span>
                 <ul className="space-y-2 text-xs text-muted-foreground pt-1">
-                  <li className="flex items-center justify-between"><span>Base Emulsion</span> <strong className="font-mono text-foreground">Pure Butter</strong></li>
-                  <li className="flex items-center justify-between"><span>Layering Method</span> <strong className="font-mono text-foreground">Top Grill</strong></li>
-                  <li className="flex items-center justify-between"><span>Precision Level</span> <strong className="font-mono text-foreground">Strict 2mm</strong></li>
+                  <li className="flex items-center justify-between"><span>{t("blueprintBase")}</span> <strong className="font-mono text-foreground">{t("blueprintBaseVal")}</strong></li>
+                  <li className="flex items-center justify-between"><span>{t("blueprintMethod")}</span> <strong className="font-mono text-foreground">{t("blueprintMethodVal")}</strong></li>
+                  <li className="flex items-center justify-between"><span>{t("blueprintPrecision")}</span> <strong className="font-mono text-foreground">{t("blueprintPrecisionVal")}</strong></li>
                 </ul>
               </div>
             </div>
@@ -141,9 +141,9 @@ export default async function GuidePage() {
           {/* Interactive Visual Banner for Kek Lapis Craft */}
           <div className="rounded-xl border border-border bg-muted/30 p-5 sm:p-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
             <div className="space-y-1">
-              <span className="font-mono text-[10px] uppercase tracking-widest text-emerald-700 dark:text-emerald-400 font-bold">Heritage Craft</span>
-              <h4 className="font-display text-lg text-foreground">The Art of Sarawak Layering</h4>
-              <p className="text-xs text-muted-foreground">Precision temperature control meets meticulous batter distribution.</p>
+              <span className="font-mono text-[10px] uppercase tracking-widest text-emerald-700 dark:text-emerald-400 font-bold">{t("bannerSubtitle")}</span>
+              <h4 className="font-display text-lg text-foreground">{t("bannerTitle")}</h4>
+              <p className="text-xs text-muted-foreground">{t("bannerDesc")}</p>
             </div>
             <div className="flex gap-1.5 h-8 items-end self-center sm:self-auto" aria-hidden="true">
               <div className="w-2.5 h-full bg-emerald-700 rounded-sm animate-pulse" />
@@ -198,39 +198,39 @@ export default async function GuidePage() {
           <div className="border-t border-border/80 pt-10 mt-12 space-y-6">
             <div>
               <span className="font-mono text-[10px] uppercase tracking-widest text-emerald-700 dark:text-emerald-400 font-bold block mb-1">
-                Reference Base
+                {t("faqSubtitle")}
               </span>
-              <h3 className="font-display text-2xl tracking-tight text-foreground">Kek Lapis Masterclass FAQ & Glossary</h3>
+              <h3 className="font-display text-2xl tracking-tight text-foreground">{t("faqTitle")}</h3>
             </div>
 
             <div className="space-y-3">
               <details className="group rounded-xl border border-border/80 bg-background/50 p-4 transition-all open:bg-emerald-500/5 open:border-emerald-500/30">
                 <summary className="flex cursor-pointer items-center justify-between font-semibold text-foreground text-sm sm:text-base">
-                  <span>What creates the signature moisture and texture in authentic Kek Lapis?</span>
+                  <span>{t("faqQ1")}</span>
                   <span className="ml-6 transition-transform group-open:rotate-180 text-emerald-600">↓</span>
                 </summary>
                 <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-                  The exceptional texture relies on high-ratio premium butter blended smoothly with condensed milk and whole eggs, baked layer-by-layer under top-down heat without dry convection baking.
+                  {t("faqA1")}
                 </p>
               </details>
 
               <details className="group rounded-xl border border-border/80 bg-background/50 p-4 transition-all open:bg-emerald-500/5 open:border-emerald-500/30">
                 <summary className="flex cursor-pointer items-center justify-between font-semibold text-foreground text-sm sm:text-base">
-                  <span>How do I prevent air pockets or layers separating between pours?</span>
+                  <span>{t("faqQ2")}</span>
                   <span className="ml-6 transition-transform group-open:rotate-180 text-emerald-600">↓</span>
                 </summary>
                 <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-                  Always gently press down each newly baked tier with a flat pastry press tool right before spreading the subsequent raw batter layer to expel trapped air bubbles and guarantee structural cohesion.
+                  {t("faqA2")}
                 </p>
               </details>
 
               <details className="group rounded-xl border border-border/80 bg-background/50 p-4 transition-all open:bg-emerald-500/5 open:border-emerald-500/30">
                 <summary className="flex cursor-pointer items-center justify-between font-semibold text-foreground text-sm sm:text-base">
-                  <span>What are the key rules for balancing traditional spices?</span>
+                  <span>{t("faqQ3")}</span>
                   <span className="ml-6 transition-transform group-open:rotate-180 text-emerald-600">↓</span>
                 </summary>
                 <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-                  Traditional spice mixes (rempah lapis) use finely sifted cinnamon, nutmeg, and cardamom, integrated smoothly into the butter-sugar creamed stage.
+                  {t("faqA3")}
                 </p>
               </details>
             </div>
@@ -243,7 +243,7 @@ export default async function GuidePage() {
       <section className="border-t border-border/80 bg-muted/20">
         <div className="mx-auto flex max-w-[88rem] flex-col gap-6 px-5 py-12 sm:px-8 md:flex-row md:items-center md:justify-between lg:px-12">
           <div>
-            <span className="font-mono text-xs uppercase tracking-widest text-emerald-700 dark:text-emerald-400 font-semibold">Continue Exploring</span>
+            <span className="font-mono text-xs uppercase tracking-widest text-emerald-700 dark:text-emerald-400 font-semibold">{t("footerSubtitle")}</span>
             <h2 className="mt-2 font-display text-3xl tracking-[-0.035em] text-foreground">{home("heroCtaBrowse")}</h2>
           </div>
           <div className="flex flex-wrap gap-3">

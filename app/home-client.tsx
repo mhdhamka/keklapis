@@ -10,6 +10,7 @@ import { HomeFilters } from "@/components/home-filters"
 import { LapisMetricsHelp } from "@/components/lapis-metrics-help"
 import { CompareDock } from "@/components/compare/compare-dock"
 import type { ViewMode } from "@/lib/view"
+import { ReadingProgressBar } from "@/components/reading-progress-bar"
 import type { Product, Brand, Source } from "@/lib/types/db"
 
 interface HomeClientProps {
@@ -100,7 +101,6 @@ export default function HomeClient({
     const profileMatch = product.culinary_profile?.toLowerCase().includes(term)
     const nameMatch = product.product_name?.toLowerCase().includes(term)
     
-    // Fixed: properly handle Brand type check using unknown coercion to avoid 'never' inference
     const brandValue = product.brand as unknown
     const brandNameMatch = typeof brandValue === "string" 
       ? brandValue.toLowerCase().includes(term)
@@ -120,7 +120,6 @@ export default function HomeClient({
     if (sort === "richness_dri_asc") return (a.richness_dri ?? Infinity) - (b.richness_dri ?? Infinity)
     if (sort === "richness_dri_desc") return (b.richness_dri ?? -Infinity) - (a.richness_dri ?? -Infinity)
     
-    // Fixed: properly handle Brand objects or names for sorting safely
     const brandStrA = typeof a.brand === "string" ? a.brand : (a.brand as any)?.name ?? ""
     const brandStrB = typeof b.brand === "string" ? b.brand : (b.brand as any)?.name ?? ""
     if (sort === "brand_asc") return brandStrA.localeCompare(brandStrB)
@@ -144,7 +143,6 @@ export default function HomeClient({
 
   const productsById = Object.fromEntries(sortedProducts.map((p) => [p.id, p]))
 
-  // Dynamic color selection based on Butter Emulsion & Aromatic Infusion
   const getDynamicCakePalette = () => {
     let base = ["#4A2E15", "#D9B485", "#2C5E2E"]
 
@@ -167,6 +165,8 @@ export default function HomeClient({
 
   return (
     <main id="main-content" className="min-h-screen overflow-hidden bg-background text-foreground selection:bg-emerald-500/20 selection:text-emerald-800">
+      {/* Client-side reading progress bar */}
+      <ReadingProgressBar />
       
       {/* 1. Festive Bake Day Banner */}
       {showBanner && (
@@ -199,7 +199,6 @@ export default function HomeClient({
               <span className="h-px w-12 sm:w-24 bg-emerald-500/30" aria-hidden="true" />
             </div>
 
-            {/* Kek Lapis Aesthetic Accent Preview */}
             <div className="flex items-center gap-4">
               <div className="hidden sm:flex h-4 w-28 rounded-full overflow-hidden border border-border shadow-xs opacity-80" aria-hidden="true">
                 <div className="flex-1 bg-[#4A2E15]" />
@@ -373,21 +372,28 @@ export default function HomeClient({
                 {hasFilters ? t("matchingSubtitle") : t("allSubtitle")}
               </p>
             </div>
-            <LapisMetricsHelp translations={{
-              index: t("metricsHelp.index"), 
-              trigger: t("metricsHelp.trigger"), 
-              title: t("metricsHelp.title"), 
-              sweetnessTitle: t("metricsHelp.sweetnessTitle"), 
-              sweetnessDesc: t("metricsHelp.sweetnessDesc"), 
-              sweetnessLow: t("metricsHelp.sweetnessLow"), 
-              sweetnessBalanced: t("metricsHelp.sweetnessBalanced"), 
-              sweetnessRich: t("metricsHelp.sweetnessRich"), 
-              moistureTitle: t("metricsHelp.moistureTitle"), 
-              moistureDesc: t("metricsHelp.moistureDesc"),
-              moistureLight: t("metricsHelp.moistureLight"), 
-              moistureStandard: t("metricsHelp.moistureStandard"), 
-              moistureDense: t("metricsHelp.moistureDense"),
-            }} />
+            <LapisMetricsHelp 
+              translations={{
+                index: t("metricsHelp.index"), 
+                trigger: t("metricsHelp.trigger"), 
+                title: t("metricsHelp.title"), 
+                sweetnessTitle: t("metricsHelp.sweetnessTitle"), 
+                sweetnessDesc: t("metricsHelp.sweetnessDesc"), 
+                sweetnessLow: t("metricsHelp.sweetnessLow"), 
+                sweetnessBalanced: t("metricsHelp.sweetnessBalanced"), 
+                sweetnessRich: t("metricsHelp.sweetnessRich"), 
+                moistureTitle: t("metricsHelp.moistureTitle"), 
+                moistureDesc: t("metricsHelp.moistureDesc"),
+                moistureLight: t("metricsHelp.moistureLight"), 
+                moistureStandard: t("metricsHelp.moistureStandard"), 
+                moistureDense: t("metricsHelp.moistureDense"),
+                richnessDriTitle: t("metricsHelp.richnessDriTitle"),
+                richnessDriDesc: t("metricsHelp.richnessDriDesc"),
+                richnessDriLevel1: t("metricsHelp.richnessDriLevel1"),
+                richnessDriLevel2: t("metricsHelp.richnessDriLevel2"),
+                richnessDriLevel3: t("metricsHelp.richnessDriLevel3"),
+              }} 
+            />
           </div>
 
           {/* Sliced Products passed to HomeContent */}
@@ -400,11 +406,11 @@ export default function HomeClient({
               className="mt-12 flex flex-wrap items-center justify-between gap-4 border-t border-emerald-900/15 pt-6 px-2"
             >
               <p className="text-xs font-mono text-muted-foreground">
-                Showing <span className="font-semibold text-foreground">{startIndex + 1}</span> to{" "}
-                <span className="font-semibold text-foreground">
-                  {Math.min(startIndex + itemsPerPage, sortedProducts.length)}
-                </span>{" "}
-                of <span className="font-semibold text-foreground">{sortedProducts.length}</span> varieties
+                {t("pagination.showing", {
+                  start: startIndex + 1,
+                  end: Math.min(startIndex + itemsPerPage, sortedProducts.length),
+                  total: sortedProducts.length
+                })}
               </p>
 
               <div className="flex items-center gap-2">
@@ -414,7 +420,7 @@ export default function HomeClient({
                   disabled={currentPage === 1}
                   className="inline-flex h-9 items-center justify-center rounded-xl border border-border bg-card px-4 text-xs font-semibold uppercase tracking-[0.08em] text-foreground transition-colors hover:bg-muted disabled:pointer-events-none disabled:opacity-40 cursor-pointer"
                 >
-                  Previous
+                  {t("pagination.previous")}
                 </button>
 
                 <div className="hidden items-center gap-1 sm:flex">
@@ -440,7 +446,7 @@ export default function HomeClient({
                   disabled={currentPage === totalPages}
                   className="inline-flex h-9 items-center justify-center rounded-xl border border-border bg-card px-4 text-xs font-semibold uppercase tracking-[0.08em] text-foreground transition-colors hover:bg-muted disabled:pointer-events-none disabled:opacity-40 cursor-pointer"
                 >
-                  Next
+                  {t("pagination.next")}
                 </button>
               </div>
             </nav>

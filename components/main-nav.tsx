@@ -51,12 +51,13 @@ export function MainNav({ initialLocale }: MainNavProps) {
     }
   }, [mobileOpen])
 
+  // Localized routes array using translation keys
   const routes = [
-    { href: "/#overview", label: "Overview", active: pathname === "/", bg: "bg-[#8C7355]", text: "text-white" },       // Layer 1: Warm Brown
-    { href: "/#registry", label: "Registry", active: false, bg: "bg-[#D4C3A3]", text: "text-[#2A241F]" },     // Layer 2: Butter / Beige
-    { href: "/#bakenetwork", label: "BakeNetwork", active: false, bg: "bg-[#596B5A]", text: "text-white" },   // Layer 3: Muted Sage
-    { href: "/masterlapis/guide", label: "MasterLapis", active: false, bg: "bg-[#788877]", text: "text-white" },   // Layer 4: Light Sage
-    { href: "/lapiswiki", label: "LapisWiki", active: false, bg: "bg-[#E6DEC7]", text: "text-[#2A241F]" },     // Layer 5: Soft Cream
+    { href: "/#overview", label: t("home"), active: pathname === "/", bg: "bg-[#8C7355]", text: "text-white" },       // Layer 1: Warm Brown
+    { href: "/#registry", label: t("allSources"), active: false, bg: "bg-[#D4C3A3]", text: "text-[#2A241F]" },    // Layer 2: Butter / Beige
+    { href: "/#bakenetwork", label: t("map"), active: false, bg: "bg-[#596B5A]", text: "text-white" },   // Layer 3: Muted Sage
+    { href: "/masterlapis/guide", label: t("learn"), active: false, bg: "bg-[#788877]", text: "text-white" },   // Layer 4: Light Sage
+    { href: "/lapiswiki", label: t("about"), active: false, bg: "bg-[#E6DEC7]", text: "text-[#2A241F]" },    // Layer 5: Soft Cream
   ]
 
   return (
@@ -86,7 +87,6 @@ export function MainNav({ initialLocale }: MainNavProps) {
           onMouseLeave={() => setHoveredIndex(null)}
         >
           {routes.map((route, index) => {
-            const isHovered = hoveredIndex === index
             return (
               <Link
                 key={route.href}

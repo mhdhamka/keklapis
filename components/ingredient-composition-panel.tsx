@@ -92,9 +92,14 @@ export function IngredientCompositionPanel({
       {/* Header */}
       <div className="p-6 sm:p-8 border-b border-[#E9F0E5] flex flex-col lg:flex-row justify-between items-start lg:items-center gap-4">
         <div>
-          <span className="font-mono text-[10px] uppercase tracking-widest text-[#4A6B43] bg-[#E9F0E5] px-3 py-1 rounded-full border border-[#D5E1D0]/60">
-            {t("compositionDetails")} • {index}
-          </span>
+          <div className="flex items-center gap-2 mb-2">
+            <span className="font-mono text-[10px] uppercase tracking-widest text-[#4A6B43] bg-[#E9F0E5] px-3 py-1 rounded-full border border-[#D5E1D0]/60">
+              {index}
+            </span>
+            <span className="font-mono text-[10px] uppercase tracking-widest text-[#4A6B43] bg-[#E9F0E5] px-3 py-1 rounded-full border border-[#D5E1D0]/60">
+              {t("compositionDetails")}
+            </span>
+          </div>
           <h2 className="font-display text-2xl text-[#1B2A1E] mt-2">{t("title")}</h2>
         </div>
 
@@ -139,8 +144,8 @@ export function IngredientCompositionPanel({
         {/* Visual Stacked Layers */}
         <div className="space-y-3">
           <div className="flex justify-between items-center text-xs font-mono text-[#4A6B43] px-1">
-            <span>Visual Layer Stack (Proportional Weight)</span>
-            <span className="font-bold text-[#1B2A1E]">Total Stack Mass: {totalAmount.toFixed(1)}g</span>
+            <span>{t("visualLayerStack")}</span>
+            <span className="font-bold text-[#1B2A1E]">{t("totalStackMass", { mass: totalAmount.toFixed(1) })}</span>
           </div>
           
           <div className="h-16 w-full flex rounded-2xl overflow-hidden border-2 border-[#D5E1D0]/80 shadow-inner p-1.5 bg-[#F9FBF7] gap-1">

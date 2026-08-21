@@ -41,6 +41,7 @@
   * **Recipe Records:** Live ingredient and specification details embedded in the UI.
   * **Heritage Verification:** Automated breakdown of KKM approvals, halal certification, and master house status.
   * **Bakery Location Map:** Visual geographic mapping of regional bakeries across Sarawak.
+* **Live Engine Telemetry:** Real-time metrics displaying system uptime, API response latency, and database record health.
 * **Editorial Preloader:** Smooth transitions styled for archival exploration.
 
 ---
@@ -53,6 +54,7 @@
 | **Frontend** | React 19, TypeScript, Tailwind CSS, Custom CSS Keyframes & Typography |
 | **Storage** | JSON file (`data/db.json`) via `lib/json-store.ts` — no database server required |
 | **Internationalization** | `next-intl` (English `en` as default, Standard Malay `ms`, and Bahasa Sarawak `bms`) |
+| **API Documentation** | Swagger / OpenAPI available at `/docs` |
 | **Deployment** | Native Node.js with systemd / standalone output |
 
 ---
@@ -99,6 +101,10 @@ Create `.env.local` for development (all optional):
 ```bash
 # Chatbot (optional)
 GROQ_API_KEY=""
+
+# Analytics (optional)
+NEXT_PUBLIC_UMAMI_SCRIPT_URL=""
+NEXT_PUBLIC_UMAMI_WEBSITE_ID=""
 
 ```
 
@@ -190,6 +196,7 @@ keklapis/
 * `/api/registry` — Bakery location and verification data
 * `/api/brands` — Brand listings and parent houses
 * `/api/export/products` — CSV and JSON export endpoints for analysis
+* `/api/openapi` — OpenAPI specification and interactive Swagger UI at `/docs`
 
 ---
 

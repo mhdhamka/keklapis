@@ -219,7 +219,6 @@ export function CompareChart({ products, t }: CompareChartProps) {
                   className="flex items-center justify-between gap-4 p-4 rounded-xl border border-emerald-900/15 bg-emerald-950/[0.02] hover:bg-emerald-950/[0.05] transition-colors"
                 >
                   <div className="flex items-center gap-3 min-w-[180px]">
-                    <span className="h-2.5 w-2.5 rounded-full bg-emerald-700 animate-pulse" />
                     <span className="font-semibold text-xs text-emerald-950 truncate">{brand}</span>
                   </div>
 

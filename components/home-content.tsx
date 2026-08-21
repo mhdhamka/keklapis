@@ -45,10 +45,6 @@ export function HomeContent({ products, view, sort }: HomeContentProps) {
       {/* Control bar above content */}
       <div className="flex items-center justify-between border-b border-emerald-900/10 pb-4 px-1">
         <div className="flex items-center gap-2.5">
-          <span className="h-2 w-2 rounded-full bg-emerald-700 animate-pulse shadow-sm shadow-emerald-700/50" />
-          <p className="text-xs font-mono font-medium text-emerald-950/80 uppercase tracking-wider">
-            Showing <span className="font-bold text-emerald-950">{products.length}</span> results
-          </p>
         </div>
         <ViewToggle current={view} />
       </div>

@@ -24,7 +24,7 @@ export default async function AboutPage() {
       </div>
 
       {/* Hero Header Section with Editorial Flair */}
-      <PageIntro index={`WikiLapis Archive / ${t("title")}`} title={t("title")} description={t("subtitle")}>
+      <PageIntro index={`${t("archivePrefix")} / ${t("title")}`} title={t("title")} description={t("subtitle")}>
         <div className="mt-8 flex flex-wrap items-center gap-4">
           <Link 
             href="/#registry" 
@@ -39,7 +39,7 @@ export default async function AboutPage() {
             href="/masterlapis/guide" 
             className="inline-flex items-center gap-2 rounded-2xl border border-emerald-950/10 bg-card hover:bg-muted/50 px-6 py-3.5 text-xs font-mono font-medium text-foreground transition-all duration-300 shadow-xs"
           >
-            {t("learnLink")} Guide
+            {t("learnLink")} 
           </Link>
         </div>
       </PageIntro>
@@ -48,10 +48,10 @@ export default async function AboutPage() {
         
         {/* Section 01: Purpose & Manifesto */}
         <section className="grid gap-10 lg:grid-cols-[.72fr_1.28fr] lg:gap-20 items-start">
-          <PanelHeading index="Purpose" title={t("whatWeDoTitle")} description={t("whatWeDoDesc")} />
+          <PanelHeading index={t("purposeIndex")} title={t("whatWeDoTitle")} description={t("whatWeDoDesc")} />
           <div className="relative rounded-3xl border border-emerald-950/10 bg-card p-8 sm:p-12 shadow-sm">
             <div className="absolute top-0 right-12 -translate-y-1/2 font-mono text-[10px] uppercase tracking-widest bg-emerald-900 text-white px-3 py-1 rounded-full shadow-sm">
-              Manifesto
+              {t("manifestoBadge")}
             </div>
             <div className="space-y-6 text-lg leading-relaxed text-muted-foreground font-sans">
               <p className="font-medium text-foreground text-xl leading-snug">{t("whatWeDoContent1")}</p>
@@ -68,9 +68,9 @@ export default async function AboutPage() {
 
         {/* Section 02: Specimen Benchmarks Grid */}
         <section className="mt-20 grid gap-6 sm:grid-cols-3 lg:mt-28">
-          <DataPoint index="01" label="Sweetness Profile" value="0—10" unit="Scale" />
-          <DataPoint index="02" label="Richness Density" value="100%" unit="DRI" />
-          <DataPoint index="03" label="Origin Point" value="SARAWAK" unit="MY-13" />
+          <DataPoint index="01" label={t("stat1Label")} value={t("stat1Value")} unit={t("stat1Unit")} />
+          <DataPoint index="02" label={t("stat2Label")} value={t("stat2Value")} unit={t("stat2Unit")} />
+          <DataPoint index="03" label={t("stat3Label")} value={t("stat3Value")} unit={t("stat3Unit")} />
         </section>
 
         {/* Section 03: Open Source / Code Architecture */}
@@ -80,8 +80,8 @@ export default async function AboutPage() {
               {/* Clean Modern Badge */}
               <div className="inline-flex items-center gap-2 rounded-xl bg-emerald-950/5 border border-emerald-950/10 px-3.5 py-1.5 text-xs font-mono text-emerald-900 dark:text-emerald-300">
                 <RegistryGlyph kind="code" />
-                <span>Community Archive</span>
-                <span className="text-muted-foreground/60">/ v2.6</span>
+                <span>{t("communityArchiveBadge")}</span>
+                <span className="text-muted-foreground/60">{t("versionLabel")}</span>
               </div>
 
               <h2 className="mt-6 font-display text-3xl sm:text-4xl lg:text-5xl tracking-tight text-foreground">{t("openSourceTitle")}</h2>
@@ -90,16 +90,16 @@ export default async function AboutPage() {
 
             <div className="mt-10 flex flex-wrap items-center gap-4">
               <a 
-                href="https://github.com/mhdhamka/keklapis" 
+                href={t("githubUrl")} 
                 target="_blank" 
                 rel="noopener noreferrer" 
                 className="inline-flex items-center gap-2.5 rounded-xl bg-foreground text-background hover:bg-emerald-900 hover:text-white px-6 py-3 text-xs font-mono font-bold tracking-wider uppercase transition-all duration-300 shadow-sm"
               >
-                Explore GitHub Repository
+                {t("githubButton")}
                 <ArrowIcon direction="up-right" />
               </a>
               <span className="font-mono text-[11px] text-muted-foreground tracking-wider uppercase">
-                MIT License • Contributions Open
+                {t("licenseText")}
               </span>
             </div>
           </div>
@@ -117,12 +117,13 @@ export default async function AboutPage() {
   )
 }
 
-function DataPoint({ index, label, value, unit }: { index: string; label: string; value: string; unit: string }) {
+async function DataPoint({ index, label, value, unit }: { index: string; label: string; value: string; unit: string }) {
+  const t = await getTranslations("about")
   return (
     <article className="group relative flex flex-col justify-between overflow-hidden rounded-3xl border border-emerald-950/10 bg-card p-8 shadow-sm transition-all duration-300 hover:border-emerald-900/30 hover:shadow-md">
       <div className="flex items-start justify-between">
         <span className="font-mono text-[10px] tracking-widest text-muted-foreground uppercase bg-muted/60 px-2.5 py-1 rounded-md border border-border/40">
-          Specimen /{index}
+          {t("specimenLabel")} /{index}
         </span>
         <span className="font-mono text-xs text-emerald-800 dark:text-emerald-400 font-bold uppercase tracking-wider">
           {unit}

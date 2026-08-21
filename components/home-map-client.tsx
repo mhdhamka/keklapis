@@ -93,28 +93,30 @@ export function HomeMapClient({ products }: { products: Product[] }) {
         },
         (error) => {
           console.error("Error getting location: ", error)
-          alert("Unable to retrieve your location. Please check browser permissions.")
+          alert(t("geolocationError"))
         }
       )
     } else {
-      alert("Geolocation is not supported by your browser")
+      alert(t("geolocationNotSupported"))
     }
   }
 
   return (
-    <div className="relative h-full w-full flex rounded-2xl overflow-hidden border border-border/60 shadow-md group" role="region" aria-label={t("title")}>
+    <div className="relative h-full w-full flex rounded-2xl overflow-hidden border border-border/60 shadow-md group" role="region" aria-label={t("title")} aria-describedby="map-description">
+      <span id="map-description" className="sr-only">{t("description")}</span>
       
       {/* 1. Interactive Sidebar Drawer */}
       <div className={`absolute left-0 top-0 bottom-0 z-20 w-80 bg-card/95 backdrop-blur-md border-r border-border transition-transform duration-300 flex flex-col shadow-2xl ${sidebarOpen ? "translate-x-0" : "-translate-x-full"}`}>
         <div className="p-4 border-b border-border flex items-center justify-between">
           <div>
-            <h2 className="text-sm font-semibold font-display text-foreground">Locations Directory</h2>
-            <p className="text-[11px] text-muted-foreground">{filteredProducts.length} varieties available</p>
+            <h2 className="text-sm font-semibold font-display text-foreground">{t("locationsDirectory")}</h2>
+            <p className="text-[11px] text-muted-foreground mt-0.5 leading-relaxed">{t("description")}</p>
+            <p className="text-[10px] text-emerald-700 dark:text-emerald-400 mt-1.5 font-medium">{t("varietiesAvailable", { count: filteredProducts.length })}</p>
           </div>
           <button 
             onClick={() => setSidebarOpen(false)}
             className="p-1.5 rounded-lg text-muted-foreground hover:bg-muted hover:text-foreground transition-colors"
-            title="Hide sidebar"
+            title={t("hideSidebar")}
           >
             <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
@@ -126,7 +128,7 @@ export function HomeMapClient({ products }: { products: Product[] }) {
         <div className="p-3 border-b border-border/60">
           <input
             type="text"
-            placeholder="Search varieties or cakes..."
+            placeholder={t("searchPlaceholder")}
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             className="w-full rounded-xl bg-background border border-input px-3 py-1.5 text-xs text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-emerald-500/30"
@@ -137,7 +139,7 @@ export function HomeMapClient({ products }: { products: Product[] }) {
         <div className="flex-1 overflow-y-auto p-3 space-y-2">
           {filteredProducts.length === 0 ? (
             <div className="py-8 text-center text-xs text-muted-foreground">
-              No matching bakery locations found.
+              {t("noMatchingLocations")}
             </div>
           ) : (
             filteredProducts.map((product) => {
@@ -176,7 +178,7 @@ export function HomeMapClient({ products }: { products: Product[] }) {
         </div>
       </div>
 
-      {/* Show List Button (Clean top-left position) */}
+      {/* Show List Button */}
       {!sidebarOpen && (
         <button
           onClick={() => setSidebarOpen(true)}
@@ -185,14 +187,13 @@ export function HomeMapClient({ products }: { products: Product[] }) {
           <svg className="h-4 w-4 text-emerald-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
           </svg>
-          <span>Show List</span>
+          <span>{t("showList")}</span>
           <span className="text-border">|</span>
           <span className="flex items-center gap-1.5">
-            <span className="h-2 w-2 rounded-full bg-emerald-600 animate-pulse" />
-            <span className="font-semibold text-emerald-700 dark:text-emerald-400">{filteredProducts.length} Varieties</span>
+            <span className="font-semibold text-emerald-700 dark:text-emerald-400">{t("varietiesCount", { count: filteredProducts.length })}</span>
           </span>
           <span className="text-border">|</span>
-          <span className="text-muted-foreground text-[11px]">Sarawak & Malaysia</span>
+          <span className="text-muted-foreground text-[11px]">{t("regionSubtitle")}</span>
         </button>
       )}
 
@@ -213,7 +214,6 @@ export function HomeMapClient({ products }: { products: Product[] }) {
           url="https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png" 
         />
 
-        {/* User GPS location marker & accuracy radius circle */}
         {userLocation && (
           <>
             <Marker position={userLocation} />
@@ -238,7 +238,6 @@ export function HomeMapClient({ products }: { products: Product[] }) {
               <Popup className="rounded-xl overflow-hidden shadow-2xl border border-emerald-900/10">
                 <article className="p-3 max-w-[220px] bg-card text-card-foreground">
                   <div className="flex items-center gap-1.5 mb-1">
-                    <span className="h-1.5 w-1.5 rounded-full bg-emerald-600 animate-pulse" />
                     <p className="text-xs font-mono uppercase tracking-wider text-emerald-700 dark:text-emerald-400 font-semibold">
                       {product.brand?.brand_name}
                     </p>
@@ -256,7 +255,7 @@ export function HomeMapClient({ products }: { products: Product[] }) {
                       href={`/registry/${product.id}`} 
                       className="inline-flex items-center gap-1 text-xs font-semibold text-emerald-700 dark:text-emerald-400 hover:text-emerald-800 transition-colors group/link"
                     >
-                      {t("viewDetails")} 
+                      {tp("viewDetails")} 
                       <ArrowIcon className="transition-transform duration-200 group-hover/link:translate-x-1" />
                     </Link>
                     <a
@@ -265,7 +264,7 @@ export function HomeMapClient({ products }: { products: Product[] }) {
                       rel="noopener noreferrer"
                       className="text-[10px] font-semibold text-muted-foreground hover:text-emerald-700 underline"
                     >
-                      Directions
+                      {tp("directions")}
                     </a>
                   </div>
                 </article>
@@ -280,24 +279,24 @@ export function HomeMapClient({ products }: { products: Product[] }) {
         <button
           onClick={handleGetUserLocation}
           className="flex items-center gap-2 rounded-xl bg-background/90 px-3.5 py-2.5 text-xs font-medium text-foreground shadow-lg backdrop-blur-md border border-border/60 transition-all hover:bg-emerald-50 hover:text-emerald-800 hover:border-emerald-300 active:scale-95"
-          title="Find bakeries near your GPS location"
+          title={t("findNearMeTitle")}
         >
           <svg className="h-3.5 w-3.5 text-emerald-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
           </svg>
-          <span>Near Me</span>
+          <span>{t("nearMe")}</span>
         </button>
 
         <button
           onClick={() => { setActiveProductId(null); setUserLocation(null); }}
           className="flex items-center gap-2 rounded-xl bg-background/90 px-3.5 py-2.5 text-xs font-medium text-foreground shadow-lg backdrop-blur-md border border-border/60 transition-all hover:bg-emerald-50 hover:text-emerald-800 hover:border-emerald-300 active:scale-95"
-          title="Reset map view"
+          title={t("resetMapTitle")}
         >
           <svg className="h-3.5 w-3.5 text-emerald-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4" />
           </svg>
-          <span>Fit All</span>
+          <span>{t("fitAll")}</span>
         </button>
       </div>
     </div>

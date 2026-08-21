@@ -47,7 +47,6 @@ export function ProductCard({ product, index = 0 }: ProductCardProps) {
         
         {/* Type Badge */}
         <span className="absolute left-4 top-4 z-10 flex items-center gap-1.5 rounded-full bg-emerald-950/5 px-3 py-1 font-mono text-[10px] font-bold uppercase tracking-[0.12em] text-emerald-900 dark:text-emerald-300 border border-emerald-950/10 shadow-xs">
-          <span className="h-1.5 w-1.5 rounded-full bg-emerald-800 animate-pulse" />
           {cakeType}
         </span>
         
@@ -64,7 +63,7 @@ export function ProductCard({ product, index = 0 }: ProductCardProps) {
         {/* View Specimen Hover Action with the Exact App Green */}
         <div className={`absolute right-4 bottom-4 z-10 transition-all duration-300 transform ${isHovered ? "translate-y-0 opacity-100" : "translate-y-2 opacity-0"}`}>
           <span className="inline-flex items-center gap-2 rounded-xl bg-emerald-900 hover:bg-emerald-950 text-white px-3.5 py-2 text-[10px] font-mono font-medium shadow-md transition-colors">
-            View Specimen
+            {t("viewSpecimen")}
             <ArrowGlyph />
           </span>
         </div>

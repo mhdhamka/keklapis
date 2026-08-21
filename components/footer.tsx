@@ -30,7 +30,9 @@ export async function Footer() {
           
           {/* Column 1: Brand & Subtitle Layered Widget */}
           <div className="lg:col-span-4 space-y-3">
-            <p className="text-[11px] font-mono uppercase tracking-wider text-emerald-400 font-semibold px-1">Archive Origin</p>
+            <p className="text-[11px] font-mono uppercase tracking-wider text-emerald-400 font-semibold px-1">
+              {footer("archiveOrigin")}
+            </p>
             <div className="flex flex-col rounded-2xl border border-emerald-800/40 bg-[#12241C] shadow-xl shadow-black/40 overflow-hidden backdrop-blur-md">
               
               {/* Layer 1: Brand Header */}
@@ -44,7 +46,7 @@ export async function Footer() {
                     </svg>
                   </div>
                   <span className="font-display text-xl font-semibold tracking-tight text-white">
-                    Kek Lapis
+                    {footer("brandTitle")}
                   </span>
                 </Link>
               </div>
@@ -58,7 +60,9 @@ export async function Footer() {
 
               {/* Layer 3: Heritage Badge Footer */}
               <div className="px-5 py-3 bg-[#0D1A14] flex items-center justify-between">
-                <span className="text-[11px] font-mono text-emerald-400">Borneo Standard</span>
+                <span className="text-[11px] font-mono text-emerald-400">
+                  {footer("borneoStandard")}
+                </span>
               </div>
 
             </div>
@@ -66,7 +70,9 @@ export async function Footer() {
 
           {/* Column 2: Navigation Links Layered Cake Widget */}
           <div className="lg:col-span-4 space-y-3">
-            <p className="text-[11px] font-mono uppercase tracking-wider text-emerald-400 font-semibold px-1">Navigation Layers</p>
+            <p className="text-[11px] font-mono uppercase tracking-wider text-emerald-400 font-semibold px-1">
+              {footer("navigationLayers")}
+            </p>
             <nav 
               aria-label="Footer navigation"
               className="flex flex-col rounded-2xl border border-emerald-800/40 bg-[#12241C] shadow-xl shadow-black/40 overflow-hidden backdrop-blur-md transition-all duration-300 hover:border-emerald-600"
@@ -74,7 +80,9 @@ export async function Footer() {
               {/* Cake Layer 1: Varieties */}
               <Link href="/#registry" className="group px-5 py-3.5 bg-[#182E24] border-b border-emerald-800/30 flex items-center justify-between transition-colors hover:bg-[#1E372C]">
                 <div className="flex items-center gap-3">
-                  <span className="text-sm font-medium text-emerald-100/90 group-hover:text-white transition-colors">{nav("allSources")}</span>
+                  <span className="text-sm font-medium text-emerald-100/90 group-hover:text-white transition-colors">
+                    {nav("allSources")}
+                  </span>
                 </div>
                 <span className="text-emerald-500 font-mono text-xs group-hover:text-emerald-300 group-hover:translate-x-1 transition-all">→</span>
               </Link>
@@ -82,7 +90,9 @@ export async function Footer() {
               {/* Cake Layer 2: Learn */}
               <Link href="/masterlapis/guide" className="group px-5 py-3.5 bg-[#12241C] border-b border-emerald-800/20 flex items-center justify-between transition-colors hover:bg-[#182E24]">
                 <div className="flex items-center gap-3">
-                  <span className="text-sm font-medium text-emerald-100/90 group-hover:text-white transition-colors">{nav("learn")}</span>
+                  <span className="text-sm font-medium text-emerald-100/90 group-hover:text-white transition-colors">
+                    {nav("learn")}
+                  </span>
                 </div>
                 <span className="text-emerald-500 font-mono text-xs group-hover:text-emerald-300 group-hover:translate-x-1 transition-all">→</span>
               </Link>
@@ -90,7 +100,9 @@ export async function Footer() {
               {/* Cake Layer 3: About */}
               <Link href="/lapiswiki" className="group px-5 py-3.5 bg-[#0D1A14] flex items-center justify-between transition-colors hover:bg-[#12241C]">
                 <div className="flex items-center gap-3">
-                  <span className="text-sm font-medium text-emerald-100/90 group-hover:text-white transition-colors">{nav("about")}</span>
+                  <span className="text-sm font-medium text-emerald-100/90 group-hover:text-white transition-colors">
+                    {nav("about")}
+                  </span>
                 </div>
                 <span className="text-emerald-500 font-mono text-xs group-hover:text-emerald-300 group-hover:translate-x-1 transition-all">→</span>
               </Link>
@@ -99,7 +111,9 @@ export async function Footer() {
 
           {/* Column 3: System Live & GitHub Layered Cake Widget */}
           <div className="lg:col-span-4 space-y-3">
-            <p className="text-[11px] font-mono uppercase tracking-wider text-emerald-400 font-semibold px-1">System Architecture</p>
+            <p className="text-[11px] font-mono uppercase tracking-wider text-emerald-400 font-semibold px-1">
+              {footer("systemArchitecture")}
+            </p>
             <a 
               href="https://github.com/mhdhamka/keklapis" 
               target="_blank" 
@@ -113,22 +127,32 @@ export async function Footer() {
                     <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
                     <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
                   </span>
-                  <span className="text-[11px] font-mono uppercase tracking-wider font-semibold text-emerald-100">System Live</span>
+                  <span className="text-[11px] font-mono uppercase tracking-wider font-semibold text-emerald-100">
+                    {footer("systemLive")}
+                  </span>
                 </div>
-                <span className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-[#0D1A14] text-emerald-400">v1.0</span>
+                <span className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-[#0D1A14] text-emerald-400">
+                  {footer("version")}
+                </span>
               </div>
 
               {/* Cake Layer 2: Description Middle Slice */}
               <div className="px-5 py-4 bg-[#12241C] border-b border-emerald-800/20">
-                <p className="text-xs text-emerald-100/70 leading-relaxed">Public registry running on open-source data layers.</p>
+                <p className="text-xs text-emerald-100/70 leading-relaxed">
+                  {footer("registryDescription")}
+                </p>
               </div>
 
               {/* Cake Layer 3: GitHub Action Bottom Slice */}
               <div className="px-5 py-3.5 bg-[#0D1A14] flex items-center justify-between transition-colors group-hover:bg-[#12241C]">
                 <div className="flex items-center gap-2">
-                  <span className="font-mono text-[11px] uppercase tracking-wider text-emerald-400 font-medium">{about("openSourceTitle")}</span>
+                  <span className="font-mono text-[11px] uppercase tracking-wider text-emerald-400 font-medium">
+                    {about("openSourceTitle")}
+                  </span>
                 </div>
-                <span className="text-[11px] font-mono text-emerald-300 font-semibold group-hover:translate-x-0.5 transition-transform">GitHub ↗</span>
+                <span className="text-[11px] font-mono text-emerald-300 font-semibold group-hover:translate-x-0.5 transition-transform">
+                  {footer("githubLink")} ↗
+                </span>
               </div>
             </a>
           </div>
@@ -141,7 +165,9 @@ export async function Footer() {
           
           <div className="flex items-center gap-6">
             <span className="hidden sm:inline text-emerald-700"></span>
-            <span className="font-mono text-[11px] tracking-wider text-emerald-300 font-semibold bg-[#12241C] px-3 py-1 rounded-full border border-emerald-800/40 shadow-2xs">TRADITION & HERITAGE REGISTRY</span>
+            <span className="font-mono text-[11px] tracking-wider text-emerald-300 font-semibold bg-[#12241C] px-3 py-1 rounded-full border border-emerald-800/40 shadow-2xs">
+              {footer("traditionBadge")}
+            </span>
           </div>
         </div>
 

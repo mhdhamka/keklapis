@@ -2,6 +2,7 @@
 
 import { useState } from "react"
 import Link from "next/link"
+import { useTranslations } from "next-intl" // Assuming next-intl setup
 import { LapisTypeBadge } from "@/components/lapis-type-badge"
 import { ClientDate } from "@/components/client-date"
 import { ClientMapWrapper } from "@/components/client-map-wrapper"
@@ -14,6 +15,7 @@ import type { Product } from "@/lib/types/db"
 type TextureMode = "traditional" | "moist" | "spiced"
 
 export function SourcePageClient({ product }: { product: Product }) {
+  const t = useTranslations("SourcePage")
   const [slices, setSlices] = useState(1)
   const [textureMode, setTextureMode] = useState<TextureMode>("traditional")
   const [activeTab, setActiveTab] = useState<"layers" | "profile">("layers")
@@ -26,17 +28,16 @@ export function SourcePageClient({ product }: { product: Product }) {
   const image = product.images?.[0]
   const imageUrl = image?.url ?? "/placeholder.svg"
   
-  // Cleanly access ingredients_json since db.ts now normalizes it into an array
   const ingredients = product.ingredients_json ?? []
 
   const scaledIngredients = ingredients.map((ing: { name: string; amount: number; unit: string; daily_dri?: number }) => ({
     ...ing,
     amount: Number((ing.amount * slices * (textureMode === "moist" ? 1.1 : 1.0)).toFixed(1)),
-    daily_dri: ing.daily_dri ?? Math.round((ing.amount / 100) * 15) // Fallback calculation if daily_dri isn't explicitly defined
+    daily_dri: ing.daily_dri ?? Math.round((ing.amount / 100) * 15)
   }))
 
   const hasCoordinates = source?.lat != null && source?.lng != null
-  const productName = product.product_name || brand?.brand_name || "Unknown Edition"
+  const productName = product.product_name || brand?.brand_name || t("unknownEdition")
 
   const baseSweetness = product.sweetness != null ? Number(product.sweetness) : 5.0
   const baseRichness = product.richness_dri != null ? Number(product.richness_dri) : 15
@@ -65,10 +66,8 @@ Richness: ${currentRichness}%
 
   return (
     <main id="main-content" className="min-h-screen bg-[#F4F6F0] text-[#1B2A1E]">
-      {/* Client-side reading progress bar */}
       <ReadingProgressBar />
 
-      {/* Modernized, immersive header with layered glow accents */}
       <header className="relative border-b border-[#D5E1D0]/80 bg-gradient-to-b from-[#E2EBE0] via-[#EAEFE6] to-[#F4F6F0] overflow-hidden">
         <div className="absolute inset-0 opacity-[0.15] bg-[radial-gradient(#3B5336_1.5px,transparent_1.5px)] [background-size:20px_20px] pointer-events-none" />
         <div className="absolute -top-24 -right-24 w-96 h-96 rounded-full bg-[#4A6B43]/10 blur-3xl pointer-events-none" />
@@ -79,7 +78,7 @@ Richness: ${currentRichness}%
               <span className="p-1 rounded-md bg-[#D5E1D0]/50 group-hover:bg-[#3B5336] group-hover:text-white transition-colors">
                 <ArrowIcon direction="left" />
               </span>
-              Back to registry
+              {t("actions.backToRegistry")}
             </Link>
 
             <div className="flex items-center gap-2">
@@ -91,22 +90,22 @@ Richness: ${currentRichness}%
                     : "bg-white/80 hover:bg-white border-[#D5E1D0] text-[#3B5336]"
                 }`}
               >
-                {isSaved ? "Saved to Favorites" : "Save Configuration"}
+                {isSaved ? t("actions.savedToFavorites") : t("actions.saveConfiguration")}
               </button>
 
               <button
                 onClick={handlePrintRegistry}
                 className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-white/80 hover:bg-white border border-[#D5E1D0] text-xs font-mono text-[#3B5336] transition-all shadow-sm active:scale-95"
-                title="Print Registry Sheet"
+                title={t("actions.printSheetTitle")}
               >
-                Export PDF
+                {t("actions.exportPdf")}
               </button>
 
               <button
                 onClick={handleCopyConfig}
                 className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-white/80 hover:bg-white border border-[#D5E1D0] text-xs font-mono text-[#3B5336] transition-all shadow-sm active:scale-95"
               >
-                {copiedConfig ? "Configuration Copied!" : "Share Configuration"}
+                {copiedConfig ? t("actions.configCopied") : t("actions.shareConfiguration")}
               </button>
             </div>
           </div>
@@ -114,7 +113,7 @@ Richness: ${currentRichness}%
           <div className="mt-10 grid gap-10 lg:grid-cols-[minmax(0,1fr)_24rem] lg:items-end lg:gap-16">
             <div className="space-y-6">
               <div className="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-white/80 backdrop-blur-md border border-[#D5E1D0] text-[#273824] font-mono text-xs shadow-sm">
-                <span className="tracking-wide">Registry Record /</span> 
+                <span className="tracking-wide">{t("registryRecord")} /</span> 
                 <span className="font-semibold text-[#1B2A1E]">{product.id.slice(0, 8)}</span>
               </div>
 
@@ -123,7 +122,7 @@ Richness: ${currentRichness}%
               </h1>
 
               <div className="flex flex-wrap items-center gap-4 pt-2">
-                <LapisTypeBadge type={source?.type || "Artisan Bakery"} />
+                <LapisTypeBadge type={source?.type || t("defaultArtisanBakery")} />
                 {source?.location_address && (
                   <span className="flex min-w-0 items-center gap-2 text-sm text-[#4A6B43] bg-white/50 backdrop-blur-sm px-3.5 py-1.5 rounded-xl border border-[#D5E1D0]/60">
                     <RegistryGlyph kind="map" className="h-5 w-5 rounded-sm text-[#3B5336] shrink-0" />
@@ -136,7 +135,7 @@ Richness: ${currentRichness}%
             <div className="relative h-72 overflow-hidden rounded-3xl border border-[#D5E1D0] bg-gradient-to-br from-[#E2EBDC] to-[#D5E1D0]/40 shadow-lg sm:h-80 group backdrop-blur-sm">
               <div className="absolute inset-0 bg-black/[0.02] pointer-events-none" />
               <span className="absolute right-4 top-4 z-10 font-mono text-[10px] uppercase tracking-[0.14em] text-[#3B5336] bg-white/80 backdrop-blur-md px-2.5 py-1 rounded-lg border border-[#D5E1D0] shadow-sm">
-                Verified Asset
+                {t("verifiedAsset")}
               </span>
               <SafeImage src={imageUrl} alt={productName} width={1200} height={1200} loading="eager" fetchPriority="high" className="h-full w-full object-contain p-8 transition-transform duration-700 group-hover:scale-105 group-hover:rotate-1" />
             </div>
@@ -152,15 +151,18 @@ Richness: ${currentRichness}%
           <div className="relative overflow-hidden rounded-3xl border border-[#D5E1D0] bg-white p-6 shadow-sm transition-all hover:shadow-md">
             <div className="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-[#27351A] via-[#0D7A4F] via-[#5F9E6C] to-[#C2A363]" />
             <div className="pt-2">
-              <span className="font-mono text-[11px] font-bold uppercase tracking-wider text-[#3B5336]">Company Info</span>
+              <div className="flex items-center justify-between">
+                <span className="font-mono text-[11px] font-bold uppercase tracking-wider text-[#3B5336]">{t("sidebar.companyInfo")}</span>
+                <span className="font-mono text-[11px] font-bold text-[#3B5336] bg-[#E9F0E5] px-2.5 py-0.5 rounded-full border border-[#D5E1D0]/60">01</span>
+              </div>
               <div className="mt-4 space-y-4">
-                <InfoRow label="Brand" value={brand?.brand_name || "Unknown"} />
-                {brand?.parent_company && <InfoRow label="Parent Company" value={brand.parent_company} />}
-                <InfoRow label="Country" value={source?.country || "Malaysia"} />
+                <InfoRow label={t("sidebar.brand")} value={brand?.brand_name || t("unknown")} />
+                {brand?.parent_company && <InfoRow label={t("sidebar.parentCompany")} value={brand.parent_company} />}
+                <InfoRow label={t("sidebar.country")} value={source?.country || t("sidebar.defaultCountry")} />
                 {brand?.website_url && (
                   <div className="pt-2">
                     <a href={brand.website_url} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 text-xs font-mono uppercase tracking-wider text-white bg-[#3B5336] hover:bg-[#273824] px-4 py-2 rounded-xl transition-all shadow-sm group">
-                      <span>Visit Website</span> 
+                      <span>{t("sidebar.visitWebsite")}</span> 
                       <ArrowIcon direction="up-right" className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
                     </a>
                   </div>
@@ -172,20 +174,23 @@ Richness: ${currentRichness}%
           <div className="relative overflow-hidden rounded-3xl border border-[#D5E1D0] bg-white p-6 shadow-sm transition-all hover:shadow-md">
             <div className="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-[#27351A] via-[#0D7A4F] via-[#5F9E6C] to-[#C2A363]" />
             <div className="pt-2">
-              <span className="font-mono text-[11px] font-bold uppercase tracking-wider text-[#3B5336]">Verification</span>
+              <div className="flex items-center justify-between">
+                <span className="font-mono text-[11px] font-bold uppercase tracking-wider text-[#3B5336]">{t("sidebar.verification")}</span>
+                <span className="font-mono text-[11px] font-bold text-[#3B5336] bg-[#E9F0E5] px-2.5 py-0.5 rounded-full border border-[#D5E1D0]/60">02</span>
+              </div>
               <div className="mt-4 space-y-4">
                 <div className="space-y-1.5">
-                  <span className="text-[10px] font-mono uppercase tracking-wider text-[#4A6B43] block">Status</span>
+                  <span className="text-[10px] font-mono uppercase tracking-wider text-[#4A6B43] block">{t("sidebar.status")}</span>
                   <div>
                     <span className="inline-flex items-center gap-1.5 rounded-full bg-[#E9F0E5] border border-[#D5E1D0] px-3.5 py-1 font-mono text-[11px] font-bold uppercase tracking-[0.08em] text-[#273824] shadow-2xs">
                       <span className="w-1.5 h-1.5 rounded-full bg-[#3B5336]" />
-                      {product.status || "Pending"}
+                      {product.status || t("sidebar.pending")}
                     </span>
                   </div>
                 </div>
-                <InfoRow label="Created Record" value={<ClientDate date={product.created_at} />} />
+                <InfoRow label={t("sidebar.createdRecord")} value={<ClientDate date={product.created_at} />} />
                 {source?.kkm_approval_number && (
-                  <InfoRow label="KKM Approval" value={<span className="font-mono text-xs bg-[#E9F0E5] border border-[#D5E1D0]/60 px-2.5 py-1 rounded-lg text-[#273824] font-semibold block">{source.kkm_approval_number}</span>} />
+                  <InfoRow label={t("sidebar.kkmApproval")} value={<span className="font-mono text-xs bg-[#E9F0E5] border border-[#D5E1D0]/60 px-2.5 py-1 rounded-lg text-[#273824] font-semibold block">{source.kkm_approval_number}</span>} />
                 )}
               </div>
             </div>
@@ -194,11 +199,10 @@ Richness: ${currentRichness}%
 
         {/* Content Section */}
         <div className="min-w-0 space-y-6">
-          {/* Section 03: Interactive Profile & Layers */}
           <section className="rounded-3xl border border-[#D5E1D0] bg-white p-6 sm:p-10 shadow-sm">
             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 border-b border-[#E9F0E5] pb-6">
               <div className="flex items-center justify-between sm:justify-start gap-4">
-                <h2 className="font-display text-xl sm:text-2xl tracking-[-0.03em] text-[#1B2A1E]">Interactive Profile & Layers</h2>
+                <h2 className="font-display text-xl sm:text-2xl tracking-[-0.03em] text-[#1B2A1E]">{t("profile.title")}</h2>
                 <span className="font-mono text-[11px] font-bold text-[#3B5336] bg-[#E9F0E5] px-2.5 py-0.5 rounded-full border border-[#D5E1D0]/60">03</span>
               </div>
               
@@ -207,34 +211,34 @@ Richness: ${currentRichness}%
                   onClick={() => setActiveTab("layers")}
                   className={`px-4 py-1.5 rounded-xl text-xs font-mono transition-all ${activeTab === "layers" ? "bg-white text-[#1B2A1E] shadow-sm font-bold" : "text-[#4A6B43] hover:text-[#1B2A1E]"}`}
                 >
-                  Layers
+                  {t("profile.tabs.layers")}
                 </button>
                 <button 
                   onClick={() => setActiveTab("profile")}
                   className={`px-4 py-1.5 rounded-xl text-xs font-mono transition-all ${activeTab === "profile" ? "bg-white text-[#1B2A1E] shadow-sm font-bold" : "text-[#4A6B43] hover:text-[#1B2A1E]"}`}
                 >
-                  Texture
+                  {t("profile.tabs.texture")}
                 </button>
               </div>
             </div>
             
-            <p className="text-xs text-[#4A6B43] mt-2">Customize portion sizes and texture styles with real-time recalculations.</p>
+            <p className="text-xs text-[#4A6B43] mt-2">{t("profile.subtitle")}</p>
             
             <div className="mt-8 space-y-6">
               <div className="grid gap-4 sm:grid-cols-2">
                 <article className="rounded-2xl border border-[#D5E1D0] bg-[#F9FBF7] p-6 transition-all hover:shadow-md hover:border-[#3B5336]/40">
-                  <p className="text-xs font-mono uppercase tracking-wider text-[#4A6B43]">Adjusted Sweetness</p>
+                  <p className="text-xs font-mono uppercase tracking-wider text-[#4A6B43]">{t("profile.adjustedSweetness")}</p>
                   <p className="mt-3 font-display text-5xl leading-none tracking-[-0.04em] text-[#1B2A1E]">{currentSweetness}</p>
                   <p className="mt-2 text-xs font-medium text-[#4A6B43]">
-                    {Number(currentSweetness) < 5 ? "Mildly Sweet" : Number(currentSweetness) > 7 ? "Rich & Decadent" : "Balanced Sweetness"}
+                    {Number(currentSweetness) < 5 ? t("profile.sweetnessLevels.mild") : Number(currentSweetness) > 7 ? t("profile.sweetnessLevels.rich") : t("profile.sweetnessLevels.balanced")}
                   </p>
                 </article>
                 
                 <article className="rounded-2xl border border-[#D5E1D0] bg-[#F9FBF7] p-6 transition-all hover:shadow-md hover:border-[#3B5336]/40">
                   <div className="flex items-center justify-between">
-                    <p className="text-xs font-mono uppercase tracking-wider text-[#4A6B43]">Total Richness DRI</p>
+                    <p className="text-xs font-mono uppercase tracking-wider text-[#4A6B43]">{t("profile.totalRichness")}</p>
                     <span 
-                      title="Increased portion size and texture profile impact fat density and daily recommended intake factors proportionally."
+                      title={t("profile.richnessTooltip")}
                       className="cursor-help font-mono text-xs text-[#3B5336] bg-[#E9F0E5] px-2 py-0.5 rounded border border-[#D5E1D0]"
                     >
                       ?
@@ -243,7 +247,7 @@ Richness: ${currentRichness}%
                   <p className="mt-3 font-display text-5xl leading-none tracking-[-0.04em] text-[#1B2A1E]">
                     {currentRichness}<span className="ml-1 text-sm font-sans font-normal text-[#4A6B43]">%</span>
                   </p>
-                  <p className="mt-2 text-xs font-medium text-[#4A6B43]">Daily Recommended Intake factor</p>
+                  <p className="mt-2 text-xs font-medium text-[#4A6B43]">{t("profile.driFactor")}</p>
                 </article>
               </div>
 
@@ -251,20 +255,20 @@ Richness: ${currentRichness}%
                 <div className="rounded-2xl border border-[#D5E1D0] bg-[#F9FBF7] p-6 sm:p-8 space-y-6">
                   <div className="flex justify-between items-center">
                     <div>
-                      <h4 className="text-sm font-semibold text-[#1B2A1E]">Live Layer Simulator ({totalLayers} Strata Stack)</h4>
+                      <h4 className="text-sm font-semibold text-[#1B2A1E]">{t("layers.simulatorTitle", { totalLayers })}</h4>
                       <p className="text-xs text-[#4A6B43] mt-0.5">
-                        {hoveredLayer !== null ? `Inspecting Tier #${hoveredLayer + 1}` : "Hover over individual strata layers to inspect."}
+                        {hoveredLayer !== null ? t("layers.inspectingTier", { tier: hoveredLayer + 1 }) : t("layers.hoverPrompt")}
                       </p>
                     </div>
                     <span className="font-mono text-xs px-3 py-1.5 rounded-xl bg-[#E9F0E5] border border-[#D5E1D0] text-[#3B5336] font-semibold">
-                      Mode: {textureMode}
+                      {t("layers.modeLabel", { mode: textureMode })}
                     </span>
                   </div>
 
                   <div className="w-full rounded-2xl bg-[#1B2A1E] p-4 shadow-inner border border-[#3B5336]/30 flex flex-col justify-end transition-all duration-300" style={{ height: `${Math.min(320, 140 + (slices * 35))}px` }}>
                     <div className="text-[10px] font-mono text-[#70976A] mb-2 px-1 flex justify-between">
-                      <span>Strata Height Index: {slices} {slices === 1 ? "Slice" : "Slices"} ({totalLayers} Tiers)</span>
-                      {hoveredLayer !== null && <span>Tier {hoveredLayer + 1} Density: Active</span>}
+                      <span>{t("layers.strataIndex", { slices, sliceText: slices === 1 ? t("slice") : t("slices"), totalLayers })}</span>
+                      {hoveredLayer !== null && <span>{t("layers.tierActive", { tier: hoveredLayer + 1 })}</span>}
                     </div>
                     <div className="w-full h-full flex flex-col justify-end gap-1.5 overflow-hidden">
                       {Array.from({ length: totalLayers }).map((_, i) => (
@@ -286,9 +290,9 @@ Richness: ${currentRichness}%
                   <div className="space-y-3 pt-2">
                     <div className="flex justify-between items-center">
                       <label htmlFor="slice-slider" className="text-xs font-mono uppercase tracking-wider text-[#4A6B43]">
-                        Portion Slider: <span className="text-[#1B2A1E] font-bold">{slices} {slices === 1 ? "Slice" : "Slices"}</span>
+                        {t("layers.portionSlider")} <span className="text-[#1B2A1E] font-bold">{slices} {slices === 1 ? t("slice") : t("slices")}</span>
                       </label>
-                      <span className="text-[10px] font-mono text-[#4A6B43]">Adjust to stack layers</span>
+                      <span className="text-[10px] font-mono text-[#4A6B43]">{t("layers.adjustToStack")}</span>
                     </div>
                     <input 
                       id="slice-slider"
@@ -301,17 +305,17 @@ Richness: ${currentRichness}%
                       className="w-full accent-[#3B5336] cursor-pointer h-2.5 bg-[#D5E1D0] rounded-lg"
                     />
                     <div className="flex justify-between text-[10px] font-mono text-[#4A6B43]">
-                      <span>1 Slice</span>
-                      <span>3 Slices</span>
-                      <span>5 Slices</span>
+                      <span>{t("layers.sliderMin")}</span>
+                      <span>{t("layers.sliderMid")}</span>
+                      <span>{t("layers.sliderMax")}</span>
                     </div>
                   </div>
                 </div>
               ) : (
                 <div className="rounded-2xl border border-[#D5E1D0] bg-[#F9FBF7] p-6 sm:p-8 space-y-4">
                   <div>
-                    <h4 className="text-sm font-semibold text-[#1B2A1E]">Texture Matrix Toggles</h4>
-                    <p className="text-xs text-[#4A6B43] mt-0.5">Toggle bake profiles to dynamically calculate richness metrics.</p>
+                    <h4 className="text-sm font-semibold text-[#1B2A1E]">{t("texture.matrixTitle")}</h4>
+                    <p className="text-xs text-[#4A6B43] mt-0.5">{t("texture.matrixSubtitle")}</p>
                   </div>
                   <div className="grid gap-3 sm:grid-cols-3">
                     {(["traditional", "moist", "spiced"] as TextureMode[]).map((mode) => (
@@ -324,8 +328,8 @@ Richness: ${currentRichness}%
                             : "bg-white border-[#D5E1D0] text-[#4A6B43] hover:border-[#3B5336]"
                         }`}
                       >
-                        <span className="font-mono text-[10px] uppercase tracking-wider block opacity-80">Profile</span>
-                        <span className="font-display text-base capitalize mt-1 block font-semibold">{mode}</span>
+                        <span className="font-mono text-[10px] uppercase tracking-wider block opacity-80">{t("texture.profileLabel")}</span>
+                        <span className="font-display text-base capitalize mt-1 block font-semibold">{t(`texture.modes.${mode}`)}</span>
                       </button>
                     ))}
                   </div>
@@ -334,15 +338,13 @@ Richness: ${currentRichness}%
             </div>
           </section>
 
-          {/* Ingredient Composition Panel (Self-Contained Sorting & Filtering) */}
           <IngredientCompositionPanel ingredients={scaledIngredients} index="04" />
 
-          {/* Section 05: Registry Location */}
           <section className="overflow-hidden rounded-3xl border border-[#D5E1D0] bg-white shadow-sm">
             <div className="p-6 sm:p-8 flex items-baseline justify-between border-b border-[#E9F0E5]">
               <div>
-                <h2 className="font-display text-xl sm:text-2xl tracking-[-0.03em] text-[#1B2A1E]">Registry Location</h2>
-                <p className="text-xs text-[#4A6B43] mt-1">Geographical mapping of the production site.</p>
+                <h2 className="font-display text-xl sm:text-2xl tracking-[-0.03em] text-[#1B2A1E]">{t("location.title")}</h2>
+                <p className="text-xs text-[#4A6B43] mt-1">{t("location.subtitle")}</p>
               </div>
               <span className="font-mono text-[11px] font-bold text-[#3B5336] bg-[#E9F0E5] px-2.5 py-0.5 rounded-full border border-[#D5E1D0]/60">05</span>
             </div>
@@ -352,7 +354,7 @@ Richness: ${currentRichness}%
               <div className="grid min-h-72 place-items-center border-t border-[#D5E1D0] bg-[#F4F6F0]/50 p-8 text-center">
                 <div>
                   <RegistryGlyph kind="map" className="mx-auto text-[#4A6B43]" />
-                  <p className="mt-4 text-sm text-[#4A6B43]">Location not available</p>
+                  <p className="mt-4 text-sm text-[#4A6B43]">{t("location.notAvailable")}</p>
                   {source?.location_address && <p className="mt-1 text-xs text-[#4A6B43]/70">{source.location_address}</p>}
                 </div>
               </div>
@@ -361,11 +363,10 @@ Richness: ${currentRichness}%
         </div>
       </div>
 
-      {/* Registry Record Audit Log Footer */}
       <footer className="border-t border-[#D5E1D0]/80 bg-[#EAEFE6]/50 py-6 text-center font-mono text-xs text-[#4A6B43]">
         <div className="mx-auto max-w-[88rem] px-5 sm:px-8 lg:px-12 flex flex-col sm:flex-row items-center justify-between gap-2">
-          <span>Last Synced: {new Date().toISOString().split("T")[0]} | System Status: Verified</span>
-          <span>Registry Integrity Check: Passed</span>
+          <span>{t("footer.lastSynced", { date: new Date().toISOString().split("T")[0] })}</span>
+          <span>{t("footer.integrityCheck")}</span>
         </div>
       </footer>
     </main>

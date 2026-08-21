@@ -68,7 +68,6 @@ export function SingleSourceMap({
               {sourceName && (
                 <>
                   <div className="flex items-center gap-1.5 mb-1">
-                    <span className="h-1.5 w-1.5 rounded-full bg-emerald-600 animate-pulse" />
                     <p className="text-xs font-mono uppercase tracking-wider text-emerald-700 dark:text-emerald-400 font-semibold">
                       Location
                     </p>
