@@ -1,0 +1,32 @@
+name: GitHub Actions Bot
+
+on:
+  issues:
+    types: [opened]
+  pull_request:
+    types: [opened]
+
+jobs:
+  bot-task:
+    runs-on: ubuntu-latest
+    permissions:
+      issues: write
+      pull-requests: write
+      contents: write
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Automated Welcome Comment
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const { owner, repo } = context.repo;
+            const issueNumber = context.payload.issue ? context.payload.issue.number : context.payload.pull_request.number;
+            
+            await github.rest.issues.createComment({
+              owner: owner,
+              repo: repo,
+              issue_number: issueNumber,
+              body: `Hello @${context.payload.sender.login}! Thanks for opening this. portIDE automated bot is on it! 🚀`
+            });
