@@ -1,50 +1,25 @@
-import createNextIntlPlugin from 'next-intl/plugin'
+import createNextIntlPlugin from 'next-intl/plugin';
 
-const withNextIntl = createNextIntlPlugin('./i18n/request.ts')
-
-let userConfig = undefined
-try {
-  userConfig = await import('./v0-user-next.config')
-} catch (e) {
-  // ignore error
-}
+const withNextIntl = createNextIntlPlugin('./i18n/request.ts');
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  // Optimization: Keep image optimization unoptimized if deploying to static/standalone targets where sharp isn't bundled
   images: {
     unoptimized: true,
   },
-  // Allow cross-origin requests from local network
+  
+  // Development: Local network access origins
   allowedDevOrigins: ['192.168.1.116', '*.192.168.1.116', '*.local'],
-  // Output standalone build for Docker
+
+  // Deployment: Output standalone build for Docker/Node production containers
   output: 'standalone',
+
+  // Performance & Build Speed Optimizations
   experimental: {
-    webpackBuildWorker: true,
-    parallelServerBuildTraces: true,
-    parallelServerCompiles: true,
+    webpackBuildWorker: true, // Enables parallel compilation via worker threads
+    optimizePackageImports: ['lucide-react', '@radix-ui/react-icons'], // Speeds up tree-shaking for icons/UI libs
   },
-}
+};
 
-mergeConfig(nextConfig, userConfig)
-
-function mergeConfig(nextConfig, userConfig) {
-  if (!userConfig) {
-    return
-  }
-
-  for (const key in userConfig) {
-    if (
-      typeof nextConfig[key] === 'object' &&
-      !Array.isArray(nextConfig[key])
-    ) {
-      nextConfig[key] = {
-        ...nextConfig[key],
-        ...userConfig[key],
-      }
-    } else {
-      nextConfig[key] = userConfig[key]
-    }
-  }
-}
-
-export default withNextIntl(nextConfig)
+export default withNextIntl(nextConfig);
