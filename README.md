@@ -43,7 +43,7 @@
   * **Recipe Records:** Live ingredient and specification details embedded in the UI.
   * **Heritage Verification:** Automated breakdown of KKM approvals, halal certification, and master house status.
   * **Bakery Location Map:** Visual geographic mapping of regional bakeries across Sarawak.
-* **AI Heritage Copilot:** Interactive slide-over assistant powered by Google Gemini via `googleopenai` to answer recipe questions, explore baking techniques, and guide users through regional traditions in real time.
+* **AI Heritage Copilot:** Interactive slide-over assistant powered by Google Gemini via `@google/genai` to answer recipe questions, explore baking techniques, and guide users through regional traditions in real time.
 * **Editorial Preloader:** Smooth transitions styled for archival exploration.
 
 ---
@@ -56,7 +56,7 @@
 | **Frontend** | React 19, TypeScript, Tailwind CSS, Custom CSS Keyframes & Typography |
 | **Storage** | JSON file (`data/db.json`) via `lib/json-store.ts` — no database server required |
 | **Internationalization** | `next-intl` (English `en` as default, Standard Malay `ms`, and Bahasa Sarawak `bms`) |
-| **AI Integration** | Google Gemini API (`googleopenai`) |
+| **AI Integration** | Google Gemini API (`@google/genai`) |
 | **Deployment** | Native Node.js with systemd / standalone output |
 
 ---
@@ -76,7 +76,7 @@ cd keklapis
 
 # Install dependencies and the Google OpenAI package
 npm install
-npm install googleopenai
+npm install @google/genai
 
 # Set up environment variables
 cp .env.example .env.local
