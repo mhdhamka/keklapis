@@ -38,7 +38,7 @@
     "react-leaflet": "latest",
     "react-markdown": "^10.1.0",
     "recharts": "2.15.0",
-    "swagger-ui-react": "^5.32.13",
+    "swagger-ui-react": "^5.32.14",
     "tailwind-merge": "^2.5.5",
     "tailwindcss-animate": "^1.0.7",
     "zod": "^3.24.1"
