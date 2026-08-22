@@ -23,9 +23,7 @@ jobs:
       - name: AI Code Review with Gemini
         uses: actions/github-script@v7
         env:
-          GEMINI_API_KEY: ${
-            { secrets.GEMINI_API_KEY }
-          } # Add this secret in your repo settings
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
         with:
           script: |
             const { owner, repo } = context.repo;
@@ -41,7 +39,7 @@ jobs:
             let diffSummary = files.map(f => `File: ${f.filename}\nChanges: +${f.additions} -${f.deletions}`).join('\n');
 
             // Construct review comment
-            const commentBody = `### Kek Lapis AI Code Reviewer\n\nI've inspected the recipe changes for this pull request:\n\`\`\`text\n${diffSummary}\n\`\`\`\n\n*Everything looks layered and structured nicely! Keep up the good work.* 🚀`;
+            const commentBody = `### 🍰 Kek Lapis AI Code Reviewer\n\nI've inspected the recipe changes for this pull request:\n\`\`\`text\n${diffSummary}\n\`\`\`\n\n*Everything looks layered and structured nicely! Keep up the good work.* 🚀`;
 
             await github.rest.issues.createComment({
               owner,
