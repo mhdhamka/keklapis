@@ -19,7 +19,7 @@
 
 ## Overview
 
-**Kek Lapis** breaks away from static web registries. Built with a high-contrast editorial heritage aesthetic, it functions as an interactive archive for Sarawak layered cakes. Visitors can discover verified bakeries, compare recipes, explore geographical origins via an interactive map, and review baking standards and heritage certifications in real time.
+**Kek Lapis** transforms the traditional web registry into an immersive digital archive for Sarawak’s layered cakes. Designed with a high-contrast editorial heritage aesthetic, it brings together verified bakeries, authentic recipes, geographical origins through an interactive map, and detailed baking standards and heritage certifications all within a living, interactive experience.
 
 ---
 
