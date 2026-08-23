@@ -151,7 +151,7 @@ keklapis/
 ├── app/                        # Next.js App Router
 │   ├── api/                    # API routes
 │   │   ├── export/             # CSV/JSON export endpoints
-│   │   ├── chat/               # GoogleOpenAI endpoints
+│   │   ├── chat/               # Google/GenAI endpoints
 │   │   └── ...
 │   ├── (routes)/               # Page routes & views
 │   └── layout.tsx              # Root layout
