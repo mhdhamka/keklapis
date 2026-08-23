@@ -1,6 +1,6 @@
 <div align="center">
 
-# Kek Lapiss
+# Kek Lapis
 
 **Sarawak's definitive traditional and modern Kek Lapis registry, bakery directory, and heritage archive.**
 
