@@ -107,7 +107,8 @@
   --sidebar-ring: 217.2 91.2% 59.8%;
 }
 
-* {
+/* Replaced any rogue @apply rules with direct CSS fallback for v4 */
+*, ::before, ::after {
   border-color: var(--border);
 }
 
