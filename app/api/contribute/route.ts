@@ -5,48 +5,51 @@
 
 import { NextResponse } from 'next/server';
 import { insert, now } from '@/lib/json-store'; 
+import { contributionSchema } from '@/lib/validations/contribution';
 import type { FlatProductRecord } from '@/lib/types/db';
 
 export async function POST(request: Request) {
   try {
     const body = await request.json();
     
-    // Basic validation matching expected schema requirements
-    if (!body.productName || !body.brand) {
+    // Server-side validation with Zod
+    const validationResult = contributionSchema.safeParse(body);
+    
+    if (!validationResult.success) {
       return NextResponse.json(
-        { success: false, error: 'Product name and brand are required.' },
+        { success: false, error: validationResult.error.issues[0].message },
         { status: 400 }
       );
     }
 
-    // Create the new entry record matching FlatProductRecord structure precisely
+    const validData = validationResult.data;
+
+    // Create the new entry record matching FlatProductRecord structure precisely using validated data
     const timestamp = await now();
     const newEntry = {
       id: `custom-${Date.now()}`,
-      product_name: body.productName,
-      brand: body.brand,
-      manufacturer: body.manufacturer || null,
-      bakery_origin: body.bakeryOrigin || null,
-      type: body.type || 'traditional',
-      culinary_profile: body.culinaryProfile || 'Traditional Spiced',
-      parent_company: body.parentCompany || null,
-      sweetness: body.sweetnessLevel !== undefined && body.sweetnessLevel !== '' ? Number(body.sweetnessLevel) : null,
-      richness_dri: body.richnessDri !== undefined && body.richnessDri !== '' ? Number(body.richnessDri) : null,
-      barcode: body.barcode || '',
-      latitude: body.latitude !== undefined ? body.latitude : null,
-      longitude: body.longitude !== undefined ? body.longitude : null,
-      status: 'pending', // Marked as pending review as specified in your description
+      product_name: validData.productName,
+      brand: validData.brand,
+      manufacturer: validData.manufacturer || null,
+      bakery_origin: validData.bakeryOrigin || null,
+      type: (body.type as string) || 'traditional',
+      culinary_profile: (body.culinaryProfile as string) || 'Traditional Spiced',
+      parent_company: (body.parentCompany as string) || null,
+      sweetness: validData.sweetnessLevel !== undefined && validData.sweetnessLevel !== null ? Number(validData.sweetnessLevel) : null,
+      richness_dri: validData.richnessDri !== undefined && validData.richnessDri !== null ? Number(validData.richnessDri) : null,
+      barcode: validData.barcode || '',
+      latitude: validData.latitude !== undefined ? validData.latitude : null,
+      longitude: validData.longitude !== undefined ? validData.longitude : null,
+      status: 'pending',
       created_at: timestamp,
       updated_at: timestamp,
-      // Additional standard properties to satisfy extension requirements
-      description: body.description || null,
-      ingredients: body.ingredients || null,
-      allergens: body.allergens || null,
+      description: (body.description as string) || null,
+      ingredients: (body.ingredients as string) || null,
+      allergens: (body.allergens as string) || null,
       halal_certified: body.halalCertified ?? true,
-      layers_count: body.layersCount || null,
+      layers_count: (body.layersCount as string) || null,
     } as unknown as FlatProductRecord;
 
-    // Safely insert into the products collection using your store's atomic writer helper
     const insertedRecord = await insert('products', newEntry);
 
     return NextResponse.json({ success: true, data: insertedRecord });

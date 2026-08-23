@@ -367,7 +367,7 @@
     "textureDensityContent": "Lembut & melantun (kukus) sampai Padat, lembap, dengan terikat kemas (bakar tradisional berlapis)",
     "tabArticles": "Artikel",
     "articleTitle": "Panduan Terbaik Kek Lapis Sarawak",
-    "articleDesc": "Semua yang kitak perlu tauk tentang motif, gred mentega, dengan milih jenama kek lapis terbaik pake sambutan perayaan kitak.",
+    "articleDesc": "Semua yang perlu kitak tauk tentang motif, gred mentega, dengan milih jenama kek lapis terbaik pake sambutan perayaan kitak.",
     "readingNote": "Nota pake ktk baca",
     "readingNoteDesc": "Nisbah mentega, rahsia corak, dengan komposisi bahan dijelaskan dgn mudah.",
     "articleContent": "### Faham Kualiti Kek Lapis Sarawak\n\nBila tiba musim perayaan rah Malaysia, sik semua kek lapis yang dipolah ya sama. Rah Sarawak, kita bertuah ada warisan polah kek legend, tapi mok milih yang betul perlu tauk apa yang ada dalam kotak. Panduan tok pake nyelajah faktor kunci yang menentukan kualiti kek lapis dengan cara milih kede yang terbaik ngekot selera kitak.\n\n#### Kenak Kualiti Mentega Penting\n\nLemak dengan mentega yang diguna dalam Kek Lapis kitak menentukan nilai sebenar nya. Kek lapis Sarawak asli banyak bergantung pada mentega putar tulen berbanding marjerin.\n\n*   **Lapis Mentega Tulen:** Berik aroma yg sik tertanding, rasa mulut kaya, dengan tekstur lembap yang segar berhari-hari.\n*   **Lapis Berempah Tradisional:** Diselit campuran rempah unik Borneo pake kemasan wangi nostalgia.\n\n#### Kaji Kepekatan dengan Ketumpatan\n\nKetumpatan ya mewakili kepekatan bahan sihat, termasuk dengan kuning telur, susu, ngan mentega premium.\n\n*   **Ringan & Lembap:** Seimbang pake hadiah santai dengan minum petang.\n*   **Gred Cuti Super Kaya:** Lapisan padat muatan mentega tulen dengan jem buah signature.\n\n#### kede Kek Lapis Top rah Sarawak\n\n1.  **Dayang Salhah:** Antara nama yang paling ikonik rah Kuching seberang sungai, terkenal dengan corak rumit dan resipi tradisional.\n2.  **Kek Lapis Nusantara:** Terkenal kerana gabungan rasa tempatan klasik dengan persembahan estetik moden.\n3.  **Mirabelle & Kede Rumah:** Pembuat rumah artisan tawar resipi pusaka batch kecil turun-temurun.\n\n#### Cara milih Kek Lapis Terbaik pake kitak\n\n- **pake Hadiah & Majlis Khas:** Carik reka bentuk motif rumit dengan pengesahan mentega tinggi.\n- **pake Minum Petang:** Milih varian kurang manis berempah pake padengan teh tarik panas munsik kopi tempatan.\n- **pake Majlis Keluarga:** Perisa prun klasik munsik horlicks disukai semua peringkat umur.\n\nDengan guna **Daftar Kek Lapis**, kitak boleh bandingkan kede tok sebelah-menyebelah pake jumpa pilihan yang sempurna. Sambut dengan gaya warisan lebih manis!",
@@ -375,7 +375,7 @@
     "bakerOrBrand": "Pembuat / Jenama",
     "lightest": "Paling Ringan",
     "richest": "Paling Kaya",
-    "masterclassIndex": "Panduan Master Lapis Field",
+    "masterclassIndex": "MasterLapis / Panduan",
     "readTimeLabel": "{minutes} minit baca ({words} patah perkataan)",
     "quickNavTitle": "Navigasi Cepat",
     "quickNavButter": "1. Sebab Kualiti Mentega Ya Penting",
@@ -444,7 +444,7 @@
     "productNamePlaceholder": "cth. Kek Lapis Lumut Special",
     "productNameError": "Nama varieti mesti mok sekurang-kurangnya 2 aksara",
     "barcode": "Kod Bar / Kod Batch (Pilihan)",
-    "barcodePlaceholder": "Imbas munsik taip kod",
+    "barcodePlaceholder": "Scan munsik taip kod",
     "brand": "Kede / Jenama",
     "brandPlaceholder": "Milih kede",
     "brandRequired": "Kede wajib ada",
@@ -513,7 +513,8 @@
     "addSourceButton": "Nambah Asal",
     "cancel": "Batal",
     "loading": "Muat borang…",
-    "return" : "Balit ke Mula"
+    "return" : "Balit ke Mula",
+    "clickMapToPin": "Tekan peta tok pake pin lokasi"
   },
   "product": {
     "backToSources": "Balit ke semua Variasi",

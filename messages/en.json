@@ -375,7 +375,7 @@
     "readingNote": "Reading note",
     "readingNoteDesc": "Butter ratios, pattern secrets, and ingredient composition explained simply.",
     "articleContent": "### Understanding Kek Lapis Sarawak Quality\n\nWhen it comes to festive celebrations in Malaysia, not all Kek Lapiss are created equal. In Sarawak, we are blessed with a legendary cake-making heritage, but choosing the right one requires knowing what is inside the box. This guide explores the key factors that determine Kek Lapis quality and how to choose the best bakery for your taste.\n\n#### Why Butter Quality Matters\n\nThe fat and butter used in your Kek Lapis dictate its true value. Authentic Kek Lapis Sarawak rely heavily on pure churned butter rather than margarine.\n\n*   **Pure Butter Lapis:** Offers an unmatched aroma, rich mouthfeel, and a moist texture that stays fresh for days.\n*   **Traditional Spiced Lapis:** Infused with unique Bornean spice blends for a fragrant, nostalgic finish.\n\n#### Decoding Richness and Density\n\nDensity represents the concentration of wholesome ingredients, including egg yolks, milk, and premium butter.\n\n*   **Light & Moist:** Balanced for casual gifting and everyday tea time.\n*   **Ultra-Rich Holiday Grade:** Densely packed layers loaded with pure butter and signature fruit jams.\n\n#### Top Kek Lapis Bakeries in Sarawak\n\n1.  **Dayang Salhah:** One of Kuching's most iconic names across the Sarawak River, famous for intricate patterns and traditional recipes.\n2.  **Kek Lapis Nusantara:** Renowned for blending classic local flavors with modern aesthetic presentation.\n3.  **Mirabelle & Hometown Bakeries:** Artisan home-bakers offering small-batch heirloom recipes handed down generations.\n\n#### How to Choose the Best Kek Lapis for You\n\n- **For Gifting & Special Occasions:** Look for intricate motif designs with high-butter verification.\n- **For Tea Pairing:** Choose a mildly spiced variant to complement hot teh tarik or local coffee.\n- **For Family Gatherings:** A classic prune or horlicks flavor is universally loved by all ages.\n\nBy using the **Kek Lapis Sarawak Registry**, you can compare these bakeries side-by-side to find the perfect centerpiece for your table. Celebrate sweeter, heritage-style!",
-    "masterclassIndex": "Masterclass Field Guide",
+    "masterclassIndex": "MasterLapis Field / Guide",
     "readTimeLabel": "{minutes} min read ({words} words)",
     "quickNavTitle": "Quick Navigation",
     "quickNavButter": "1. Why Butter Quality Matters",
@@ -513,7 +513,8 @@
     "addSourceButton": "Add Origin",
     "cancel": "Cancel",
     "loading": "Loading form…",
-    "return" : "Return Home"
+    "return" : "Return Home",
+    "clickMapToPin": "Click the map to pin the location"
   },
   "product": {
     "backToSources": "Back to all Variants",
