@@ -96,17 +96,35 @@ The app will be available at `http://localhost:3000`. No database setup is requi
 
 ---
 
-## Environment Variables
+## Environment Variables & Configuration
 
-Create `.env.local` for development (all optional):
+### Environment Files
+
+Create `.env.local` based on `.env.example`:
 
 ```bash
-# Google Gemini API Key for AI Copilot features
-GEMINI_API_KEY=""
+NEXT_PUBLIC_SITE_URL=http://localhost:3000
+GEMINI_API_KEY="" # Google Gemini API Key for AI Copilot features
 
 ```
 
-The JSON store needs no environment variables. See `.env.example` for the authoritative list.
+### Package Manager (.npmrc)
+The repository includes an .npmrc file to enforce strict dependency hoisting rules and lock engine version compatibility across modern package managers like npm and pnpm.
+
+### Testing
+The project is configured with both unit tests (Vitest) and end-to-end tests (Playwright).
+
+```bash
+# Run unit tests
+npm run test
+
+# Run End-to-End (E2E) UI tests
+npx playwright test
+```
+
+### Internationalization (i18n) & Validation
+* **Translation Files:** Located in `messages/` (`en.json`, `ms.json`, `bms.json`). Ensure all custom keys added to source code are synchronized across all translation files to prevent fallback rendering exceptions.
+* **Data Validation:** Form submissions and incoming API requests are strictly validated using **Zod** (`lib/validations/contribution.ts`) via `.safeParse()` to reject malformed parameters or invalid payloads before storage operations occur.
 
 ---
 

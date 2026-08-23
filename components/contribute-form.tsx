@@ -3,6 +3,7 @@
 import { useState, Suspense, lazy } from "react"
 import { useRouter } from "next/navigation"
 import Link from "next/link"
+import { contributionSchema } from "@/lib/validations/contribution"
 
 // Dynamically import map component to prevent SSR leaflet issues
 const ContributionMap = lazy(() => import("@/components/contribution-map"))
@@ -168,23 +169,34 @@ export default function ContributeForm({ dict: rawDict }: ContributeFormProps) {
     setErrorMessage(null)
 
     const formData = new FormData(event.currentTarget)
-    const payload = {
+    const rawPayload = {
       productName: formData.get("productName"),
       brand: selectedBrand || formData.get("brand"),
       manufacturer: selectedManufacturer || formData.get("manufacturer"),
       bakeryOrigin: selectedOrigin || formData.get("bakeryOrigin"),
-      sweetnessLevel: formData.get("sweetnessLevel"),
-      richnessDri: formData.get("richnessDri"),
-      barcode: formData.get("barcode"),
-      latitude: coordinates?.lat,
-      longitude: coordinates?.lng,
+      sweetnessLevel: formData.get("sweetnessLevel") || undefined,
+      richnessDri: formData.get("richnessDri") || undefined,
+      barcode: formData.get("barcode") || undefined,
+      latitude: coordinates?.lat ?? null,
+      longitude: coordinates?.lng ?? null,
+    }
+
+    // Validate payload using Zod before sending
+    const validationResult = contributionSchema.safeParse(rawPayload)
+
+    if (!validationResult.success) {
+      // Pull the first error message from Zod validation
+      const firstError = validationResult.error.issues[0]?.message || "Invalid form data"
+      setErrorMessage(firstError)
+      setSubmitting(false)
+      return
     }
 
     try {
       const res = await fetch("/api/contribute", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
+        body: JSON.stringify(validationResult.data), // Send validated clean data
       })
 
       const result = await res.json()

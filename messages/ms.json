@@ -375,7 +375,7 @@
     "readingNote": "Nota bacaan",
     "readingNoteDesc": "Nisbah mentega, rahsia corak, dan komposisi ramuan dijelaskan dengan ringkas.",
     "articleContent": "### Memahami Kualiti Kek Lapis Sarawak\n\nApabila tiba musim perayaan di Malaysia, tidak semua Kek Lapis dicipta sama. Di Sarawak, kita dikurniakan warisan pembuatan kek yang legenda, tetapi memilih yang betul memerlukan pengetahuan tentang apa yang ada di dalam kotak. Panduan ini meneroka faktor utama yang menentukan kualiti Kek Lapis dan cara memilih kedai kek terbaik untuk selera anda.\n\n#### Mengapa Kualiti Mentega Penting\n\nLemak dan mentega yang digunakan dalam Kek Lapis anda menentukan nilai sebenarnya. Kek Lapis Sarawak tulen sangat bergantung pada mentega pukul tulen berbanding marjerin.\n\n*   **Lapis Mentega Tulen:** Menawarkan aroma yang tiada tandingan, rasa di mulut yang kaya, and tekstur lembap yang kekal segar selama berhari-hari.\n*   **Lapis Berempah Tradisional:** Diselitkan dengan adunan rempah Borneo unik untuk kemasan yang wangi dan bernostalgia.\n\n#### Menyahkod Kekayaan dan Ketumpatan\n\nKetumpatan mewakili kepekatan ramuan berkhasiat, termasuk kuning telur, susu, and mentega premium.\n\n*   **Ringan & Lembap:** Seimbang untuk pemberian santai dan waktu minum petang seharian.\n*   **Gred Perayaan Ultra-Kaya:** Lapisan padat sarat dengan mentega tulen dan jem buah tandatangan.\n\n#### Kedai Kek Lapis Teratas di Sarawak\n\n1.  **Dayang Salhah:** Salah satu nama paling ikonik di Kuching seberang Sungai Sarawak, terkenal dengan corak rumit dan resipi tradisional.\n2.  **Kek Lapis Nusantara:** Terkenal kerana menggabungkan perisa tempatan klasik dengan persembahan estetik moden.\n3.  **Mirabelle & Kedai Kek Rumah:** Pembuat kek rumah artisanal yang menawarkan resipi pusaka kelompok kecil turun-temurun.\n\n#### Cara Memilih Kek Lapis Terbaik untuk Anda\n\n- **Untuk Pemberian & Majlis Khas:** Cari reka bentuk motif rumit dengan pengesahan mentega tinggi.\n- **Untuk Jamuan Teh:** Pilih varian berempah ringan untuk melengkapkan teh tarik panas atau kopi tempatan.\n- **Untuk Perjumpaan Keluarga:** Perisa prun klasik atau horlicks digemari sejagat oleh semua peringkat umur.\n\nDengan menggunakan **Senarai Kek Lapis Sarawak**, anda boleh membandingkan kedai kek ini sebelah-menyebelah untuk mencari titik tengah yang sempurna untuk meja anda. Sambut dengan gaya warisan yang lebih manis!",
-    "masterclassIndex": "Panduan Masterclass Field",
+    "masterclassIndex": "Lapangan Masterclass / Panduan",
     "readTimeLabel": "{minutes} minit baca ({words} patah perkataan)",
     "quickNavTitle": "Navigasi Cepat",
     "quickNavButter": "1. Sebab Kualiti Mentega Ya Penting",
@@ -513,7 +513,8 @@
     "addSourceButton": "Tambah Asal Usul",
     "cancel": "Batal",
     "loading": "Memuatkan borang…",
-    "return": "Kembali ke Utama"
+    "return": "Kembali ke Utama",
+    "clickMapToPin": "Tekan peta untuk pin lokasi"
   },
   "product": {
     "backToSources": "Kembali ke semua Varian",

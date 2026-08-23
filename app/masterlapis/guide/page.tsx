@@ -188,7 +188,7 @@ export default async function GuidePage() {
               ul: ({ ...props }) => <ul className="mb-8 space-y-3 border-l-2 border-emerald-500/40 pl-5 text-base leading-7 text-muted-foreground" {...props} />,
               ol: ({ ...props }) => <ol className="mb-8 list-decimal space-y-3 pl-5 text-base leading-7 text-muted-foreground marker:font-mono marker:text-emerald-600" {...props} />,
               li: ({ ...props }) => <li className="pl-1" {...props} />,
-              strong: ({ ...props }) => <strong className="font-semibold text-foreground bg-emerald-500/10 px-1.5 py-0.5 rounded text-emerald-900 dark:text-emerald-200" {...props} />,
+              strong: ({ ...props }) => <strong className="font-semibold bg-emerald-500/15 px-1.5 py-0.5 rounded text-emerald-950" {...props} />,
             }}
           >
             {t("articleContent")}

@@ -4,28 +4,28 @@ import { useEffect } from "react"
 import { useTranslations } from "next-intl"
 import { EditorialErrorState } from "@/components/editorial-error-state"
 
-interface RegistryErrorProps {
+interface GuideErrorProps {
   error: Error & { digest?: string; status?: number }
   reset: () => void
 }
 
-export default function RegistryError({ error, reset }: RegistryErrorProps) {
+export default function GuideError({ error, reset }: GuideErrorProps) {
   const t = useTranslations("errors")
 
   useEffect(() => {
     if (process.env.NODE_ENV === "production") {
-      console.error("Registry error boundary caught:", error)
+      console.error("Guide error boundary caught:", error)
     }
   }, [error])
 
   const statusCode = error.status || (error.message.includes("404") ? 404 : error.message.includes("500") ? 500 : undefined)
 
-  let title = t("sourceTitle", { fallback: "Registry Source Error" })
-  let description = t("sourceDescription", { fallback: "We encountered an issue loading the registry data. Please try again." })
+  let title = t("guideTitle", { fallback: "Guide Masterclass Error" })
+  let description = t("guideDescription", { fallback: "We encountered an issue loading this baking guide. Please try again." })
 
   if (statusCode === 404) {
-    title = t("notFoundTitle", { fallback: "Source Not Found" })
-    description = t("notFoundDescription", { fallback: "The registry item or source you are looking for could not be found." })
+    title = t("notFoundTitle", { fallback: "Guide Not Found" })
+    description = t("notFoundDescription", { fallback: "The guide or masterclass page you are looking for could not be found." })
   }
 
   return (
@@ -35,8 +35,8 @@ export default function RegistryError({ error, reset }: RegistryErrorProps) {
           title={title} 
           description={description} 
           reset={reset} 
-          backHref="/#sources" 
-          backLabel={t("backSources", { fallback: "Return to Sources" })}
+          backHref="/" 
+          backLabel={t("backHome", { fallback: "Return to Home" })}
         />
         {error.digest && (
           <p className="mt-4 text-center font-mono text-[10px] text-muted-foreground/60">
