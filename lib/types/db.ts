@@ -103,6 +103,8 @@ export interface Product extends BaseModel {
   images?: ImageView[];
   bakery_origin?: string | null;
   layers_count?: number | null;
+  cake_category?: string | null; // Added to resolve TasteRadarChart/compare-table errors
+  sourceType?: string | null;    // Added to resolve TasteRadarChart/compare-table errors
 }
 
 export interface IngredientComposition {
