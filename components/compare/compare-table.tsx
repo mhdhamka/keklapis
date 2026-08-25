@@ -11,7 +11,7 @@ import {
   type AttributeRow,
   type IngredientRow,
 } from "@/lib/compare/rows"
-import { CompareChart } from "./compare-chart"
+import { TasteRadarChart } from "@/components/analytics/TasteRadarChart"
 
 interface CompareTableProps {
   products: Product[]
@@ -23,7 +23,6 @@ export function CompareTable({ products, onClose }: CompareTableProps) {
   const tAttr = useTranslations("product")
   const rows = buildCompareRows(products)
 
-  // Interactive toggles: View layout (table vs chart) & differences filter
   const [viewMode, setViewMode] = useState<"table" | "chart">("table")
   const [showOnlyDifferences, setShowOnlyDifferences] = useState(false)
 
@@ -35,7 +34,6 @@ export function CompareTable({ products, onClose }: CompareTableProps) {
     return () => window.removeEventListener("keydown", onKey)
   }, [onClose])
 
-  // Resolve translated labels for Kek Lapis attributes
   const attrLabel = (row: AttributeRow): string => {
     switch (row.label) {
       case "cakeCategory":
@@ -57,7 +55,6 @@ export function CompareTable({ products, onClose }: CompareTableProps) {
     }
   }
 
-  // Filter rows if user toggles "Show only differences"
   const filteredAttributes = rows.attributes.filter((row) => {
     if (!showOnlyDifferences) return true
     const firstVal = row.values[0]
@@ -82,7 +79,6 @@ export function CompareTable({ products, onClose }: CompareTableProps) {
         className="mx-auto my-auto flex w-full max-w-[92rem] flex-col overflow-hidden rounded-2xl border border-emerald-900/20 bg-background shadow-[0_20px_50px_rgba(4,47,34,0.12)] animate-in zoom-in-95 duration-200"
         onClick={(e) => e.stopPropagation()}
       >
-        {/* Header with Interactive Controls */}
         <header className="flex shrink-0 flex-col gap-4 border-b border-emerald-900/15 bg-background px-5 py-5 sm:flex-row sm:items-center sm:justify-between sm:px-8 sm:py-6">
           <div className="min-w-0">
             <span className="inline-flex items-center gap-1.5 rounded-full bg-emerald-950/[0.04] px-3 py-1 font-mono text-[11px] uppercase tracking-[0.12em] text-emerald-900 border border-emerald-900/10">
@@ -98,14 +94,13 @@ export function CompareTable({ products, onClose }: CompareTableProps) {
           </div>
 
           <div className="flex flex-wrap items-center gap-3">
-            {/* View Layout Switcher (TableView / ChartView) */}
             <div className="inline-flex rounded-xl border border-emerald-900/20 bg-background p-1">
               <button
                 type="button"
                 onClick={() => setViewMode("table")}
                 className={`inline-flex h-8 items-center gap-1.5 rounded-lg px-3 text-xs font-semibold uppercase tracking-[0.08em] transition-all ${
                   viewMode === "table"
-                    ? "bg-emerald-900 text-white shadow-sm"
+                    ? "bg-[#064e3b] text-white shadow-sm"
                     : "text-emerald-950/70 hover:text-emerald-950"
                 }`}
               >
@@ -116,7 +111,7 @@ export function CompareTable({ products, onClose }: CompareTableProps) {
                 onClick={() => setViewMode("chart")}
                 className={`inline-flex h-8 items-center gap-1.5 rounded-lg px-3 text-xs font-semibold uppercase tracking-[0.08em] transition-all ${
                   viewMode === "chart"
-                    ? "bg-emerald-900 text-white shadow-sm"
+                    ? "bg-[#064e3b] text-white shadow-sm"
                     : "text-emerald-950/70 hover:text-emerald-950"
                 }`}
               >
@@ -124,21 +119,22 @@ export function CompareTable({ products, onClose }: CompareTableProps) {
               </button>
             </div>
 
-            {/* Interactive Toggle for Differences */}
-            <button
-              type="button"
-              onClick={() => setShowOnlyDifferences(!showOnlyDifferences)}
-              className={`inline-flex h-10 items-center gap-2 rounded-xl border px-4 text-xs font-semibold uppercase tracking-[0.08em] transition-all ${
-                showOnlyDifferences
-                  ? "border-emerald-900 bg-emerald-900 text-white shadow-sm"
-                  : "border-emerald-900/20 bg-background text-emerald-950 hover:bg-emerald-950/5"
-              }`}
-            >
-              <svg viewBox="0 0 16 16" fill="none" className="h-4 w-4">
-                <path d="M2 4h12M4 8h8M6 12h4" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
-              </svg>
-              {showOnlyDifferences ? t("showingDifferences") : t("showDifferencesOnly")}
-            </button>
+            {viewMode === "table" && (
+              <button
+                type="button"
+                onClick={() => setShowOnlyDifferences(!showOnlyDifferences)}
+                className={`inline-flex h-10 items-center gap-2 rounded-xl border px-4 text-xs font-semibold uppercase tracking-[0.08em] transition-all ${
+                  showOnlyDifferences
+                    ? "border-[#064e3b] bg-[#064e3b] text-white shadow-sm"
+                    : "border-emerald-900/20 bg-background text-emerald-950 hover:bg-emerald-950/5"
+                }`}
+              >
+                <svg viewBox="0 0 16 16" fill="none" className="h-4 w-4">
+                  <path d="M2 4h12M4 8h8M6 12h4" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
+                </svg>
+                {showOnlyDifferences ? t("showingDifferences") : t("showDifferencesOnly")}
+              </button>
+            )}
 
             <button
               type="button"
@@ -153,9 +149,8 @@ export function CompareTable({ products, onClose }: CompareTableProps) {
           </div>
         </header>
 
-        {/* Body — Conditional view rendering based on Layout Switcher */}
         {viewMode === "chart" ? (
-          <CompareChart products={products} t={t} />
+          <TasteRadarChart products={products} t={t} />
         ) : (
           <div className="w-full overflow-x-auto bg-background">
             <table className="w-full min-w-[700px] border-collapse text-left">
@@ -182,7 +177,28 @@ export function CompareTable({ products, onClose }: CompareTableProps) {
               </thead>
 
               <tbody>
-                {/* Optional Section Sub-Header: Sweetness Comparison */}
+                {/* Variant Classification Row */}
+                <tr className="bg-emerald-950/[0.03]">
+                  <th
+                    scope="row"
+                    className="sticky left-0 z-20 border-b border-r border-emerald-900/15 bg-background px-3 py-3.5 sm:px-4"
+                  >
+                    <span className="font-mono text-[10px] uppercase tracking-[0.12em] text-emerald-950 font-bold">
+                      {t("cakeCategory")}
+                    </span>
+                  </th>
+                  {products.map((p) => {
+                    const isTraditional = p.cake_category?.toLowerCase().includes("traditional") || p.sourceType === "traditional"
+                    return (
+                      <td key={p.id} className="border-b border-emerald-900/15 px-3 py-3.5 align-top sm:px-4">
+                        <span className="inline-flex items-center px-3.5 py-1 rounded-full bg-[#064e3b] text-white font-mono text-[10px] font-bold uppercase tracking-[0.12em] shadow-sm">
+                          {isTraditional ? t("traditionalLabel").split(" ")[0] : t("tableView").split(" ")[0] === "Table" ? "MODERN" : "MODEN"}
+                        </span>
+                      </td>
+                    )
+                  })}
+                </tr>
+
                 <tr>
                   <th
                     scope="row"
@@ -195,80 +211,83 @@ export function CompareTable({ products, onClose }: CompareTableProps) {
                   </th>
                 </tr>
 
-                {/* Attribute rows */}
                 {filteredAttributes.length === 0 ? (
                   <tr>
                     <th scope="row" className="sticky left-0 border-b border-r border-emerald-900/15 bg-background px-3 py-6 sm:px-4" />
                     <td colSpan={products.length} className="border-b border-emerald-900/15 px-3 py-12 text-center text-sm text-emerald-950/70">
-                      {t("noDifferencesFound")}
+                      {t("noDifferencesFound" as any) ?? "No differences found between selected varieties."}
                     </td>
                   </tr>
                 ) : (
-                  filteredAttributes.map((row, idx) => {
+                  filteredAttributes.flatMap((row) => {
                     const isRichnessStart = row.key === "richnessDri"
-                    return (
-                      <>
-                        {isRichnessStart && (
-                          <tr key="richness-sub-header">
-                            <th
-                              scope="row"
-                              colSpan={products.length + 1}
-                              className="sticky left-0 border-b border-emerald-900/15 bg-emerald-950/[0.04] px-3 py-2.5 sm:px-4"
-                            >
-                              <span className="font-mono text-[11px] uppercase tracking-[0.12em] text-emerald-950 font-bold">
-                                {t("richnessComparison")}
-                              </span>
-                            </th>
-                          </tr>
-                        )}
-                        <tr key={row.key} className="group transition-colors hover:bg-emerald-955/[0.02]">
+                    const elements = []
+
+                    if (isRichnessStart) {
+                      elements.push(
+                        <tr key="richness-sub-header">
                           <th
                             scope="row"
-                            className="sticky left-0 z-20 border-b border-r border-emerald-900/15 bg-background px-3 py-3.5 sm:px-4"
+                            colSpan={products.length + 1}
+                            className="sticky left-0 border-b border-emerald-900/15 bg-emerald-950/[0.04] px-3 py-2.5 sm:px-4"
                           >
-                            <span className="font-mono text-[10px] uppercase tracking-[0.12em] text-emerald-950/70">
-                              {attrLabel(row)}
+                            <span className="font-mono text-[11px] uppercase tracking-[0.12em] text-emerald-950 font-bold">
+                              {t("richnessComparison")}
                             </span>
                           </th>
-                          {row.values.map((value, i) => {
-                            const isBest = row.bestIndex != null && row.bestIndex === i
-                            const text = formatAttributeValue(row, value)
-                            return (
-                              <td
-                                key={i}
-                                className={[
-                                  "border-b border-emerald-900/15 px-3 py-3.5 align-top transition-colors sm:px-4",
-                                  isBest ? "bg-emerald-950/[0.04] font-medium" : "bg-emerald-950/[0.01]",
-                                ].join(" ")}
-                              >
-                                <div className="flex items-center gap-2">
-                                  <span
-                                    className={[
-                                      "font-mono text-sm tabular-nums",
-                                      value == null ? "text-emerald-950/40" : "text-emerald-950",
-                                    ].join(" ")}
-                                  >
-                                    {text}
-                                  </span>
-                                  {row.unit && value != null && (
-                                    <span className="text-[10px] text-emerald-950/60">{row.unit}</span>
-                                  )}
-                                  {isBest && (
-                                    <span className="rounded-full bg-emerald-900 px-2.5 py-0.5 font-mono text-[9px] font-semibold uppercase tracking-[0.08em] text-white shadow-sm">
-                                      {row.direction === "lower" ? t("lightest") : t("richest")}
-                                    </span>
-                                  )}
-                                </div>
-                              </td>
-                            )
-                          })}
                         </tr>
-                      </>
+                      )
+                    }
+
+                    elements.push(
+                      <tr key={row.key} className="group transition-colors hover:bg-emerald-950/[0.02]">
+                        <th
+                          scope="row"
+                          className="sticky left-0 z-20 border-b border-r border-emerald-900/15 bg-background px-3 py-3.5 sm:px-4"
+                        >
+                          <span className="font-mono text-[10px] uppercase tracking-[0.12em] text-emerald-950/70">
+                            {attrLabel(row)}
+                          </span>
+                        </th>
+                        {row.values.map((value, i) => {
+                          const isBest = row.bestIndex != null && row.bestIndex === i
+                          const text = formatAttributeValue(row, value)
+                          return (
+                            <td
+                              key={i}
+                              className={[
+                                "border-b border-emerald-900/15 px-3 py-3.5 align-top transition-colors sm:px-4",
+                                isBest ? "bg-emerald-950/[0.04] font-medium" : "bg-emerald-950/[0.01]",
+                              ].join(" ")}
+                            >
+                              <div className="flex items-center gap-2">
+                                <span
+                                  className={[
+                                    "font-mono text-sm tabular-nums",
+                                    value == null ? "text-emerald-950/40" : "text-emerald-950",
+                                  ].join(" ")}
+                                >
+                                  {text}
+                                </span>
+                                {row.unit && value != null && (
+                                  <span className="text-[10px] text-emerald-950/60">{row.unit}</span>
+                                )}
+                                {isBest && (
+                                  <span className="rounded-full bg-[#064e3b] px-3 py-1 font-mono text-[10px] font-bold uppercase tracking-[0.12em] text-white shadow-sm">
+                                    {row.direction === "lower" ? t("lightest") : t("richest")}
+                                  </span>
+                                )}
+                              </div>
+                            </td>
+                          )
+                        })}
+                      </tr>
                     )
+
+                    return elements
                   })
                 )}
 
-                {/* Ingredient / Signature Spices Section Header */}
                 <tr>
                   <th
                     scope="row"
@@ -284,7 +303,6 @@ export function CompareTable({ products, onClose }: CompareTableProps) {
                   </th>
                 </tr>
 
-                {/* Ingredient / Component rows */}
                 {filteredIngredients.length === 0 ? (
                   <tr>
                     <th scope="row" className="sticky left-0 border-b border-r border-emerald-900/15 bg-background px-3 py-4 sm:px-4" />
@@ -327,7 +345,7 @@ export function CompareTable({ products, onClose }: CompareTableProps) {
                                 <span className="text-[10px] text-emerald-950/70">g</span>
                               )}
                               {isBest && (
-                                <span className="rounded-full bg-emerald-900 px-2.5 py-0.5 font-mono text-[9px] font-semibold uppercase tracking-[0.08em] text-white shadow-sm">
+                                <span className="rounded-full bg-[#064e3b] px-3 py-1 font-mono text-[10px] font-bold uppercase tracking-[0.12em] text-white shadow-sm">
                                   {row.direction === "lower" ? t("lowest") : t("highest")}
                                 </span>
                               )}
@@ -343,9 +361,10 @@ export function CompareTable({ products, onClose }: CompareTableProps) {
           </div>
         )}
 
-        {/* Footer */}
         <footer className="flex shrink-0 items-center justify-between gap-4 border-t border-emerald-900/15 bg-background px-5 py-4 sm:px-8">
-          <p className="hidden text-xs text-emerald-950/70 sm:block">{t("highlightLegend")}</p>
+          <p className="hidden text-xs text-emerald-950/70 sm:block">
+            {t("description")}
+          </p>
           <button
             type="button"
             onClick={onClose}
@@ -364,6 +383,7 @@ function ProductColumnHeader({ product, t }: { product: Product; t: any }) {
   const brand = product.brand?.brand_name ?? t("bakerOrBrand")
   const productName = product.product_name
   const region = product.bakery_origin ?? product.source?.country ?? t("originRegion")
+  const isTraditional = product.cake_category?.toLowerCase().includes("traditional") || product.sourceType === "traditional"
 
   return (
     <Link
@@ -378,6 +398,9 @@ function ProductColumnHeader({ product, t }: { product: Product; t: any }) {
           loading="lazy"
           className="h-full w-full object-contain p-2.5 transition-transform duration-300 group-hover/header:scale-105"
         />
+        <span className="absolute top-2 right-2 px-2.5 py-1 rounded-full bg-[#064e3b] text-white font-mono text-[9px] font-bold uppercase tracking-[0.1em] shadow-sm">
+          {isTraditional ? "TRAD" : "MOD"}
+        </span>
       </span>
       <span className="block text-sm font-semibold leading-snug tracking-[-0.015em] text-emerald-950 line-clamp-2">
         {brand}
@@ -388,7 +411,7 @@ function ProductColumnHeader({ product, t }: { product: Product; t: any }) {
         </span>
       )}
       <span className="mt-0.5 inline-flex items-center gap-1 text-[10px] font-semibold uppercase tracking-[0.08em] text-emerald-900 group-hover/header:underline">
-        View details
+        {t("visit")}
         <svg viewBox="0 0 12 12" fill="none" className="h-2.5 w-2.5">
           <path d="M3 9 9 3M5 3h4v4" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
         </svg>
