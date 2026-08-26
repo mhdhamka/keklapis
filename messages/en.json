@@ -707,7 +707,19 @@
     "benefitPreservatives": "Extends shelf-life and maintains product freshness",
     "benefitGeneric": "Contributes to overall pastry richness",
     "visualLayerStack": "Visual Layer Stack (Proportional Weight)",
-    "totalStackMass": "Total Stack Mass: {mass}g"
+    "totalStackMass": "Total Stack Mass: {mass}g",
+    "viewStandard": "Standard",
+    "viewHeatmap": "Heatmap",
+    "searchPlaceholder": "Search ingredients...",
+    "layerBase": "Layer 1 (Base)",
+    "layerSpiced": "Layer 2 (Spiced)",
+    "layerCore": "Layer 3 (Core)",
+    "layerCream": "Layer 4 (Cream)",
+    "layerGlaze": "Layer 5 (Glaze)",
+    "crossSectionMass": "Cross-section Mass",
+    "heatmapTitle": "Layer vs Ingredient Composition Cross-Section Heatmap",
+    "echartsMatrixActive": "ECharts Matrix Active",
+    "heatmapHoverInstruction": "Hover over any grid coordinate to examine precise mass distributions across individual layers."
   },
   "RegistryPage": {
     "unknownEdition": "Unknown Edition",

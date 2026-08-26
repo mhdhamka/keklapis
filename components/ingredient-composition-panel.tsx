@@ -2,6 +2,7 @@
 
 import { useState, useMemo } from "react"
 import { useTranslations } from "next-intl"
+import ReactECharts from "echarts-for-react"
 import { calculateDailyIntakePercentage, getIngredientInfo } from "@/lib/ingredient-data"
 
 interface Ingredient { 
@@ -37,13 +38,12 @@ export function IngredientCompositionPanel({
   const t = useTranslations("ingredientPanel")
   
   const [focusedName, setFocusedName] = useState<string | null>(null)
-  
-  // Independent internal states for sorting when props aren't fully controlled externally
+  const [viewMode, setViewMode] = useState<"standard" | "heatmap">("standard")
+
   const [internalSortKey, setInternalSortKey] = useState<"amount" | "daily">("amount")
   const [sortOrder, setSortOrder] = useState<"desc" | "asc">("desc")
   const [searchQuery, setSearchQuery] = useState("")
 
-  // Fallback to internal sort key if external one isn't provided
   const activeSortKey = externalSortKey ?? internalSortKey
 
   const handleSortToggle = (key: "amount" | "daily") => {
@@ -87,6 +87,94 @@ export function IngredientCompositionPanel({
   const totalAmount = useMemo(() => normalized.reduce((acc: number, curr: any) => acc + curr.amount, 0), [normalized])
   const maxAmount = useMemo(() => Math.max(...normalized.map((i: any) => i.amount), 1), [normalized])
 
+  // Improved ECharts Heatmap Options with corrected grid & visualMap positioning
+  const heatmapChartOption = useMemo(() => {
+    const layers = [t("layerBase"), t("layerSpiced"), t("layerCore"), t("layerCream"), t("layerGlaze")]
+    const ingredientNames = normalized.length > 0 
+      ? normalized.map((i: any) => i.info.name) 
+      : ["Butter", "Eggs", "Sugar", "Flour", "Milk", "Salt"]
+    
+    const data: [number, number, number][] = []
+    normalized.forEach((item: any, ingIdx: number) => {
+      layers.forEach((_, layerIdx: number) => {
+        const factor = [0.35, 0.25, 0.20, 0.12, 0.08][layerIdx] || 0.2
+        const distributedValue = Number((item.amount * factor).toFixed(1))
+        data.push([layerIdx, ingIdx, distributedValue])
+      })
+    })
+
+    return {
+      tooltip: {
+        position: 'top',
+        backgroundColor: '#1B2A1E',
+        borderColor: '#D5E1D0',
+        textStyle: { color: '#ffffff', fontSize: 12 },
+        formatter: (params: any) => {
+          return `<div style="font-family: monospace; font-size: 12px; padding: 6px;">
+            <strong>${ingredientNames[params.value[1]]}</strong> @ <em>${layers[params.value[0]]}</em><br/>
+            ${t("crossSectionMass")}: <strong style="color: #E5A96E;">${params.value[2]}g</strong>
+          </div>`
+        }
+      },
+      grid: {
+        top: 30,
+        bottom: 85,
+        left: 130,
+        right: 30
+      },
+      xAxis: {
+        type: 'category',
+        data: layers,
+        axisLabel: { color: '#4A6B43', fontSize: 11, fontFamily: 'monospace', interval: 0 },
+        axisLine: { lineStyle: { color: '#D5E1D0' } },
+        splitArea: { show: true }
+      },
+      yAxis: {
+        type: 'category',
+        data: ingredientNames,
+        axisLabel: { color: '#4A6B43', fontSize: 11, fontFamily: 'monospace' },
+        axisLine: { lineStyle: { color: '#D5E1D0' } },
+        splitArea: { show: true }
+      },
+      visualMap: {
+        min: 0,
+        max: Math.max(...normalized.map((i: any) => i.amount), 100),
+        calculable: true,
+        orient: 'horizontal',
+        left: 'center',
+        bottom: 10,
+        itemWidth: 15,
+        itemHeight: 180,
+        inRange: {
+          color: ['#F9FBF7', '#D5E1D0', '#C68B59', '#3B5336']
+        },
+        textStyle: { color: '#4A6B43', fontSize: 10, fontFamily: 'monospace' }
+      },
+      series: [{
+        type: 'heatmap',
+        data: data,
+        label: {
+          show: true,
+          color: '#1B2A1E',
+          fontSize: 10,
+          fontFamily: 'monospace',
+          formatter: (params: any) => `${params.value[2]}g`
+        },
+        itemStyle: {
+          borderColor: '#ffffff',
+          borderWidth: 2,
+          borderRadius: 6
+        },
+        emphasis: {
+          itemStyle: {
+            shadowBlur: 10,
+            shadowColor: 'rgba(27, 42, 30, 0.3)'
+          }
+        }
+      }]
+    }
+  }, [normalized, t])
+
   return (
     <section className="overflow-hidden rounded-3xl border border-[#D5E1D0] bg-white shadow-xl shadow-[#1B2A1E]/5 transition-all">
       {/* Header */}
@@ -104,10 +192,31 @@ export function IngredientCompositionPanel({
         </div>
 
         <div className="flex flex-wrap items-center gap-3 w-full lg:w-auto">
+          {/* View Mode Toggle Switch */}
+          <div className="flex gap-1 bg-[#F4F6F0] p-1 rounded-xl border border-[#D5E1D0]">
+            <button
+              onClick={() => setViewMode("standard")}
+              className={`px-3 py-1.5 text-[10px] uppercase font-bold rounded-lg transition-all ${
+                viewMode === "standard" ? "bg-[#3B5336] text-white shadow-sm" : "text-[#4A6B43] hover:text-[#1B2A1E]"
+              }`}
+            >
+              {t("viewStandard")}
+            </button>
+            <button
+              onClick={() => setViewMode("heatmap")}
+              className={`px-3 py-1.5 text-[10px] uppercase font-bold rounded-lg transition-all ${
+                viewMode === "heatmap" ? "bg-[#3B5336] text-white shadow-sm" : "text-[#4A6B43] hover:text-[#1B2A1E]"
+              }`}
+            >
+              {t("viewHeatmap")}
+            </button>
+          </div>
+
+          {/* Search Input */}
           <div className="relative flex-1 sm:flex-none">
             <input 
               type="text"
-              placeholder={t("noData")}
+              placeholder={t("searchPlaceholder")}
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="w-full sm:w-48 text-xs bg-[#F9FBF7] border border-[#D5E1D0] rounded-xl px-3 py-2 text-[#1B2A1E] placeholder-[#4A6B43]/60 focus:outline-none focus:ring-2 focus:ring-[#3B5336]/20 transition-all font-mono"
@@ -122,6 +231,7 @@ export function IngredientCompositionPanel({
             )}
           </div>
 
+          {/* Sort Toggle Buttons */}
           <div className="flex gap-1.5 bg-[#F4F6F0] p-1 rounded-xl border border-[#D5E1D0]">
             {(["amount", "daily"] as const).map((k) => (
               <button 
@@ -129,7 +239,7 @@ export function IngredientCompositionPanel({
                 onClick={() => handleSortToggle(k)}
                 className={`px-3 py-1.5 text-[10px] uppercase font-bold rounded-lg transition-all ${
                   activeSortKey === k 
-                    ? "bg-[#3B5336] text-white shadow-xs" 
+                    ? "bg-[#3B5336] text-white shadow-sm" 
                     : "text-[#4A6B43] hover:text-[#1B2A1E]"
                 }`}
               >
@@ -141,127 +251,150 @@ export function IngredientCompositionPanel({
       </div>
 
       <div className="p-6 sm:p-8 space-y-8">
-        {/* Visual Stacked Layers */}
-        <div className="space-y-3">
-          <div className="flex justify-between items-center text-xs font-mono text-[#4A6B43] px-1">
-            <span>{t("visualLayerStack")}</span>
-            <span className="font-bold text-[#1B2A1E]">{t("totalStackMass", { mass: totalAmount.toFixed(1) })}</span>
-          </div>
-          
-          <div className="h-16 w-full flex rounded-2xl overflow-hidden border-2 border-[#D5E1D0]/80 shadow-inner p-1.5 bg-[#F9FBF7] gap-1">
-            {normalized.length === 0 ? (
-              <div className="w-full h-full flex items-center justify-center text-xs font-mono text-[#4A6B43]">
-                {t("noData")}
+        {viewMode === "standard" ? (
+          <>
+            {/* Visual Stacked Layers */}
+            <div className="space-y-3">
+              <div className="flex justify-between items-center text-xs font-mono text-[#4A6B43] px-1">
+                <span>{t("visualLayerStack")}</span>
+                <span className="font-bold text-[#1B2A1E]">{t("totalStackMass", { mass: totalAmount.toFixed(1) })}</span>
               </div>
-            ) : (
-              normalized.map((i: any, idx: number) => {
-                const percentage = totalAmount > 0 ? (i.amount / totalAmount) * 100 : 0
-                if (percentage <= 0) return null
-                const isFocused = focusedName === i.name
-
-                return (
-                  <div
-                    key={i.name}
-                    onMouseEnter={() => setFocusedName(i.name)}
-                    onMouseLeave={() => setFocusedName(null)}
-                    style={{ width: `${Math.max(percentage, 5)}%` }}
-                    className={`h-full rounded-xl transition-all duration-300 relative group cursor-pointer flex items-center justify-center shadow-2xs ${
-                      LAYER_COLORS[idx % LAYER_COLORS.length]
-                    } ${isFocused ? "ring-2 ring-[#1B2A1E] scale-y-110 z-10 shadow-lg brightness-110" : "opacity-90 hover:opacity-100"}`}
-                  >
-                    <span className="text-[10px] font-mono font-bold truncate px-1 opacity-90 group-hover:opacity-100">
-                      {i.info.symbol || i.info.name.slice(0, 3)}
-                    </span>
-                    
-                    <div className="absolute bottom-full mb-2 hidden group-hover:flex flex-col items-center pointer-events-none z-30">
-                      <div className="bg-[#1B2A1E] text-white text-[11px] font-mono rounded-xl py-1.5 px-3 shadow-xl whitespace-nowrap">
-                        <p className="font-bold">{i.info.name}</p>
-                        <p className="text-[#A47551]">{i.amount}{i.unit || "g"} ({percentage.toFixed(1)}%)</p>
-                      </div>
-                      <div className="w-2 h-2 bg-[#1B2A1E] rotate-45 -mt-1" />
-                    </div>
-                  </div>
-                )
-              })
-            )}
-          </div>
-        </div>
-
-        {/* Table Content */}
-        <div className="overflow-x-auto rounded-2xl border border-[#D5E1D0] bg-[#F9FBF7]/50">
-          <table className="w-full text-sm text-left">
-            <thead>
-              <tr className="text-[#4A6B43] uppercase text-[10px] tracking-widest border-b border-[#D5E1D0] bg-[#F4F6F0]/80">
-                <th className="py-3 px-4 font-mono font-semibold">{t("ingredient")}</th>
-                <th className="py-3 px-4 font-mono font-semibold">{t("healthBenefit")}</th>
-                <th className="py-3 px-4 text-right font-mono font-semibold">{t("amount")}</th>
-                <th className="py-3 px-4 text-right font-mono font-semibold">{t("dailyPct")}</th>
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-[#E9F0E5]">
-              {normalized.length === 0 ? (
-                <tr>
-                  <td colSpan={4} className="py-8 text-center text-xs font-mono text-[#4A6B43]">
+              
+              <div className="h-16 w-full flex rounded-2xl overflow-hidden border-2 border-[#D5E1D0]/80 shadow-inner p-1.5 bg-[#F9FBF7] gap-1">
+                {normalized.length === 0 ? (
+                  <div className="w-full h-full flex items-center justify-center text-xs font-mono text-[#4A6B43]">
                     {t("noData")}
-                  </td>
-                </tr>
-              ) : (
-                normalized.map((i: any, idx: number) => {
-                  const isFocused = focusedName === i.name
-                  const weightRatio = (i.amount / maxAmount) * 100
+                  </div>
+                ) : (
+                  normalized.map((i: any, idx: number) => {
+                    const percentage = totalAmount > 0 ? (i.amount / totalAmount) * 100 : 0
+                    if (percentage <= 0) return null
+                    const isFocused = focusedName === i.name
 
-                  return (
-                    <tr 
-                      key={i.name}
-                      onMouseEnter={() => setFocusedName(i.name)}
-                      onMouseLeave={() => setFocusedName(null)}
-                      className={`cursor-pointer transition-all ${isFocused ? "bg-[#E9F0E5] shadow-xs" : "hover:bg-white"}`}
-                    >
-                      <td className="py-4 px-4">
-                        <div className="flex items-center gap-3">
-                          <span className={`w-3.5 h-3.5 rounded-full shrink-0 shadow-2xs ${LAYER_COLORS[idx % LAYER_COLORS.length].split(" ")[0]}`} />
-                          <div>
-                            <span className="font-semibold text-[#1B2A1E]">{i.info.name}</span>
-                            {i.info.symbol && (
-                              <span className="ml-2 font-mono text-[10px] text-[#4A6B43] bg-[#E9F0E5] px-1.5 py-0.5 rounded">
-                                {i.info.symbol}
-                              </span>
-                            )}
-                          </div>
-                        </div>
-                      </td>
-
-                      <td className="py-4 px-4 w-44">
-                        <div className="w-full bg-[#D5E1D0]/50 h-2 rounded-full overflow-hidden">
-                          <div 
-                            className={`h-full rounded-full transition-all duration-500 ${LAYER_COLORS[idx % LAYER_COLORS.length].split(" ")[0]}`} 
-                            style={{ width: `${Math.max(weightRatio, 4)}%` }}
-                          />
-                        </div>
-                      </td>
-
-                      <td className="py-4 px-4 text-right font-mono text-[#1B2A1E] font-medium">
-                        {i.amount} <span className="text-xs text-[#4A6B43]">{i.unit || "g"}</span>
-                      </td>
-
-                      <td className="py-4 px-4 text-right">
-                        <span className={`px-3 py-1 rounded-xl text-xs font-bold font-mono shadow-2xs inline-block ${
-                          i.daily > 15 
-                            ? "bg-[#3B5336] text-white" 
-                            : i.daily > 5 
-                            ? "bg-[#C68B59]/20 text-[#1B2A1E] border border-[#C68B59]/40" 
-                            : "bg-[#E9F0E5] text-[#3B5336]"
-                        }`}>
-                          {i.daily.toFixed(1)}%
+                    return (
+                      <div
+                        key={i.name}
+                        onMouseEnter={() => setFocusedName(i.name)}
+                        onMouseLeave={() => setFocusedName(null)}
+                        style={{ width: `${Math.max(percentage, 5)}%` }}
+                        className={`h-full rounded-xl transition-all duration-300 relative group cursor-pointer flex items-center justify-center shadow-xs ${
+                          LAYER_COLORS[idx % LAYER_COLORS.length]
+                        } ${isFocused ? "ring-2 ring-[#1B2A1E] scale-y-105 z-10 shadow-lg brightness-110" : "opacity-90 hover:opacity-100"}`}
+                      >
+                        <span className="text-[10px] font-mono font-bold truncate px-1 opacity-90 group-hover:opacity-100">
+                          {i.info.symbol || i.info.name.slice(0, 3)}
                         </span>
+                        
+                        <div className="absolute bottom-full mb-2 hidden group-hover:flex flex-col items-center pointer-events-none z-30">
+                          <div className="bg-[#1B2A1E] text-white text-[11px] font-mono rounded-xl py-1.5 px-3 shadow-xl whitespace-nowrap">
+                            <p className="font-bold">{i.info.name}</p>
+                            <p className="text-[#A47551]">{i.amount}{i.unit || "g"} ({percentage.toFixed(1)}%)</p>
+                          </div>
+                          <div className="w-2 h-2 bg-[#1B2A1E] rotate-45 -mt-1" />
+                        </div>
+                      </div>
+                    )
+                  })
+                )}
+              </div>
+            </div>
+
+            {/* Table Content */}
+            <div className="overflow-x-auto rounded-2xl border border-[#D5E1D0] bg-[#F9FBF7]/50">
+              <table className="w-full text-sm text-left">
+                <thead>
+                  <tr className="text-[#4A6B43] uppercase text-[10px] tracking-widest border-b border-[#D5E1D0] bg-[#F4F6F0]/80">
+                    <th className="py-3 px-4 font-mono font-semibold">{t("ingredient")}</th>
+                    <th className="py-3 px-4 font-mono font-semibold">{t("healthBenefit")}</th>
+                    <th className="py-3 px-4 text-right font-mono font-semibold">{t("amount")}</th>
+                    <th className="py-3 px-4 text-right font-mono font-semibold">{t("dailyPct")}</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-[#E9F0E5]">
+                  {normalized.length === 0 ? (
+                    <tr>
+                      <td colSpan={4} className="py-8 text-center text-xs font-mono text-[#4A6B43]">
+                        {t("noData")}
                       </td>
                     </tr>
-                  )
-                })
-              )}
-            </tbody>
-          </table>
-        </div>
+                  ) : (
+                    normalized.map((i: any, idx: number) => {
+                      const isFocused = focusedName === i.name
+                      const weightRatio = (i.amount / maxAmount) * 100
+
+                      return (
+                        <tr 
+                          key={i.name}
+                          onMouseEnter={() => setFocusedName(i.name)}
+                          onMouseLeave={() => setFocusedName(null)}
+                          className={`cursor-pointer transition-all ${isFocused ? "bg-[#E9F0E5] shadow-xs" : "hover:bg-white"}`}
+                        >
+                          <td className="py-4 px-4">
+                            <div className="flex items-center gap-3">
+                              <span className={`w-3.5 h-3.5 rounded-full shrink-0 shadow-xs ${LAYER_COLORS[idx % LAYER_COLORS.length].split(" ")[0]}`} />
+                              <div>
+                                <span className="font-semibold text-[#1B2A1E]">{i.info.name}</span>
+                                {i.info.symbol && (
+                                  <span className="ml-2 font-mono text-[10px] text-[#4A6B43] bg-[#E9F0E5] px-1.5 py-0.5 rounded">
+                                    {i.info.symbol}
+                                  </span>
+                                )}
+                              </div>
+                            </div>
+                          </td>
+
+                          <td className="py-4 px-4 w-44">
+                            <div className="w-full bg-[#D5E1D0]/50 h-2 rounded-full overflow-hidden">
+                              <div 
+                                className={`h-full rounded-full transition-all duration-500 ${LAYER_COLORS[idx % LAYER_COLORS.length].split(" ")[0]}`} 
+                                style={{ width: `${Math.max(weightRatio, 4)}%` }}
+                              />
+                            </div>
+                          </td>
+
+                          <td className="py-4 px-4 text-right font-mono text-[#1B2A1E] font-medium">
+                            {i.amount} <span className="text-xs text-[#4A6B43]">{i.unit || "g"}</span>
+                          </td>
+
+                          <td className="py-4 px-4 text-right">
+                            <span className={`px-3 py-1 rounded-xl text-xs font-bold font-mono shadow-xs inline-block ${
+                              i.daily > 15 
+                                ? "bg-[#3B5336] text-white" 
+                                : i.daily > 5 
+                                ? "bg-[#C68B59]/20 text-[#1B2A1E] border border-[#C68B59]/40" 
+                                : "bg-[#E9F0E5] text-[#3B5336]"
+                            }`}>
+                              {i.daily.toFixed(1)}%
+                            </span>
+                          </td>
+                        </tr>
+                      )
+                    })
+                  )}
+                </tbody>
+              </table>
+            </div>
+          </>
+        ) : (
+          /* ECharts Heatmap Matrix View */
+          <div className="space-y-4 animate-fadeIn">
+            <div className="flex justify-between items-center text-xs font-mono text-[#4A6B43] px-1">
+              <span>{t("heatmapTitle")}</span>
+              <span className="text-[#3B5336] font-semibold">{t("echartsMatrixActive")}</span>
+            </div>
+
+            <div className="h-[440px] w-full bg-white p-4 rounded-2xl border border-[#D5E1D0] shadow-inner">
+              <ReactECharts 
+                option={heatmapChartOption} 
+                style={{ height: '100%', width: '100%' }} 
+              />
+            </div>
+            
+            <p className="text-[11px] font-mono text-[#4A6B43] text-center pt-1">
+              {t("heatmapHoverInstruction")}
+            </p>
+          </div>
+        )}
       </div>
     </section>
   )
