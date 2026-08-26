@@ -8,14 +8,15 @@ import { ClientDate } from "@/components/client-date"
 import { ClientMapWrapper } from "@/components/client-map-wrapper"
 import { SafeImage } from "@/components/safe-image"
 import { IngredientCompositionPanel } from "@/components/ingredient-composition-panel"
+import { SeasonalTrendsPanel } from "@/components/seasonal-trends-panel" 
 import { ArrowIcon, RegistryGlyph } from "@/components/editorial-primitives"
 import { ReadingProgressBar } from "@/components/reading-progress-bar"
 import type { Product } from "@/lib/types/db"
 
 type TextureMode = "traditional" | "moist" | "spiced"
 
-export function SourcePageClient({ product }: { product: Product }) {
-  const t = useTranslations("SourcePage")
+export function RegistryPageClient({ product }: { product: Product }) {
+  const t = useTranslations("RegistryPage")
   const [slices, setSlices] = useState(1)
   const [textureMode, setTextureMode] = useState<TextureMode>("traditional")
   const [activeTab, setActiveTab] = useState<"layers" | "profile">("layers")
@@ -340,13 +341,16 @@ Richness: ${currentRichness}%
 
           <IngredientCompositionPanel ingredients={scaledIngredients} index="04" />
 
+          {/* Newly Slotted Seasonal Trends Component */}
+          <SeasonalTrendsPanel index="05" />
+
           <section className="overflow-hidden rounded-3xl border border-[#D5E1D0] bg-white shadow-sm">
             <div className="p-6 sm:p-8 flex items-baseline justify-between border-b border-[#E9F0E5]">
               <div>
                 <h2 className="font-display text-xl sm:text-2xl tracking-[-0.03em] text-[#1B2A1E]">{t("location.title")}</h2>
                 <p className="text-xs text-[#4A6B43] mt-1">{t("location.subtitle")}</p>
               </div>
-              <span className="font-mono text-[11px] font-bold text-[#3B5336] bg-[#E9F0E5] px-2.5 py-0.5 rounded-full border border-[#D5E1D0]/60">05</span>
+              <span className="font-mono text-[11px] font-bold text-[#3B5336] bg-[#E9F0E5] px-2.5 py-0.5 rounded-full border border-[#D5E1D0]/60">06</span>
             </div>
             {hasCoordinates ? (
               <ClientMapWrapper lat={Number(source!.lat)} lng={Number(source!.lng)} sourceName={source?.source_name || product.product_name} locationAddress={source?.location_address} height="30rem" />
