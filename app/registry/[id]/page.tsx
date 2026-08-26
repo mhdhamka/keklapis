@@ -1,7 +1,7 @@
 import { notFound } from "next/navigation"
 import { getProductById } from "@/lib/db/products"
 import type { Product } from "@/lib/types/db"
-import { SourcePageClient } from "@/components/source-page-client"
+import { RegistryPageClient } from "@/components/registry-page-client"
 
 export const dynamic = "force-dynamic"
 
@@ -17,5 +17,5 @@ export default async function SourcePage({ params }: { params: Promise<{ id: str
 
   if (!product) notFound()
 
-  return <SourcePageClient product={product} />
+  return <RegistryPageClient product={product} />
 }

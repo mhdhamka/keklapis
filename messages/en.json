@@ -709,7 +709,7 @@
     "visualLayerStack": "Visual Layer Stack (Proportional Weight)",
     "totalStackMass": "Total Stack Mass: {mass}g"
   },
-  "SourcePage": {
+  "RegistryPage": {
     "unknownEdition": "Unknown Edition",
     "registryRecord": "Registry Record",
     "verifiedAsset": "Verified Asset",
@@ -776,6 +776,30 @@
         "traditional": "Traditional",
         "moist": "Moist",
         "spiced": "Spiced"
+      }
+    },
+    "seasonal": {
+      "title": "Seasonal Trends & Variant Demand",
+      "subtitle": "Annual production velocity and consumer preference tracking across regional festivities.",
+      "tabs": {
+        "demand": "Demand",
+        "festive": "Festive Spikes"
+      },
+      "telemetrySuffix": "Telemetry",
+      "velocityIndex": "Velocity Index: {value}%",
+      "festiveSurgeFactor": "Festive Surge Factor: {value}x",
+      "loadSim": "Load Sim",
+      "liveDemand": "Live Demand",
+      "festiveMatrix": "Festive Matrix",
+      "peakBadge": "Peak",
+      "footerHint": "Click or hover any monthly column to lock telemetry data. Adjust slider to scale simulation.",
+      "regionalIntegration": "Regional Festivities Integration Active",
+      "festivals": {
+        "cny": "Chinese New Year Peak",
+        "raya": "Hari Raya Preparation Spike",
+        "gawai": "Gawai Dayak Festival",
+        "deepavali": "Deepavali Season",
+        "yearend": "Year-End Holiday Rush"
       }
     },
     "location": {

@@ -709,7 +709,7 @@
     "visualLayerStack": "Timbunan Lapisan Visual (Berat Proportional)",
     "totalStackMass": "Jumlah Jisim Timbunan: {mass}g"
   },
-  "SourcePage": {
+  "RegistryPage": {
     "unknownEdition": "Edisi Tidak Diketahui",
     "registryRecord": "Rekod Senarai",
     "verifiedAsset": "Aset Disahkan",
@@ -776,6 +776,30 @@
         "traditional": "Tradisional",
         "moist": "Lembap",
         "spiced": "Berempah"
+      }
+    },
+    "seasonal": {
+      "title": "Trend Musim & Permintaan Varian",
+      "subtitle": "Halaju pengeluaran tahunan dan penjejakan keutamaan pengguna merentas perayaan serantau.",
+      "tabs": {
+        "demand": "Permintaan",
+        "festive": "Lonjakan Perayaan"
+      },
+      "telemetrySuffix": "Telemetri",
+      "velocityIndex": "Indeks Halaju: {value}%",
+      "festiveSurgeFactor": "Faktor Lonjakan Perayaan: {value}x",
+      "loadSim": "Sim Muatan",
+      "liveDemand": "Permintaan Semasa",
+      "festiveMatrix": "Matriks Perayaan",
+      "peakBadge": "Puncak",
+      "footerHint": "Klik atau halakan pada mana-mana lajur bulanan untuk mengunci data telemetri. Laraskan peluncur untuk mensimulasikan skala.",
+      "regionalIntegration": "Integrasi Perayaan Serantau Aktif",
+      "festivals": {
+        "cny": "Puncak Tahun Baru Cina",
+        "raya": "Lonjakan Persiapan Hari Raya",
+        "gawai": "Perayaan Hari Gawai",
+        "deepavali": "Musim Deepavali",
+        "yearend": "Kesesakan Cuti Akhir Tahun"
       }
     },
     "location": {

@@ -10,10 +10,10 @@
     "close": "Tutup",
     "optional": "Suka hati / Pilihan",
     "required": "Mesti ada",
-    "notListed": "Siti nadai / Nadai terdaftar?",
+    "notListed": "Sikda daftar?",
     "viewAll": "Nangga semua",
     "viewFullMap": "Bukak peta penuh",
-    "noResults": "Nadai jumpa apa yang dicarik",
+    "noResults": "Sikda jumpa apa yang dicarik",
     "noResultsDesc": "Cuba ubah penapis munsik carik pake nama kedei / bahan lain.",
     "skipToContent": "Terus ke isik utama",
     "loadingPage": "Tengah muat..."
@@ -29,8 +29,8 @@
     "aboutDescription": "Kamek orang sik dapat maklumat asal tentang Projek Kek Lapis Sarawak tok.",
     "docsTitle": "Dokumentasi sik dapat",
     "docsDescription": "API reference nya sik dapat diakses masa tok.",
-    "sourceTitle": "Rekod nadai jumpa",
-    "sourceDescription": "Kamek orang nadai dapat nyarik maklumat kek lapis tok.",
+    "sourceTitle": "Rekod sikda jumpa",
+    "sourceDescription": "Kamek orang sikda dapat nyarik maklumat kek lapis tok.",
     "notFoundLabel": "Ralat 404",
     "notFoundTitle": "Lapisan tok hilang entah kemana.",
     "notFoundDescription": "Pautan mungkin rosak munsik halamannya dah dipindah.",
@@ -174,7 +174,7 @@
     "brandsParentCompany": "Dapur Master",
     "brandsViewBrand": "Nangga produk kede",
     "brandsNoData": "N/A",
-    "brandsNoBrands": "nadai jumpa kede",
+    "brandsNoBrands": "sikda jumpa kede",
     "brandsNoBrandsDesc": "Dapur pengeluaran disahkan akan muncul kelak lepas ditambah ke pangkalan data.",
     "registryEyebrow": "Pangkalan Data Aktif",
     "allVarieties": "Semua Variasi",
@@ -249,7 +249,7 @@
     "resultsFor": "Hasil pake \"{query}\"",
     "showingResults": "Memaparkan rekod yang sepadan dengan parameter carian kitak",
     "resultsFound": "{count, plural, one {# rekod jumpa} other {# rekod jumpa}}",
-    "noResults": "nadai rekod sepadan",
+    "noResults": "nadai rekod yang sepadan",
     "noResultsDesc": "Cuba kitak ubah terma carian munsik longgarkan penapis."
   },
   "analytics": {
@@ -267,7 +267,7 @@
     "varietiesAvailable": "{count} daftar ada",
     "hideSidebar": "Tutup sidebar",
     "searchPlaceholder": "Carik daftar atau kek...",
-    "noMatchingLocations": "Nadai kede ke semak enggau ditemu.",
+    "noMatchingLocations": "Nadai kede ke ditemu.",
     "showList": "Nunjuk Daftar",
     "varietiesCount": "{count} Daftar",
     "regionSubtitle": "Sarawak & Malaysia",
@@ -644,7 +644,7 @@
     "richnessComparison": "Nbanding Kepekatan (Ketumpatan & D.R.I.)",
     "ingredientComposition": "Komposisi Bahan",
     "ingredientCompositionGrams": "g/kg",
-    "noIngredientData": "nadai data bahan pake perbandingan bah",
+    "noIngredientData": "sikda data bahan pake perbandingan bah",
     "property": "Sifat",
     "sweetnessLevel": "Tahap Kemanisan",
     "richnessDri": "Kepekatan (g/kg)",
@@ -654,7 +654,7 @@
     "manufacturer": "Master Baker",
     "brandWebsite": "Laman Web Kede",
     "visit": "Singgah",
-    "noImage": "nadai Imej",
+    "noImage": "sikda Imej",
     "lessSweetLabel": "Kurang Manis (<6.5)",
     "traditionalLabel": "Tradisional (6.5-8)",
     "extraRichLabel": "Super Kaya (>8)",
@@ -710,7 +710,7 @@
     "visualLayerStack": "Susunan Lapis Visual (Berat Berkadar)",
     "totalStackMass": "Jumlah Berat Lapis: {mass}g"
   },
-  "SourcePage": {
+  "RegistryPage": {
     "unknownEdition": "Edisi Sik Tauk",
     "registryRecord": "Rekod Daftar",
     "verifiedAsset": "Aset Sah",
@@ -777,6 +777,30 @@
         "traditional": "Tradisional",
         "moist": "Basah-Basah Manja (Lembap)",
         "spiced": "Berempah"
+      }
+    },
+    "seasonal": {
+      "title": "Trend Musim & Permintaan Varian",
+      "subtitle": "Pantau halaju pengeluaran tahunan ngan selera orang rami masa musim perayaan.",
+      "tabs": {
+        "demand": "Permintaan",
+        "festive": "Pecut Perayaan"
+      },
+      "telemetrySuffix": "Telemetri",
+      "velocityIndex": "Indeks Halaju: {value}%",
+      "festiveSurgeFactor": "Faktor Pecutan Perayaan: {value}x",
+      "loadSim": "Sim Muatan",
+      "liveDemand": "Permintaan Live",
+      "festiveMatrix": "Matriks Perayaan",
+      "peakBadge": "Puncak",
+      "footerHint": "Tekan jak munsik halakan rh dekat tiang bulanan nya pake kunci data. Tarit peluncur nya pake uji skala muatan.",
+      "regionalIntegration": "Integrasi Perayaan Sarawak Aktif",
+      "festivals": {
+        "cny": "Puncak Tahun Baru Cina",
+        "raya": "Pecutan Persiapan Hari Raya",
+        "gawai": "Pesta Gawai Dayak",
+        "deepavali": "Musim Deepavali",
+        "yearend": "Pesta Ujong Taun"
       }
     },
     "location": {
