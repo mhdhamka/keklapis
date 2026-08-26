@@ -708,7 +708,19 @@
     "benefitPreservatives": "Panjangkan jangka hayat dengan kekalkan kesegaran produk",
     "benefitGeneric": "Sumbang kepada kepekatan pastri keseluruhan",
     "visualLayerStack": "Susunan Lapis Visual (Berat Berkadar)",
-    "totalStackMass": "Jumlah Berat Lapis: {mass}g"
+    "totalStackMass": "Jumlah Berat Lapis: {mass}g",
+    "viewStandard": "Standard",
+    "viewHeatmap": "Peta Panas",
+    "searchPlaceholder": "Carik bahan...",
+    "layerBase": "Lapis 1 (Tapak)",
+    "layerSpiced": "Lapis 2 (Berempah)",
+    "layerCore": "Lapis 3 (Isik)",
+    "layerCream": "Lapis 4 (Krim)",
+    "layerGlaze": "Lapis 5 (Salut)",
+    "crossSectionMass": "Berat Keratan Rentas",
+    "heatmapTitle": "Peta Panas Keratan Rentas Komposisi Lapisan dengan Bahan",
+    "echartsMatrixActive": "Matriks ECharts Aktif",
+    "heatmapHoverInstruction": "Ngkah tetikus kit rah dekat koordinat grid ya pake nangga detail distribusi berat tiap lapisan."
   },
   "RegistryPage": {
     "unknownEdition": "Edisi Sik Tauk",

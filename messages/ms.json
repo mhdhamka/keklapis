@@ -707,7 +707,19 @@
     "benefitPreservatives": "Memanjangkan jangka hayat dan mengekalkan kesegaran produk",
     "benefitGeneric": "Menyumbang kepada kekayaan pastri keseluruhan",
     "visualLayerStack": "Timbunan Lapisan Visual (Berat Proportional)",
-    "totalStackMass": "Jumlah Jisim Timbunan: {mass}g"
+    "totalStackMass": "Jumlah Jisim Timbunan: {mass}g",
+    "viewStandard": "Piawai",
+    "viewHeatmap": "Peta Haba",
+    "searchPlaceholder": "Cari bahan...",
+    "layerBase": "Lapisan 1 (Asas)",
+    "layerSpiced": "Lapisan 2 (Berempah)",
+    "layerCore": "Lapisan 3 (Teras)",
+    "layerCream": "Lapisan 4 (Krim)",
+    "layerGlaze": "Lapisan 5 (Salutan)",
+    "crossSectionMass": "Jisim Keratan Rentas",
+    "heatmapTitle": "Peta Haba Keratan Rentas Komposisi Lapisan vs Bahan",
+    "echartsMatrixActive": "Matriks ECharts Aktif",
+    "heatmapHoverInstruction": "Hala kursor pada mana-mana koordinat grid untuk meneliti taburan jisim tepat merentasi lapisan individu."
   },
   "RegistryPage": {
     "unknownEdition": "Edisi Tidak Diketahui",
