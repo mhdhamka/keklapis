@@ -11,6 +11,7 @@ import { Label } from "@/components/ui/label"
 import { Slider } from "@/components/ui/slider"
 import { Select, SelectContent, SelectItem, SelectTrigger } from "@/components/ui/select"
 import { tasteProfileToVector } from "@/lib/ai/embeddings"
+import { TasteRecommendationsClient as TasteRecommendations } from "@/components/taste-recommendations"
 
 interface SavedFilterPreset {
   id: string
@@ -473,6 +474,12 @@ export function HomeFilters({
                       </div>
                     </div>
                   )}
+                </div>
+
+                {/* Integrated Taste Recommendations Component */}
+                <div className="rounded-2xl border border-zinc-200 bg-white/80 p-4 backdrop-blur-md space-y-3 transition-all">
+                  <span className="font-mono text-xs font-bold text-zinc-700 uppercase tracking-wider">Interactive Recommendations</span>
+                  <TasteRecommendations initialRecommendations={[]} currentProductId="" />
                 </div>
 
                 <FilterSection title={tf("brands")}>
