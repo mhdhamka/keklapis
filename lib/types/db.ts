@@ -1,40 +1,15 @@
 // ==========================================
-// Database Types Definition
+// Database & Prisma Model Type Definitions
+// lib/types/db.ts
 // ==========================================
 
+import type { Product as PrismaProduct, Brand as PrismaBrand, User as PrismaUser } from "@prisma/client";
+
 export type ProductStatus = "pending" | "approved" | "rejected";
-export type ProductCakeType = "layered-cake";
+export type ProductCakeType = "layered-cake" | "traditional";
 export type SourceType = "bakery";
 
-export interface FlatProductRecord {
-  id: string;
-  brand: string;
-  type: ProductCakeType;
-  product_name: string | null;
-  culinary_profile: string | null;
-  parent_company: string | null;
-  website_url: string | null;
-  manufacturer: string | null;
-  manufacturer_address: string | null;
-  barcode: string | null;
-  sweetness: number | null;
-  richness_dri: number | null;
-  ingredients_mg_l: Record<string, number | null>;
-  source_name: string | null;
-  source_type: string | null;
-  source_address: string | null;
-  latitude: number | null;
-  longitude: number | null;
-  kkm_approval_number: string | null;
-  country: string;
-  image: string;
-  status: ProductStatus;
-  submitted_by: string | null;
-  created_at: string | null;
-  updated_at: string | null;
-  bakery_origin?: string | null;
-  layers_count?: number | null;
-}
+export type { PrismaProduct, PrismaBrand, PrismaUser };
 
 export interface BaseModel {
   id: string;
@@ -44,13 +19,13 @@ export interface BaseModel {
 
 export interface Brand extends BaseModel {
   brand_name: string;
-  parent_company: string | null;
-  website_url: string | null;
+  parent_company?: string | null;
+  website_url?: string | null;
 }
 
 export interface Manufacturer extends BaseModel {
   name: string;
-  address: string | null;
+  address?: string | null;
 }
 
 export interface Source extends BaseModel {
@@ -78,34 +53,55 @@ export interface ImageView {
   url: string;
 }
 
-// Compatibility view consumed by the existing UI and public APIs.
 export interface Product extends BaseModel {
-  brand_id: string;
-  manufacturer_id: string;
-  source_id: string;
+  brand_id?: string;
+  manufacturer_id?: string;
+  source_id?: string;
   submitted_by: string | null;
   product_name: string | null;
   culinary_profile: string | null;
   cake_type: ProductCakeType;
+  type?: string;
   barcode: string | null;
   sweetness: number | null;
   richness_dri: number | null;
-  ingredients_json: Array<{
+  ingredients_json?: Array<{
     name: string;
     unit: string;
     amount: number;
   }>;
+  ingredients_mg_l?: Record<string, number | null>;
   status: ProductStatus;
   image: string;
+  
+  // Clean relational & flat properties to satisfy both UI components and DB mappers without union friction
   brand?: Brand;
+  brand_name?: string;
+  parent_company?: string | null;
+  website_url?: string | null;
+
   manufacturer?: Manufacturer;
+  manufacturer_name?: string;
+  manufacturer_address?: string | null;
+
   source?: Source;
+  source_name?: string | null;
+  source_type?: SourceType | string | null;
+  source_address?: string | null;
+  latitude?: number | null;
+  longitude?: number | null;
+  kkm_approval_number?: string | null;
+  country?: string;
+
   images?: ImageView[];
   bakery_origin?: string | null;
   layers_count?: number | null;
-  cake_category?: string | null; // Added to resolve TasteRadarChart/compare-table errors
-  sourceType?: string | null;    // Added to resolve TasteRadarChart/compare-table errors
+  cake_category?: string | null; 
+  sourceType?: string | null;    
+  taste_vector?: number[];
 }
+
+export interface FlatProductRecord extends Product {}
 
 export interface IngredientComposition {
   [ingredientName: string]: number;

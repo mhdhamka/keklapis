@@ -104,8 +104,56 @@ Create `.env.local` based on `.env.example`:
 
 ```bash
 NEXT_PUBLIC_SITE_URL=http://localhost:3000
-GEMINI_API_KEY="" # Google Gemini API Key for AI Copilot features
 
+# Google Gemini API Key for AI Copilot features
+GEMINI_API_KEY=""
+
+# Typesense Search Engine Configuration
+TYPESENSE_HOST=localhost
+TYPESENSE_PORT=8108
+TYPESENSE_PROTOCOL=http
+TYPESENSE_API_KEY=your_typesense_api_key_here
+
+# PostgreSQL Database
+DATABASE_URL="postgresql://USER:PASSWORD@HOST:PORT/DATABASE_NAME?schema=public"
+
+```
+
+### How to Get Your Typesense API Key from Docker
+If you are running Typesense locally via Docker, your API key is defined in your Docker run command or docker-compose.yml file under the --api-key argument.
+
+To find your running Typesense API key from the container, run:
+
+```Bash
+docker run -d \
+  --name typesense \
+  -p 8108:8108 \
+  -v "$(pwd)/typesense-data:/data" \
+  typesense/typesense:latest \
+  --data-dir /data \
+  --api-key=xyz \
+  --enable-cors
+```
+
+If you already have a Typesense container running and need to verify or retrieve your API key, you can inspect it with:
+```bash
+docker inspect typesense | grep -i api-key
+```
+
+Alternatively, if you used the default development setup, the API key is typically set to the value you specified during container startup (e.g., xyz).
+
+### How to Set Up PostgreSQL
+
+* Ensure you have a PostgreSQL instance running locally or on a cloud provider (like Neon or Supabase).
+* Create a dedicated database for the project (e.g., `keklapis`).
+* Construct your connection string using your local credentials:
+  * **Format:** `postgresql://USER:PASSWORD@HOST:PORT/DATABASE_NAME?schema=public`
+  * **Example (Local):** `postgresql://postgres:password@localhost:5432/keklapis?schema=public`
+* Push your Prisma schema and seed your database with existing records:
+
+```bash
+npx prisma db push
+npx prisma db seed
 ```
 
 ### Package Manager (.npmrc)
