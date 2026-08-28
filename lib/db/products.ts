@@ -36,38 +36,43 @@ function ingredientName(key: string): string {
 }
 
 export function expandProduct(raw: FlatProductRecord): Product {
-  const brandId = slugify(raw.brand);
-  const manufacturerId = slugify(raw.manufacturer ?? "unknown");
+  const brandNameVal = typeof raw.brand === "string" ? raw.brand : (raw.brand as any)?.brand_name ?? "Unknown";
+  const manufacturerNameVal = typeof raw.manufacturer === "string" ? raw.manufacturer : (raw.manufacturer as any)?.name ?? "Unknown";
+
+  const brandId = slugify(brandNameVal);
+  const manufacturerId = slugify(manufacturerNameVal);
   const sourceId = slugify(raw.source_name ?? raw.id);
+  
   const brand: Brand = {
     id: brandId,
-    brand_name: raw.brand,
-    parent_company: raw.parent_company,
-    website_url: raw.website_url,
-    created_at: raw.created_at,
-    updated_at: raw.updated_at,
+    brand_name: brandNameVal,
+    parent_company: raw.parent_company ?? null,
+    website_url: raw.website_url ?? null,
+    created_at: raw.created_at ?? null,
+    updated_at: raw.updated_at ?? null,
   };
+  
   const manufacturer: Manufacturer = {
     id: manufacturerId,
-    name: raw.manufacturer ?? "Unknown",
-    address: raw.manufacturer_address,
-    created_at: raw.created_at,
-    updated_at: raw.updated_at,
+    name: manufacturerNameVal,
+    address: raw.manufacturer_address ?? null,
+    created_at: raw.created_at ?? null,
+    updated_at: raw.updated_at ?? null,
   };
+  
   const source: Source = {
     id: sourceId,
-    source_name: raw.source_name,
-    type: sourceType(raw.source_type),
-    location_address: raw.source_address,
-    lat: raw.latitude,
-    lng: raw.longitude,
-    kkm_approval_number: raw.kkm_approval_number,
-    country: raw.country,
-    created_at: raw.created_at,
-    updated_at: raw.updated_at,
+    source_name: raw.source_name ?? null,
+    type: sourceType(raw.source_type ?? null),
+    location_address: raw.source_address ?? null,
+    lat: raw.latitude ?? null,
+    lng: raw.longitude ?? null,
+    kkm_approval_number: raw.kkm_approval_number ?? null,
+    country: raw.country ?? "Malaysia",
+    created_at: raw.created_at ?? null,
+    updated_at: raw.updated_at ?? null,
   };
 
-  // Transform ingredients map into an array so components can loop through them safely
   const ingredientsArray = Object.entries(raw.ingredients_mg_l ?? {}).map(([key, amount]) => ({
     name: ingredientName(key),
     unit: "g",
@@ -81,19 +86,20 @@ export function expandProduct(raw: FlatProductRecord): Product {
     brand_id: brandId,
     manufacturer_id: manufacturerId,
     source_id: sourceId,
-    submitted_by: raw.submitted_by,
-    product_name: raw.product_name,
+    submitted_by: raw.submitted_by ?? null,
+    product_name: raw.product_name ?? null,
     culinary_profile: raw.culinary_profile ?? null,
-    cake_type: raw.type,
-    barcode: raw.barcode,
-    sweetness: raw.sweetness,
-    richness_dri: raw.richness_dri,
+    cake_type: raw.type || raw.cake_type || "layered-cake",
+    barcode: raw.barcode ?? null,
+    sweetness: raw.sweetness ?? null,
+    richness_dri: raw.richness_dri ?? null,
     ingredients_json: ingredientsArray, 
-    status: raw.status,
+    status: raw.status ?? "pending",
     image: raw.image,
-    created_at: raw.created_at,
-    updated_at: raw.updated_at,
+    created_at: raw.created_at ?? null,
+    updated_at: raw.updated_at ?? null,
     brand,
+    brand_name: brandNameVal,
     manufacturer,
     source,
     bakery_origin: item.bakery_origin ?? null,
@@ -110,8 +116,8 @@ function matches(product: Product, filters: SearchFilters): boolean {
   }
   if (filters.types?.length && !filters.types.includes(product.source?.type ?? "")) return false;
   if (filters.excludedTypes?.includes(product.source?.type ?? "")) return false;
-  if (filters.brands?.length && !filters.brands.includes(product.brand_id)) return false;
-  if (filters.excludedBrands?.includes(product.brand_id)) return false;
+  if (filters.brands?.length && !filters.brands.includes(product.brand_id!)) return false;
+  if (filters.excludedBrands?.includes(product.brand_id!)) return false;
   if (filters.culinaryProfiles?.length && (!product.culinary_profile || !filters.culinaryProfiles.includes(product.culinary_profile))) return false;
   if (filters.minSweetness !== undefined && filters.minSweetness > 0 && (product.sweetness === null || product.sweetness < filters.minSweetness)) return false;
   if (filters.maxSweetness !== undefined && filters.maxSweetness < 10 && (product.sweetness === null || product.sweetness > filters.maxSweetness)) return false;
@@ -156,25 +162,28 @@ type ProductInput = Omit<Partial<FlatProductRecord>, "brand" | "manufacturer"> &
 };
 
 export async function createProduct(data: ProductInput): Promise<Product> {
-  const brand = typeof data.brand === "string" ? data.brand : data.brand?.brand_name;
+  const brandName = typeof data.brand === "string" ? data.brand : data.brand?.brand_name;
   const type = data.type ?? data.cake_type ?? "traditional";
-  if (!brand) {
+  if (!brandName) {
     throw new Error("A brand is required");
   }
-  const id = `${slugify(brand)}-${slugify(data.product_name || "product")}`;
+  const id = `${slugify(brandName)}-${slugify(data.product_name || "product")}`;
   if ((await getAll("products")).some((product) => product.id === id)) {
     throw new Error(`Product ${id} already exists`);
   }
   const timestamp = new Date().toISOString();
+  
+  const mfrVal = typeof data.manufacturer === "string" ? data.manufacturer : data.manufacturer?.name ?? null;
+
   const record: FlatProductRecord = {
     id,
-    brand,
+    brand: brandName,
     type,
     product_name: data.product_name ?? null,
     culinary_profile: data.culinary_profile ?? null,
     parent_company: data.parent_company ?? null,
     website_url: data.website_url ?? null,
-    manufacturer: typeof data.manufacturer === "string" ? data.manufacturer : data.manufacturer?.name ?? null,
+    manufacturer: mfrVal as any,
     manufacturer_address: data.manufacturer_address ?? null,
     barcode: data.barcode ?? null,
     sweetness: data.sweetness ?? null,
@@ -206,7 +215,7 @@ export async function updateProduct(id: string, data: ProductInput): Promise<Pro
   if (data.culinary_profile !== undefined) patch.culinary_profile = data.culinary_profile;
   if (data.parent_company !== undefined) patch.parent_company = data.parent_company;
   if (data.website_url !== undefined) patch.website_url = data.website_url;
-  if (typeof data.manufacturer === "string") patch.manufacturer = data.manufacturer;
+  if (typeof data.manufacturer === "string") patch.manufacturer = data.manufacturer as any;
   if (data.manufacturer_address !== undefined) patch.manufacturer_address = data.manufacturer_address;
   if (data.barcode !== undefined) patch.barcode = data.barcode;
   if (data.sweetness !== undefined) patch.sweetness = data.sweetness;

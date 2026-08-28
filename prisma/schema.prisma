@@ -1,0 +1,149 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+// --- USER & AUTH (NextAuth.js Models) ---
+
+model User {
+  id            String       @id
+  name          String?
+  email         String?      @unique
+  emailVerified DateTime?
+  image         String?
+  accounts      Account[]
+  sessions      Session[]
+  
+  reviews       Review[]
+  tastingLogs   TastingLog[]
+  wishlist      Wishlist[]
+  badges        UserBadge[]
+
+  createdAt     DateTime     @default(now())
+  updatedAt     DateTime     @default(now())
+}
+
+model Account {
+  id                String  @id
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String?
+  access_token      String?
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String?
+  session_state     String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+}
+
+model Session {
+  id           String   @id
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+// --- CORE APP DATA ---
+
+model Brand {
+  id             String    @id
+  brand_name     String    @unique
+  parent_company String?
+  website_url    String?
+  description    String?
+  products       Product[]
+}
+
+model Product {
+  id                  String       @id
+  name                String
+  brandId             String?
+  brand               Brand?       @relation(fields: [brandId], references: [id], onDelete: Cascade)
+  // Flat fields expected by lib/db/* and components
+  brand_name          String?
+  parent_company      String?
+  website_url         String?
+  type                String?
+  sweetness           Float?
+  richness            Float?
+  moisture            Float?
+  spice               Float?
+  taste_vector        String?      
+  manufacturer_id     String?
+  manufacturer_address String?
+  source_name         String?
+  sourceType          String?
+  source_type         String?
+  source_address      String?
+  latitude            Float?
+  longitude           Float?
+  kkm_approval_number String?
+  country             String?
+  
+  reviews             Review[]
+  tastingLogs         TastingLog[]
+  wishlistItems       Wishlist[]
+}
+
+model Review {
+  id         String   @id
+  rating     Int
+  comment    String?
+  isApproved Boolean  @default(false)
+  userId     String
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  productId  String
+  product    Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+  createdAt  DateTime @default(now())
+}
+
+model TastingLog {
+  id        String   @id
+  notes     String?
+  rating    Int?
+  photoUrl  String?
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  productId String
+  product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+}
+
+model Wishlist {
+  id        String   @id
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  productId String
+  product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, productId])
+}
+
+model Badge {
+  id          String      @id
+  name        String      @unique
+  description String
+  icon        String
+  users       UserBadge[]
+}
+
+model UserBadge {
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  badgeId   String
+  badge     Badge    @relation(fields: [badgeId], references: [id], onDelete: Cascade)
+  earnedAt  DateTime @default(now())
+
+  @@id([userId, badgeId])
+}

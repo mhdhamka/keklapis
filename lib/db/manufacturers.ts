@@ -5,14 +5,15 @@ import { slugify } from "./products";
 export async function getManufacturers(): Promise<Manufacturer[]> {
   const manufacturers = new Map<string, Manufacturer>();
   for (const product of await getAll("products")) {
-    if (!product.manufacturer) continue;
-    const id = slugify(product.manufacturer);
+    const mfrName = typeof product.manufacturer === "string" ? product.manufacturer : (product.manufacturer as any)?.name;
+    if (!mfrName) continue;
+    const id = slugify(mfrName);
     if (!manufacturers.has(id)) manufacturers.set(id, {
       id,
-      name: product.manufacturer,
-      address: product.manufacturer_address,
-      created_at: product.created_at,
-      updated_at: product.updated_at,
+      name: mfrName,
+      address: product.manufacturer_address ?? null,
+      created_at: product.created_at ?? null,
+      updated_at: product.updated_at ?? null,
     });
   }
   return [...manufacturers.values()].sort((a, b) => a.name.localeCompare(b.name));
