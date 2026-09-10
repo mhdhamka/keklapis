@@ -4,7 +4,7 @@
 
 **Sarawak's definitive traditional and modern Kek Lapis registry, bakery directory, and heritage archive.**
 
-[Live Demo](https://localhost:3000) · [Report Bug](https://github.com/mhdhamka/keklapis/issues) · [Request Feature](https://github.com/mhdhamka/keklapis/issues)
+[Live Demo](https://keklapis.vercel.app/) · [Report Bug](https://github.com/mhdhamka/keklapis/issues) · [Request Feature](https://github.com/mhdhamka/keklapis/issues)
 
 ![License](https://img.shields.io/badge/license-MIT-blue.svg)
 ![Next.js](https://img.shields.io/badge/Next.js-16-black?style=flat&logo=next.js)
