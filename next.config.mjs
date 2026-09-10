@@ -12,9 +12,6 @@ const nextConfig = {
   // Development: Local network access origins
   allowedDevOrigins: ['192.168.1.116', '*.192.168.1.116', '*.local'],
 
-  // Deployment: Output standalone build for Docker/Node production containers
-  output: 'standalone',
-
   // Performance & Build Speed Optimizations
   experimental: {
     webpackBuildWorker: true, // Enables parallel compilation via worker threads
