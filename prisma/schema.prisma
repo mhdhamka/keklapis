@@ -10,21 +10,21 @@ generator client {
 // --- USER & AUTH (NextAuth.js Models) ---
 
 model User {
-  id            String       @id
-  name          String?
-  email         String?      @unique
+  id             String       @id
+  name           String?
+  email          String?      @unique
   emailVerified DateTime?
-  image         String?
-  accounts      Account[]
-  sessions      Session[]
+  image          String?
+  accounts       Account[]
+  sessions       Session[]
   
-  reviews       Review[]
-  tastingLogs   TastingLog[]
-  wishlist      Wishlist[]
-  badges        UserBadge[]
+  reviews        Review[]
+  tastingLogs    TastingLog[]
+  wishlist       Wishlist[]
+  badges         UserBadge[]
 
-  createdAt     DateTime     @default(now())
-  updatedAt     DateTime     @default(now())
+  createdAt      DateTime     @default(now())
+  updatedAt      DateTime     @default(now())
 }
 
 model Account {
@@ -66,34 +66,34 @@ model Brand {
 }
 
 model Product {
-  id                  String       @id
-  name                String
-  brandId             String?
-  brand               Brand?       @relation(fields: [brandId], references: [id], onDelete: Cascade)
+  id                    String       @id
+  name                  String
+  brandId               String?
+  brand                 Brand?       @relation(fields: [brandId], references: [id], onDelete: Cascade)
   // Flat fields expected by lib/db/* and components
-  brand_name          String?
-  parent_company      String?
-  website_url         String?
-  type                String?
-  sweetness           Float?
-  richness            Float?
-  moisture            Float?
-  spice               Float?
-  taste_vector        String?      
-  manufacturer_id     String?
-  manufacturer_address String?
-  source_name         String?
-  sourceType          String?
-  source_type         String?
-  source_address      String?
-  latitude            Float?
-  longitude           Float?
-  kkm_approval_number String?
-  country             String?
+  brand_name            String?
+  parent_company        String?
+  website_url           String?
+  type                  String?
+  sweetness             Float?
+  richness              Float?
+  moisture              Float?
+  spice                 Float?
+  taste_vector          Float[]      
+  manufacturer_id       String?
+  manufacturer_address  String?
+  source_name           String?
+  sourceType            String?
+  source_type           String?
+  source_address        String?
+  latitude              Float?
+  longitude             Float?
+  kkm_approval_number   String?
+  country               String?
   
-  reviews             Review[]
-  tastingLogs         TastingLog[]
-  wishlistItems       Wishlist[]
+  reviews               Review[]
+  tastingLogs           TastingLog[]
+  wishlistItems         Wishlist[]
 }
 
 model Review {
@@ -139,11 +139,11 @@ model Badge {
 }
 
 model UserBadge {
-  userId    String
-  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  badgeId   String
-  badge     Badge    @relation(fields: [badgeId], references: [id], onDelete: Cascade)
-  earnedAt  DateTime @default(now())
+  userId   String
+  user     User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  badgeId  String
+  badge    Badge    @relation(fields: [badgeId], references: [id], onDelete: Cascade)
+  earnedAt DateTime @default(now())
 
   @@id([userId, badgeId])
 }

@@ -13,7 +13,7 @@
     "contract:emit": "prisma contract emit"
   },
   "prisma": {
-    "seed": "ts-node --compiler-options {\"module\":\"CommonJS\"} prisma/seed.ts"
+    "seed": "tsx prisma/seed.ts"
   },
   "dependencies": {
     "@google/genai": "^2.20.0",
@@ -69,6 +69,8 @@
     "prisma": "^5.22.0",
     "sharp": "^0.35.3",
     "tailwindcss": "^4.3.3",
+    "ts-node": "^10.9.2",
+    "tsx": "^4.23.13",
     "typescript": "^7.0.2",
     "vitest": "^4.1.11"
   },
