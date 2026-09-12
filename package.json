@@ -34,7 +34,7 @@
     "@radix-ui/react-tooltip": "^1.2.16",
     "@tailwindcss/postcss": "^4.3.3",
     "@types/swagger-ui-react": "^5.18.0",
-    "autoprefixer": "^10.5.4",
+    "autoprefixer": "^10.5.5",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "dotenv": "^17.4.2",
