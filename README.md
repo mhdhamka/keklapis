@@ -71,7 +71,7 @@
 
 ```bash
 # Clone the repository
-git clone [https://github.com/mhdhamka/keklapis.git](https://github.com/mhdhamka/keklapis.git)
+git clone https://github.com/mhdhamka/keklapis.git
 cd keklapis
 
 # Install dependencies and the Google OpenAI package
