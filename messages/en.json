@@ -55,6 +55,9 @@
     "moreOptions": "More navigation options",
     "mobileNavigation": "Navigation menu",
     "contributeCta": "Contribute recipe",
+    "menuControls": "Control Menu",
+    "authentication": "Authentication",
+    "selectLanguage": "Select Language",
     "chat": {
       "assistant": "AI Assistant",
       "title": "Kek Lapis AI Copilot",

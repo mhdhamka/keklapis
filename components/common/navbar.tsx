@@ -6,15 +6,19 @@ import { usePathname } from "next/navigation"
 import { useTranslations } from "next-intl"
 import { cn } from "@/lib/utils"
 import type { Locale } from "@/i18n/routing"
-import { LanguageSwitcher } from "../common/language-switcher"
+import { LanguageSwitcher } from "./langswitch"
 import { AIChatSheet } from "../ai-chat-sheet"
-import { UserAuthButton } from "../user-auth-button" 
+import { signIn, signOut } from "next-auth/react"
 
 interface MainNavProps {
   initialLocale: Locale
+  user?: {
+    name?: string | null
+    email?: string | null
+  } | null
 }
 
-export function MainNav({ initialLocale }: MainNavProps) {
+export function MainNav({ initialLocale, user }: MainNavProps) {
   const pathname = usePathname()
   const t = useTranslations("nav")
   const [mobileOpen, setMobileOpen] = useState(false)
@@ -74,11 +78,11 @@ export function MainNav({ initialLocale }: MainNavProps) {
 
   // Localized routes array using translation keys
   const routes = [
-    { href: "/#overview", label: t("home"), active: pathname === "/", bg: "bg-[#8C7355]", text: "text-white" },      // Layer 1: Warm Brown
-    { href: "/#registry", label: t("allSources"), active: false, bg: "bg-[#D4C3A3]", text: "text-[#2A241F]" },    // Layer 2: Butter / Beige
-    { href: "/#bakenetwork", label: t("map"), active: false, bg: "bg-[#596B5A]", text: "text-white" },   // Layer 3: Muted Sage
-    { href: "/masterlapis/guide", label: t("learn"), active: false, bg: "bg-[#788877]", text: "text-white" },   // Layer 4: Light Sage
-    { href: "/lapiswiki", label: t("about"), active: false, bg: "bg-[#E6DEC7]", text: "text-[#2A241F]" },    // Layer 5: Soft Cream
+    { href: "/#overview", label: t("home"), active: pathname === "/", bg: "bg-[#8C7355]", text: "text-white" },
+    { href: "/#registry", label: t("allSources"), active: false, bg: "bg-[#D4C3A3]", text: "text-[#2A241F]" },
+    { href: "/#bakenetwork", label: t("map"), active: false, bg: "bg-[#596B5A]", text: "text-white" },
+    { href: "/masterlapis/guide", label: t("learn"), active: false, bg: "bg-[#788877]", text: "text-white" },
+    { href: "/lapiswiki", label: t("about"), active: false, bg: "bg-[#E6DEC7]", text: "text-[#2A241F]" },
   ]
 
   return (
@@ -128,12 +132,8 @@ export function MainNav({ initialLocale }: MainNavProps) {
             })}
           </nav>
 
-          {/* Action Controls & Combined Dropdown Menu */}
+          {/* Combined Menu & Controls Dropdown */}
           <div className="ml-auto flex items-center gap-3">
-            <div className="hidden sm:block">
-              <UserAuthButton />
-            </div>
-
             <div className="relative hidden lg:block" ref={dropdownRef}>
               <button
                 type="button"
@@ -141,7 +141,7 @@ export function MainNav({ initialLocale }: MainNavProps) {
                 className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-muted/50 hover:bg-emerald-500/10 border border-border/60 text-xs font-semibold tracking-wide text-foreground transition-all hover:border-emerald-600/40 active:scale-95 shadow-2xs group"
                 aria-expanded={dropdownOpen}
               >
-                <span>Menu & Controls</span>
+                <span>{t("menuControls")}</span>
                 <svg className={cn("w-3.5 h-3.5 text-muted-foreground transition-transform duration-200", dropdownOpen && "rotate-180")} fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                 </svg>
@@ -149,6 +149,57 @@ export function MainNav({ initialLocale }: MainNavProps) {
 
               {dropdownOpen && (
                 <div className="absolute right-0 mt-2 w-85 rounded-2xl bg-card/95 backdrop-blur-2xl border border-border/80 shadow-2xl p-3 z-50 animate-in fade-in slide-in-from-top-2 duration-200 space-y-3">
+                  
+                  {/* Authentication Section Inside Dropdown (Side-by-Side Icons) */}
+                  <div className="pb-2 border-b border-border/40">
+                    <div className="flex items-center justify-between px-1 pb-2">
+                      <span className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground/70">
+                        {t("authentication")}
+                      </span>
+                      {user && (
+                        <span className="text-xs font-medium text-foreground truncate max-w-[120px]">
+                          {user.name || user.email}
+                        </span>
+                      )}
+                    </div>
+
+                    {user ? (
+                      <button
+                        onClick={() => signOut()}
+                        className="w-full rounded-xl bg-muted px-3 py-2 text-xs font-semibold text-foreground hover:bg-muted-foreground/20 transition-all text-center border border-border/50"
+                      >
+                        Sign Out
+                      </button>
+                    ) : (
+                      <div className="grid grid-cols-2 gap-2">
+                        <button
+                          type="button"
+                          title="Sign in with Google"
+                          onClick={() => { setDropdownOpen(false); signIn("google"); }}
+                          className="flex items-center justify-center p-2.5 rounded-xl bg-muted/40 hover:bg-muted border border-border/60 transition-all hover:scale-[1.02] active:scale-95 shadow-2xs"
+                        >
+                          <svg className="w-5 h-5" viewBox="0 0 24 24">
+                            <path fill="#4285F4" d="M23.745 12.27c0-.7-.06-1.4-.19-2.07H12v4.51h6.6c-.29 1.52-1.14 2.82-2.4 3.68v3.05h3.88c2.27-2.09 3.66-5.17 3.66-9.17z" />
+                            <path fill="#34A853" d="M12 24c3.24 0 5.95-1.08 7.93-2.91l-3.88-3.05c-1.08.72-2.45 1.16-4.05 1.16-3.13 0-5.78-2.11-6.73-4.96H1.18v3.15C3.15 21.35 7.22 24 12 24z" />
+                            <path fill="#FBBC05" d="M5.27 14.24c-.25-.72-.38-1.49-.38-2.24s.13-1.52.38-2.24V6.6H1.18C.43 8.13 0 9.87 0 12s.43 3.87 1.18 5.4l4.09-3.16z" />
+                            <path fill="#EA4335" d="M12 4.75c1.77 0 3.35.61 4.6 1.8l3.42-3.42C17.95 1.19 15.24 0 12 0 7.22 0 3.15 2.65 1.18 6.6l4.09 3.15c.95-2.85 3.6-4.96 6.73-4.96z" />
+                          </svg>
+                        </button>
+
+                        <button
+                          type="button"
+                          title="Sign in with GitHub"
+                          onClick={() => { setDropdownOpen(false); signIn("github"); }}
+                          className="flex items-center justify-center p-2.5 rounded-xl bg-muted/40 hover:bg-muted border border-border/60 transition-all hover:scale-[1.02] active:scale-95 shadow-2xs"
+                        >
+                          <svg className="w-5 h-5 fill-current text-foreground" viewBox="0 0 24 24">
+                            <path fillRule="evenodd" clipRule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" />
+                          </svg>
+                        </button>
+                      </div>
+                    )}
+                  </div>
+
                   {/* Contribute Link */}
                   <a
                     href="/contribute"
@@ -187,10 +238,9 @@ export function MainNav({ initialLocale }: MainNavProps) {
 
                   <div className="pt-2 border-t border-border/40">
                     <div className="px-1 pb-2 text-[10px] font-bold uppercase tracking-wider text-muted-foreground/70">
-                      Select Language
+                      {t("selectLanguage")}
                     </div>
-                    {/* Embedded Language Switcher inside dropdown, forced to fill full width */}
-                    <div className="w-full flex *:flex-1">
+                    <div className="w-full flex gap-1.5 *:flex-1">
                       <LanguageSwitcher initialLocale={initialLocale} />
                     </div>
                   </div>
@@ -211,78 +261,6 @@ export function MainNav({ initialLocale }: MainNavProps) {
             </button>
           </div>
         </div>
-
-        {/* Mobile Navigation Drawer */}
-        {mobileOpen && (
-          <div
-            className="fixed inset-x-0 top-[4.2rem] bottom-0 z-40 bg-background/80 backdrop-blur-xl md:hidden animate-in fade-in slide-in-from-top-3 duration-300"
-            onClick={() => setMobileOpen(false)}
-          >
-            <nav
-              id="mobile-navigation"
-              className="border-b border-border/80 bg-background/95 px-6 py-8 shadow-2xl backdrop-blur-2xl rounded-b-3xl"
-              aria-label={t("mobileNavigation")}
-              onClick={(e) => e.stopPropagation()}
-            >
-              <div className="mx-auto flex max-w-[88rem] flex-col gap-2">
-                
-                {/* Auth Button inside mobile view */}
-                <div className="pb-4 border-b border-border/40 flex justify-center">
-                  <UserAuthButton />
-                </div>
-
-                {routes.map((route, index) => (
-                  <Link
-                    key={route.href}
-                    href={route.href}
-                    onClick={() => setMobileOpen(false)}
-                    className={cn(
-                      "flex items-center justify-between rounded-2xl px-4 py-3.5 text-base font-medium transition-all duration-200",
-                      route.active
-                        ? "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 font-semibold border border-emerald-500/20 shadow-xs"
-                        : "text-muted-foreground hover:bg-muted/60 hover:text-foreground"
-                    )}
-                  >
-                    <span className="flex items-center gap-3">
-                      <span className="font-mono text-xs opacity-40">0{index + 1}</span>
-                      <span>{route.label}</span>
-                    </span>
-                    <span className="text-xs opacity-40">→</span>
-                  </Link>
-                ))}
-
-                <div className="mt-6 pt-4 border-t border-border/40 flex flex-col gap-3">
-                  <button
-                    type="button"
-                    onClick={() => { setChatOpen(true); setMobileOpen(false); }}
-                    className="flex items-center justify-between w-full px-4 py-3 rounded-2xl bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 text-sm font-semibold border border-emerald-500/20"
-                  >
-                    <span className="flex items-center gap-2">
-                      <span>🤖</span>
-                      <span>{t("chat.assistant")}</span>
-                    </span>
-                    <span>→</span>
-                  </button>
-
-                  <a
-                    href="/contribute"
-                    className="flex items-center justify-between px-4 py-3 rounded-2xl bg-muted/50 text-muted-foreground hover:text-foreground text-sm font-semibold border border-border/60 transition-colors"
-                  >
-                    <span>{t("contributeCta")}</span>
-                    <span>↗</span>
-                  </a>
-
-                  <div className="pt-2 flex flex-col items-center gap-2">
-                    <span className="text-xs text-muted-foreground font-medium">Language</span>
-                    <div className="w-full flex *:flex-1">
-                      <LanguageSwitcher initialLocale={initialLocale} />
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </nav>
-          </div>
-        )}
       </header>
 
       {/* Slide-over Chat Sheet */}
