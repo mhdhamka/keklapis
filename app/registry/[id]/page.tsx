@@ -1,7 +1,7 @@
 import { notFound } from "next/navigation"
 import { getProductById } from "@/lib/db/products"
 import type { Product } from "@/lib/types/db"
-import { RegistryPageClient } from "@/components/registry-page-client"
+import { RegistryPageClient } from "@/components/registry/registry-page-client"
 
 export const dynamic = "force-dynamic"
 

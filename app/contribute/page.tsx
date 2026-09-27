@@ -1,5 +1,5 @@
 
-import ContributeForm from "@/components/contribute-form"
+import ContributeForm from "@/components/contribute/contribute-form"
 import { getTranslations } from "next-intl/server"
 
 export default async function Page() {

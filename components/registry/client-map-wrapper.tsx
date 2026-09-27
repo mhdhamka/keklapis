@@ -15,7 +15,7 @@ function MapLoading() {
 
 // Dynamically import SingleSourceMap to avoid SSR window issues
 const SingleSourceMap = dynamic(
-  () => import("@/components/single-source-map").then((mod) => mod.SingleSourceMap),
+  () => import("@/components/registry/single-source-map").then((mod) => mod.SingleSourceMap),
   {
     ssr: false,
     loading: () => <MapLoading />,
