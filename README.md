@@ -42,7 +42,7 @@
 * **Registry Modal Inspector:**
   * **Recipe Records:** Live ingredient and specification details embedded in the UI.
   * **Heritage Verification:** Automated breakdown of KKM approvals, halal certification, and master house status.
-  * **Bakery Location Map:** Visual geographic mapping of regional bakeries across Sarawak.
+  * **Bakery Network:** Visual geographic mapping of regional bakeries across Sarawak.
 * **AI Heritage Copilot:** Interactive slide-over assistant powered by Google Gemini via `@google/genai` to answer recipe questions, explore baking techniques, and guide users through regional traditions in real time.
 * **Editorial Preloader:** Smooth transitions styled for archival exploration.
 
