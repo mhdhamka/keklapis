@@ -1,18 +1,20 @@
 
+## Core Architecture & APIs
+
 ## Tech Stack
 
 | Layer / Category | Technology & Specification |
 | :--- | :--- |
 | **Framework** | Next.js 16 (App Router) |
-| **Frontend** | React 19, TypeScript, Tailwind CSS |
-| **Storage** | JSON file (`data/db.json`) |
+| **Frontend** | React 19, TypeScript, Tailwind CSS, Apache ECharts (for complex visualizations) |
+| **Storage / Database** | JSON file (`data/db.json`) / PostgreSQL via Prisma ORM |
+| **Authentication** | NextAuth.js (OAuth providers like Google & GitHub) |
+| **Search & Discovery** | Typesense (full-text search, LLM embeddings for taste profile matching) |
 | **I18n** | `next-intl` (EN, MS, BMS) |
 | **AI Integration** | Google Gemini API (`@google/genai`) |
 | **Deployment** | Vercel |
 
 ---
-
-## Core Architecture & APIs
 
 ### Data Architecture
 
@@ -20,17 +22,7 @@
 * Images stored as files in `public/images/db/`, not inside the data store.
 * Thin wrappers over the JSON store manage products, brands, sources, manufacturers, and images with snake_case field names.
 
-### API Routes
-
-* `/api/products` — Product search and filtering with pagination
-* `/api/registry` — Bakery location and verification data
-* `/api/brands` — Brand listings and parent houses
-* `/api/export/products` — CSV and JSON export endpoints for analysis
-* `/api/chat` — AI Copilot endpoint powered by the Google Gemini API via `googleopenai`
-
----
-
-## Project Structure
+## Project Architecture
 
 ```text
 
@@ -86,4 +78,15 @@ Kek Lapis/
 └── tailwind.config.js          # Tailwind CSS configuration
 
 ```
+---
+
+### API Routes
+
+* `/api/products` — Product search and filtering with pagination and Typesense search synchronization
+* `/api/registry` — Bakery location and verification data
+* `/api/brands` — Brand listings and parent houses
+* `/api/export/products` — CSV and JSON export endpoints for analysis
+* `/api/chat` — AI Copilot endpoint powered by the Google Gemini API via `googleopenai`
+* `/api/auth/[...nextauth]` — NextAuth.js routes handling secure user sessions and social authentication
+
 ---
