@@ -4,7 +4,7 @@ import { getTranslations } from "next-intl/server"
 import type { Metadata } from "next"
 import { ArrowIcon, PageIntro, RegistryGlyph } from "@/components/editorial-primitives"
 import { GuideActions } from "@/components/guide-actions"
-import { ReadingProgressBar } from "@/components/reading-progress-bar"
+import { ProgressBar } from "@/components/common/progressbar"
 
 export async function generateMetadata(): Promise<Metadata> {
   const t = await getTranslations("learn")
@@ -38,7 +38,7 @@ export default async function GuidePage() {
     <main id="main-content" className="min-h-screen bg-background text-foreground selection:bg-emerald-500/20 selection:text-emerald-900 relative">
       
       {/* Client-side reading progress bar */}
-      <ReadingProgressBar />
+      <ProgressBar />
 
       {/* Decorative Artisan Top Accent Bar */}
       <div className="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-[#4A2E15] via-emerald-600 to-[#D9B485] z-50" />

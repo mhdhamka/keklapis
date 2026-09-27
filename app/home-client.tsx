@@ -6,11 +6,11 @@ import { useRouter, useSearchParams } from "next/navigation"
 import { useTranslations, useFormatter } from "next-intl"
 import { HomeContent } from "@/components/home-content"
 import { HomeMap } from "@/components/network/home-map"
-import { HomeFilters } from "@/components/home-filters"
+import { HomeFilters } from "@/components/filter/home-filters"
 import { LapisMetricsHelp } from "@/components/lapis-metrics-help"
 import { CompareDock } from "@/components/compare/compare-dock"
 import type { ViewMode } from "@/lib/view"
-import { ReadingProgressBar } from "@/components/reading-progress-bar"
+import { ProgressBar } from "@/components/common/progressbar"
 import type { Product, Brand, Source } from "@/lib/types/db"
 
 interface HomeClientProps {
@@ -55,6 +55,9 @@ export default function HomeClient({
   const [isPaused, setIsPaused] = useState(false)
   const [showBanner, setShowBanner] = useState(true)
   const [showVisualizer, setShowVisualizer] = useState(false)
+  
+  // --- Entire Filter Section Toggle State (Set to false by default) ---
+  const [isFilterBarOpen, setIsFilterBarOpen] = useState(false)
 
   // --- Pagination States ---
   const [currentPage, setCurrentPage] = useState(1)
@@ -166,7 +169,7 @@ export default function HomeClient({
   return (
     <main id="main-content" className="min-h-screen overflow-hidden bg-background text-foreground selection:bg-emerald-500/20 selection:text-emerald-800">
       {/* Client-side reading progress bar */}
-      <ReadingProgressBar />
+      <ProgressBar />
       
       {/* 1. Festive Bake Day Banner */}
       {showBanner && (
@@ -314,38 +317,66 @@ export default function HomeClient({
       {/* Registry & Filters Section */}
       <section id="registry" className="scroll-mt-32 border-t border-border/60 bg-muted/20">
         <div className="sticky top-[4.5rem] z-40 border-b border-border/80 bg-background/90 backdrop-blur-md shadow-sm">
-          <div className="mx-auto max-w-[88rem] px-5 py-4 sm:px-8 lg:px-12">
-            <HomeFilters
-              brands={brands}
-              currentQuery={query}
-              currentTypes={types}
-              currentBrands={brandIds}
-              currentMinSweetness={minSweetness}
-              currentMaxSweetness={maxSweetness}
-              currentMinRichness={minRichnessDri}
-              currentMaxRichness={maxRichnessDri}
-              currentSort={sort}
-              resultCount={sortedProducts.length}
-            />
+          <div className="mx-auto max-w-[88rem] px-5 py-3 sm:px-8 lg:px-12">
             
-            <div className="mt-4 flex flex-wrap items-center gap-2 overflow-x-auto pb-1 scrollbar-hide">
-              <span className="text-[10px] font-mono uppercase tracking-wider text-muted-foreground mr-2 shrink-0 font-semibold">
-                {t("culinaryProfilesLabel")}
-              </span>
-              {["All Variants", "Traditional Spiced", "Malty & Rich", "Tangy & Fruity", "Chocolatey & Sweet", "Rich & Creamy"].map((category) => (
-                <button
-                  key={category}
-                  onClick={() => handleCategoryChange(category)}
-                  className={`shrink-0 rounded-full border px-4 py-1.5 text-xs font-medium transition-all duration-200 cursor-pointer ${
-                    activeFlavor === category
-                      ? "border-emerald-600 bg-emerald-600 text-white shadow-sm"
-                      : "border-border bg-card text-muted-foreground hover:border-emerald-500 hover:text-foreground"
-                  }`}
-                >
-                  {category === "All Variants" ? t("categories.all") : category}
-                </button>
-              ))}
+            {/* Top Toggle Bar for the Entire Filter Section */}
+            <div className="flex items-center justify-between py-1">
+              <div className="flex items-center gap-2">
+                <span className="font-mono text-xs uppercase tracking-wider text-muted-foreground font-bold">Registry Explorer</span>
+                {hasFilters && (
+                  <span className="flex h-2 w-2 rounded-full bg-emerald-600 animate-pulse" title="Active filters applied" />
+                )}
+              </div>
+
+              <button
+                onClick={() => setIsFilterBarOpen(!isFilterBarOpen)}
+                className="flex items-center gap-2 px-3.5 py-1.5 text-xs font-semibold border border-border rounded-xl bg-card hover:bg-muted transition-all cursor-pointer text-foreground shadow-xs"
+              >
+                <SlidersIcon className="h-3.5 w-3.5 text-emerald-600" />
+                <span>{t("quickFilters")}</span>
+                <span className="font-mono text-[10px] text-muted-foreground bg-muted px-1.5 py-0.5 rounded-md">
+                  {sortedProducts.length} results
+                </span>
+              </button>
             </div>
+
+            {/* Collapsible Entire Filter Container (Hidden by default) */}
+            {isFilterBarOpen && (
+              <div className="mt-3 pt-3 border-t border-border/60 animate-in fade-in duration-200 pb-1">
+                <HomeFilters
+                  brands={brands}
+                  currentQuery={query}
+                  currentTypes={types}
+                  currentBrands={brandIds}
+                  currentMinSweetness={minSweetness}
+                  currentMaxSweetness={maxSweetness}
+                  currentMinRichness={minRichnessDri}
+                  currentMaxRichness={maxRichnessDri}
+                  currentSort={sort}
+                  resultCount={sortedProducts.length}
+                />
+                
+                <div className="mt-4 flex flex-wrap items-center gap-2 overflow-x-auto pb-1 scrollbar-hide">
+                  <span className="text-[10px] font-mono uppercase tracking-wider text-muted-foreground mr-2 shrink-0 font-semibold">
+                    {t("culinaryProfilesLabel")}
+                  </span>
+                  {["All Variants", "Traditional Spiced", "Malty & Rich", "Tangy & Fruity", "Chocolatey & Sweet", "Rich & Creamy"].map((category) => (
+                    <button
+                      key={category}
+                      onClick={() => handleCategoryChange(category)}
+                      className={`shrink-0 rounded-full border px-4 py-1.5 text-xs font-medium transition-all duration-200 cursor-pointer ${
+                        activeFlavor === category
+                          ? "border-emerald-600 bg-emerald-600 text-white shadow-sm"
+                          : "border-border bg-card text-muted-foreground hover:border-emerald-500 hover:text-foreground"
+                      }`}
+                    >
+                      {category === "All Variants" ? t("categories.all") : category}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            )}
+
           </div>
         </div>
 
@@ -620,6 +651,22 @@ function EyeIcon({ className = "" }: { className?: string }) {
     <svg viewBox="0 0 24 24" className={className} fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
       <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z" />
       <circle cx="12" cy="12" r="3" />
+    </svg>
+  )
+}
+
+function SlidersIcon({ className = "" }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 24 24" className={className} fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <line x1="4" y1="21" x2="4" y2="14" />
+      <line x1="4" y1="10" x2="4" y2="3" />
+      <line x1="12" y1="21" x2="12" y2="12" />
+      <line x1="12" y1="8" x2="12" y2="3" />
+      <line x1="20" y1="21" x2="20" y2="16" />
+      <line x1="20" y1="12" x2="20" y2="3" />
+      <line x1="1" y1="14" x2="7" y2="14" />
+      <line x1="9" y1="8" x2="15" y2="8" />
+      <line x1="17" y1="16" x2="23" y2="16" />
     </svg>
   )
 }

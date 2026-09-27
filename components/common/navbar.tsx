@@ -6,7 +6,7 @@ import { usePathname } from "next/navigation"
 import { useTranslations } from "next-intl"
 import { cn } from "@/lib/utils"
 import type { Locale } from "@/i18n/routing"
-import { LanguageSwitcher } from "../language-switcher"
+import { LanguageSwitcher } from "../common/language-switcher"
 import { AIChatSheet } from "../ai-chat-sheet"
 
 interface MainNavProps {

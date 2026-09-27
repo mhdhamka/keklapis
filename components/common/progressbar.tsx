@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react"
 
-export function ReadingProgressBar() {
+export function ProgressBar() {
   const [progress, setProgress] = useState(0)
 
   useEffect(() => {
