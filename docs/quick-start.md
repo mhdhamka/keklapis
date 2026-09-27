@@ -12,7 +12,7 @@
 git clone https://github.com/mhdhamka/keklapis.git
 cd keklapis
 
-# Install dependencies and the Google OpenAI package
+# Install dependencies
 npm install
 
 # Set up environment variables
@@ -24,12 +24,15 @@ cp .env.example .env.local
 ### Development
 
 ```bash
+# Generate Prisma client artifacts
+npx prisma generate
+
 # Start Next.js dev server
 npm run dev
 
 ```
 
-The app will be available at `http://localhost:3000`. No database setup is required — all data is read from and written to `data/db.json` at runtime.
+The app will be available at `http://localhost:3000`. 
 
 ---
 
@@ -41,6 +44,14 @@ Create `.env.local` based on `.env.example`:
 
 ```bash
 NEXT_PUBLIC_SITE_URL=http://localhost:3000
+
+# NextAuth / Auth.js Configuration (OAuth & Secrets)
+# Run `npx auth secret` to generate a secure random string for AUTH_SECRET
+AUTH_SECRET="run-npx-auth-secret-to-generate-a-secure-random-string"
+AUTH_GITHUB_ID="your-github-client-id"
+AUTH_GITHUB_SECRET="your-github-client-secret"
+AUTH_GOOGLE_ID="your-google-client-id"
+AUTH_GOOGLE_SECRET="your-google-client-secret"
 
 # Google Gemini API Key for AI Copilot features
 GEMINI_API_KEY=""
@@ -89,6 +100,7 @@ Alternatively, if you used the default development setup, the API key is typical
 * Push your Prisma schema and seed your database with existing records:
 
 ```bash
+npx prisma generate
 npx prisma db push
 npx prisma db seed
 ```
