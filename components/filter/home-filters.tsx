@@ -11,7 +11,7 @@ import { Label } from "@/components/ui/label"
 import { Slider } from "@/components/ui/slider"
 import { Select, SelectContent, SelectItem, SelectTrigger } from "@/components/ui/select"
 import { tasteProfileToVector } from "@/lib/ai/embeddings"
-import { TasteRecommendationsClient as TasteRecommendations } from "@/components/taste-recommendations"
+import { TasteRecommendationsClient as TasteRecommendations } from "@/components/filter/taste-recommendations"
 
 interface SavedFilterPreset {
   id: string

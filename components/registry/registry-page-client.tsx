@@ -10,7 +10,7 @@ import { SafeImage } from "@/components/safe-image"
 import { IngredientCompositionPanel } from "@/components/registry/ingredient-composition-panel"
 import { SeasonalTrendsPanel } from "@/components/registry/seasonal-trends-panel" 
 import { ArrowIcon, RegistryGlyph } from "@/components/editorial-primitives"
-import { ReadingProgressBar } from "@/components/reading-progress-bar"
+import { ProgressBar } from "@/components/common/progressbar"
 import type { Product } from "@/lib/types/db"
 
 type TextureMode = "traditional" | "moist" | "spiced"
@@ -67,7 +67,7 @@ Richness: ${currentRichness}%
 
   return (
     <main id="main-content" className="min-h-screen bg-[#F4F6F0] text-[#1B2A1E]">
-      <ReadingProgressBar />
+      <ProgressBar />
 
       <header className="relative border-b border-[#D5E1D0]/80 bg-gradient-to-b from-[#E2EBE0] via-[#EAEFE6] to-[#F4F6F0] overflow-hidden">
         <div className="absolute inset-0 opacity-[0.15] bg-[radial-gradient(#3B5336_1.5px,transparent_1.5px)] [background-size:20px_20px] pointer-events-none" />
