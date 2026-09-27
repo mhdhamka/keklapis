@@ -6,8 +6,8 @@ import { Product } from "@/lib/types/db"
 import Link from "next/link"
 import { useTranslations } from "next-intl"
 import { ArrowIcon } from "@/components/editorial-primitives"
-import { RegionalFilterBar } from "@/components/regional-filter-bar" 
-import { RegionalAnalyticsView } from "@/components/regional-analytics-view"
+import { RegionalFilterBar } from "@/components/network/regional-filter-bar" 
+import { RegionalAnalyticsView } from "@/components/network/regional-analytics-view"
 
 const MapContainer = dynamic(
   () => import("react-leaflet").then((mod) => mod.MapContainer),

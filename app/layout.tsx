@@ -2,8 +2,8 @@ import type { Metadata, Viewport } from 'next'
 import { NextIntlClientProvider } from 'next-intl'
 import { getLocale, getMessages, getTranslations } from 'next-intl/server'
 import { Toaster } from "@/components/ui/toaster"
-import { MainNav } from "@/components/main-nav"
-import { Footer } from "@/components/footer"
+import { MainNav } from "@/components/common/navbar"
+import { Footer } from "@/components/common/footer"
 import { CompareProvider } from "@/components/compare/compare-store"
 import { ANALYTICS_CONFIG } from "@/lib/features"
 import { locales, type Locale } from '@/i18n/routing'

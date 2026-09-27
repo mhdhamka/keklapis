@@ -6,7 +6,7 @@ import Link from "next/link"
 import { contributionSchema } from "@/lib/validations/contribution"
 
 // Dynamically import map component to prevent SSR leaflet issues
-const ContributionMap = lazy(() => import("@/components/contribution-map"))
+const ContributionMap = lazy(() => import("@/components/contribute/contribution-map"))
 
 interface ContributeFormProps {
   dict: {
