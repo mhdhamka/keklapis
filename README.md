@@ -2,15 +2,15 @@
 
 # Kek Lapis
 
-**Sarawak's definitive traditional and modern Kek Lapis registry, bakery directory, and heritage archive.**
+> Sarawak's definitive traditional and modern Kek Lapis registry, bakery directory, and heritage archive.
 
 [Live Demo](https://keklapis.vercel.app/) · [Report Bug](https://github.com/mhdhamka/keklapis/issues) · [Request Feature](https://github.com/mhdhamka/keklapis/issues)
 
-![License](https://img.shields.io/badge/license-MIT-blue.svg)
-![Next.js](https://img.shields.io/badge/Next.js-16-black?style=flat&logo=next.js)
-![TypeScript](https://img.shields.io/badge/TypeScript-5.0-blue?style=flat&logo=typescript)
-![Tailwind CSS](https://img.shields.io/badge/Tailwind-CSS-38B2AC?style=flat&logo=tailwind-css)
-![Google Gemini](https://img.shields.io/badge/AI-Google%20GenAI-black)
+[![License](https://img.shields.io/badge/License-MIT-blue.svg?style=for-the-badge&logo=opensourceinitiative&logoColor=white)](LICENSE)
+[![Next.js](https://img.shields.io/badge/Frontend-Next.js%2016-black?style=for-the-badge&logo=next.js&logoColor=white)](https://nextjs.org/)
+[![TypeScript](https://img.shields.io/badge/Language-TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+[![Tailwind CSS](https://img.shields.io/badge/Styling-Tailwind%20CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)](https://tailwindcss.com/)
+[![Google Gemini](https://img.shields.io/badge/AI%20Engine-Google%20GenAI-4285F4?style=for-the-badge&logo=google&logoColor=white)](https://ai.google.dev/)
 
 
 </div>
@@ -76,7 +76,6 @@ cd keklapis
 
 # Install dependencies and the Google OpenAI package
 npm install
-npm install @google/genai
 
 # Set up environment variables
 cp .env.example .env.local
@@ -265,6 +264,7 @@ keklapis/
 
 If you found this project interesting, consider giving it a star!
 
-Crafted with ⚡ by mhdhamka
-
+<div align="center">
+  <br>
+  <b>Developed & Maintained by <a href="https://github.com/mhdhamka">mdhamka</a></b>
 </div>
