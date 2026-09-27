@@ -3,12 +3,12 @@
 
 | Layer / Category | Technology & Specification |
 | :--- | :--- |
-| **Framework** | Next.js 16 with App Router (React Server Components) |
-| **Frontend** | React 19, TypeScript, Tailwind CSS, Custom CSS Keyframes & Typography |
-| **Storage** | JSON file (`data/db.json`) via `lib/json-store.ts` — no database server required |
-| **Internationalization** | `next-intl` (English `en` as default, Standard Malay `ms`, and Bahasa Sarawak `bms`) |
+| **Framework** | Next.js 16 (App Router) |
+| **Frontend** | React 19, TypeScript, Tailwind CSS |
+| **Storage** | JSON file (`data/db.json`) |
+| **I18n** | `next-intl` (EN, MS, BMS) |
 | **AI Integration** | Google Gemini API (`@google/genai`) |
-| **Deployment** | Native Node.js with systemd / standalone output |
+| **Deployment** | Vercel |
 
 ---
 
@@ -33,7 +33,13 @@
 ## Project Structure
 
 ```text
-keklapis/
+
+Kek Lapis/
+├── .agents/                    # Agent skills & workflows
+│   └── skills/                 # Shared assistant capabilities (Prisma, etc.)
+├── .claude/                    # Claude-specific agent configurations
+├── .cursor/                    # Cursor IDE configurations & rules
+├── .devin/                     # Devin AI agent configurations
 ├── app/                        # Next.js App Router
 │   ├── api/                    # API routes
 │   │   ├── export/             # CSV/JSON export endpoints
@@ -59,8 +65,25 @@ keklapis/
 │   ├── ms.json                 # Malay
 │   ├── bms.json                # Sarawakian Malay
 │   └── en.json                 # English
-└── scripts/                    # Deployment scripts
+├── scripts/                    # Deployment scripts
+├── .env.example                # Environment variables template
+├── .gitattributes              # Git attributes configuration
+├── .gitignore                  # Git ignore rules
+├── .npmrc                      # NPM configuration settings
+├── components.json             # shadcn/ui components configuration
+├── global.d.ts                 # Global TypeScript definitions
+├── kilo.json                   # Project/build settings
+├── middleware.ts               # Next.js middleware
+├── next.config.mjs             # Next.js configuration
+├── package-lock.json           # Locked dependency versions
+├── package.json                # Project dependencies & scripts
+├── playwright.config.ts        # Playwright end-to-end testing config
+├── postcss.config.mjs          # PostCSS configuration
+├── prisma-next.md              # Prisma integration documentation
+├── prisma.config.ts            # Prisma configuration
+├── README.md                   # Project documentation
+├── skills-lock.json            # AI skills lock file
+└── tailwind.config.js          # Tailwind CSS configuration
 
 ```
-
 ---
