@@ -8,6 +8,7 @@ import { cn } from "@/lib/utils"
 import type { Locale } from "@/i18n/routing"
 import { LanguageSwitcher } from "../common/language-switcher"
 import { AIChatSheet } from "../ai-chat-sheet"
+import { UserAuthButton } from "../user-auth-button" 
 
 interface MainNavProps {
   initialLocale: Locale
@@ -129,7 +130,10 @@ export function MainNav({ initialLocale }: MainNavProps) {
 
           {/* Action Controls & Combined Dropdown Menu */}
           <div className="ml-auto flex items-center gap-3">
-            
+            <div className="hidden sm:block">
+              <UserAuthButton />
+            </div>
+
             <div className="relative hidden lg:block" ref={dropdownRef}>
               <button
                 type="button"
@@ -221,6 +225,12 @@ export function MainNav({ initialLocale }: MainNavProps) {
               onClick={(e) => e.stopPropagation()}
             >
               <div className="mx-auto flex max-w-[88rem] flex-col gap-2">
+                
+                {/* Auth Button inside mobile view */}
+                <div className="pb-4 border-b border-border/40 flex justify-center">
+                  <UserAuthButton />
+                </div>
+
                 {routes.map((route, index) => (
                   <Link
                     key={route.href}
