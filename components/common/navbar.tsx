@@ -15,6 +15,7 @@ interface MainNavProps {
   user?: {
     name?: string | null
     email?: string | null
+    image?: string | null
   } | null
 }
 
@@ -138,11 +139,29 @@ export function MainNav({ initialLocale, user }: MainNavProps) {
               <button
                 type="button"
                 onClick={() => setDropdownOpen(!dropdownOpen)}
-                className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-muted/50 hover:bg-emerald-500/10 border border-border/60 text-xs font-semibold tracking-wide text-foreground transition-all hover:border-emerald-600/40 active:scale-95 shadow-2xs group"
+                className="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-xl bg-muted/50 hover:bg-emerald-500/10 border border-border/60 text-xs font-semibold tracking-wide text-foreground transition-all hover:border-emerald-600/40 active:scale-95 shadow-2xs group"
                 aria-expanded={dropdownOpen}
               >
-                <span>{t("menuControls")}</span>
-                <svg className={cn("w-3.5 h-3.5 text-muted-foreground transition-transform duration-200", dropdownOpen && "rotate-180")} fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                {user ? (
+                  <div className="flex items-center gap-2">
+                    {user.image ? (
+                      <img
+                        src={user.image}
+                        alt={user.name || "User Avatar"}
+                        referrerPolicy="no-referrer"
+                        className="w-6 h-6 rounded-full object-cover ring-1 ring-border"
+                      />
+                    ) : (
+                      <div className="w-6 h-6 rounded-full bg-emerald-600 text-white flex items-center justify-center text-[10px] font-bold">
+                        {user.name?.[0] || user.email?.[0] || "U"}
+                      </div>
+                    )}
+                    <span className="truncate max-w-[100px]">{user.name || user.email}</span>
+                  </div>
+                ) : (
+                  <span>{t("menuControls")}</span>
+                )}
+                <svg className={cn("w-3.5 h-3.5 text-muted-foreground transition-transform duration-200 ml-0.5", dropdownOpen && "rotate-180")} fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                 </svg>
               </button>
@@ -150,26 +169,42 @@ export function MainNav({ initialLocale, user }: MainNavProps) {
               {dropdownOpen && (
                 <div className="absolute right-0 mt-2 w-85 rounded-2xl bg-card/95 backdrop-blur-2xl border border-border/80 shadow-2xl p-3 z-50 animate-in fade-in slide-in-from-top-2 duration-200 space-y-3">
                   
-                  {/* Authentication Section Inside Dropdown (Side-by-Side Icons) */}
+                  {/* Authentication Section Inside Dropdown (Side-by-Side Icons / User Card) */}
                   <div className="pb-2 border-b border-border/40">
                     <div className="flex items-center justify-between px-1 pb-2">
                       <span className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground/70">
                         {t("authentication")}
                       </span>
-                      {user && (
-                        <span className="text-xs font-medium text-foreground truncate max-w-[120px]">
-                          {user.name || user.email}
-                        </span>
-                      )}
                     </div>
 
                     {user ? (
-                      <button
-                        onClick={() => signOut()}
-                        className="w-full rounded-xl bg-muted px-3 py-2 text-xs font-semibold text-foreground hover:bg-muted-foreground/20 transition-all text-center border border-border/50"
-                      >
-                        Sign Out
-                      </button>
+                      <div className="space-y-2">
+                        <div className="flex items-center gap-3 p-2 rounded-xl bg-muted/40 border border-border/50">
+                          {user.image ? (
+                            <img
+                              src={user.image}
+                              alt={user.name || "User Avatar"}
+                              referrerPolicy="no-referrer"
+                              className="w-9 h-9 rounded-full object-cover ring-2 ring-emerald-500/30"
+                            />
+                          ) : (
+                            <div className="w-9 h-9 rounded-full bg-emerald-600 text-white flex items-center justify-center text-xs font-bold">
+                              {user.name?.[0] || user.email?.[0] || "U"}
+                            </div>
+                          )}
+                          <div className="overflow-hidden">
+                            <p className="text-xs font-semibold text-foreground truncate">{user.name || "Authenticated User"}</p>
+                            <p className="text-[11px] text-muted-foreground truncate">{user.email}</p>
+                          </div>
+                        </div>
+
+                        <button
+                          onClick={() => signOut()}
+                          className="w-full rounded-xl bg-destructive/10 hover:bg-destructive/20 text-destructive px-3 py-2 text-xs font-semibold transition-all text-center border border-destructive/20 active:scale-95"
+                        >
+                          Sign Out
+                        </button>
+                      </div>
                     ) : (
                       <div className="grid grid-cols-2 gap-2">
                         <button

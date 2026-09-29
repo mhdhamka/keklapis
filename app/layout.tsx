@@ -7,6 +7,7 @@ import { Footer } from "@/components/common/footer"
 import { CompareProvider } from "@/components/compare/compare-store"
 import { ANALYTICS_CONFIG } from "@/lib/features"
 import { locales, type Locale } from '@/i18n/routing'
+import { auth } from "@/lib/auth"
 import './globals.css'
 
 export const metadata: Metadata = {
@@ -36,6 +37,7 @@ export default async function RootLayout({
   const messages = await getMessages()
   const common = await getTranslations('common')
   const initialLocale = (locales.includes(locale as Locale) ? locale : 'ms') as Locale
+  const session = await auth()
 
   return (
     <html lang={locale} suppressHydrationWarning>
@@ -52,7 +54,7 @@ export default async function RootLayout({
         <a href="#main-content" className="skip-link">{common('skipToContent')}</a>
         <NextIntlClientProvider messages={messages}>
           <CompareProvider>
-            <MainNav initialLocale={initialLocale} />
+            <MainNav initialLocale={initialLocale} user={session?.user} />
             {children}
             <Footer />
             <Toaster />

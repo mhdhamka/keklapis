@@ -171,9 +171,9 @@ export default function HomeClient({
       {/* Client-side reading progress bar */}
       <ProgressBar />
       
-      {/* 1. Festive Bake Day Banner */}
+      {/* 1. Festive Bake Day Banner - z-30 applied here */}
       {showBanner && (
-        <div className="relative bg-emerald-900 px-4 py-3 text-emerald-50 pr-14 shadow-md transition-all z-50">
+        <div className="relative bg-emerald-900 px-4 py-3 text-emerald-50 pr-14 shadow-md transition-all z-30">
           <p className="text-center text-xs sm:text-sm font-medium">
             <span className="mr-3 inline-flex items-center rounded-full bg-emerald-500 px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-widest text-white shadow-sm animate-pulse">
               {t("banner.badge")}
