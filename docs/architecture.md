@@ -22,6 +22,8 @@
 * Images stored as files in `public/images/db/`, not inside the data store.
 * Thin wrappers over the JSON store manage products, brands, sources, manufacturers, and images with snake_case field names.
 
+---
+
 ## Project Architecture
 
 ```text

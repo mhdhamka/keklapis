@@ -7,10 +7,7 @@ import {
   Building2, 
   Store, 
   MapPin, 
-  TrendingUp, 
-  Activity, 
   ChevronRight, 
-  Sparkles
 } from "lucide-react"
 
 interface RegionalAnalyticsViewProps {
@@ -183,11 +180,9 @@ export function RegionalAnalyticsView({ products }: RegionalAnalyticsViewProps) 
           <div className="p-3 rounded-2xl bg-card border border-border/60 shadow-xs space-y-2.5 hover:border-emerald-500/30 transition-colors">
             <div className="flex items-center justify-between text-[11px]">
               <span className="font-semibold text-foreground flex items-center gap-1.5">
-                <Activity className="w-3.5 h-3.5 text-emerald-600 animate-pulse" />
                 {t.has("regionalDensityMetric") ? t("regionalDensityMetric") : "Regional Density Metric"}
               </span>
               <span className="font-mono text-[10px] text-emerald-600 dark:text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded-full font-medium flex items-center gap-1">
-                <Sparkles className="w-2.5 h-2.5" />
                 {t.has("liveFeed") ? t("liveFeed") : "Live Feed"}
               </span>
             </div>
@@ -214,7 +209,6 @@ export function RegionalAnalyticsView({ products }: RegionalAnalyticsViewProps) 
         <div className="p-3 rounded-2xl bg-card border border-border/60 shadow-xs space-y-3 animate-in fade-in-50 duration-200">
           <div className="flex items-center justify-between text-[11px] pb-1 border-b border-border/40">
             <span className="font-semibold text-foreground flex items-center gap-1.5">
-              <TrendingUp className="w-3.5 h-3.5 text-emerald-600" />
               Regional Share Distribution
             </span>
             <span className="font-mono text-[10px] text-muted-foreground">
@@ -229,7 +223,7 @@ export function RegionalAnalyticsView({ products }: RegionalAnalyticsViewProps) 
                 <div key={region} className="space-y-1">
                   <div className="flex justify-between text-[11px]">
                     <span className="font-medium text-foreground flex items-center gap-1">
-                      <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
+                      
                       {region}
                     </span>
                     <span className="font-mono text-muted-foreground">

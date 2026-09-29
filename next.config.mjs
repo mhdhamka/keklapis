@@ -4,9 +4,19 @@ const withNextIntl = createNextIntlPlugin('./i18n/request.ts');
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  // Optimization: Keep image optimization unoptimized if deploying to static/standalone targets where sharp isn't bundled
+  // Optimization & Remote Image Patterns
   images: {
     unoptimized: true,
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: '*.googleusercontent.com',
+      },
+      {
+        protocol: 'https',
+        hostname: 'avatars.githubusercontent.com', // handles GitHub avatars too
+      },
+    ],
   },
   
   // Development: Local network access origins
