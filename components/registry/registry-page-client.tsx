@@ -11,6 +11,8 @@ import { IngredientCompositionPanel } from "@/components/registry/ingredient-com
 import { SeasonalTrendsPanel } from "@/components/registry/seasonal-trends-panel" 
 import { ArrowIcon, RegistryGlyph } from "@/components/editorial-primitives"
 import { ProgressBar } from "@/components/common/progressbar"
+import { ReviewForm } from "@/components/reviews/review-form"
+import { ReviewList } from "@/components/reviews/review-list"
 import type { Product } from "@/lib/types/db"
 
 type TextureMode = "traditional" | "moist" | "spiced"
@@ -341,8 +343,22 @@ Richness: ${currentRichness}%
 
           <IngredientCompositionPanel ingredients={scaledIngredients} index="04" />
 
-          {/* Newly Slotted Seasonal Trends Component */}
+          {/* Seasonal Trends Component */}
           <SeasonalTrendsPanel index="05" />
+
+          {/* Customer Reviews & Tasting Notes Section */}
+          <section className="overflow-hidden rounded-3xl border border-[#D5E1D0] bg-white p-6 sm:p-10 shadow-sm space-y-6">
+            <div className="flex items-baseline justify-between border-b border-[#E9F0E5] pb-6">
+              <div>
+                <h2 className="font-display text-xl sm:text-2xl tracking-[-0.03em] text-[#1B2A1E]">Customer Reviews & Tasting Notes</h2>
+                <p className="text-xs text-[#4A6B43] mt-1">Share your experience or read community feedback for this batch.</p>
+              </div>
+              <span className="font-mono text-[11px] font-bold text-[#3B5336] bg-[#E9F0E5] px-2.5 py-0.5 rounded-full border border-[#D5E1D0]/60">06</span>
+            </div>
+
+            <ReviewForm productId={product.id} onReviewSubmitted={() => {}} />
+            <ReviewList productId={product.id} />
+          </section>
 
           <section className="overflow-hidden rounded-3xl border border-[#D5E1D0] bg-white shadow-sm">
             <div className="p-6 sm:p-8 flex items-baseline justify-between border-b border-[#E9F0E5]">
@@ -350,7 +366,7 @@ Richness: ${currentRichness}%
                 <h2 className="font-display text-xl sm:text-2xl tracking-[-0.03em] text-[#1B2A1E]">{t("location.title")}</h2>
                 <p className="text-xs text-[#4A6B43] mt-1">{t("location.subtitle")}</p>
               </div>
-              <span className="font-mono text-[11px] font-bold text-[#3B5336] bg-[#E9F0E5] px-2.5 py-0.5 rounded-full border border-[#D5E1D0]/60">06</span>
+              <span className="font-mono text-[11px] font-bold text-[#3B5336] bg-[#E9F0E5] px-2.5 py-0.5 rounded-full border border-[#D5E1D0]/60">07</span>
             </div>
             {hasCoordinates ? (
               <ClientMapWrapper lat={Number(source!.lat)} lng={Number(source!.lng)} sourceName={source?.source_name || product.product_name} locationAddress={source?.location_address} height="30rem" />
